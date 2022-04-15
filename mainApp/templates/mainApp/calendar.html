@@ -155,12 +155,52 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
               
+              <link href="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.css'%}" rel='stylesheet' />
+              <script src="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.js'%}"> </script>
+
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  var calendarEl = document.getElementById('calendar');
+                  let eventDict = {}
+                  eventDict['post'] = ['테스트']
+                  eventDict['date'] = ['2022-04-01']
+                  eventDict['url'] = ['https://www.google.com']
+                  
+                  var calendar = new FullCalendar.Calendar(calendarEl, {
+                    // initialDate: '2020-09-12',
+                    selectable: true,
+                    businessHours: true,
+                    dayMaxEvents: true, // allow "more" link when too many events
+                    
+                    events: [
+                      {
+                        title: eventDict['post'][0],
+                        start: eventDict['date'][0],
+                        url: eventDict['url'][0],
+                        // url 연결 연습
+                      },
+                    ]
+                  });
+                  calendar.render();
+                });
+              </script>
 
 
+              <div id='calendar'></div>
+              <style>
 
-
-
-
+                body {
+                  margin: 40px 10px;
+                  padding: 0;
+                  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+                  font-size: 14px;
+                }
+              
+                #calendar {
+                  max-height: 800px;
+                  margin: 0 auto;
+                }
+              </style>
 
 
 
