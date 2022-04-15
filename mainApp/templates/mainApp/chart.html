@@ -25,7 +25,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{% url 'main' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">메인 페이지</div>
               </a>
@@ -33,7 +33,7 @@
 
             <!-- Layouts -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{% url 'calendar'%}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div data-i18n="Boxicons">달력으로 보기</div>
               </a>
@@ -45,13 +45,13 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{% url 'media'%}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-music"></i>
                 <div data-i18n="Boxicons">Media 추천</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{% url 'remind'%}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-history"></i>
                 <div data-i18n="Boxicons">추억 돌아보기</div>
               </a>
