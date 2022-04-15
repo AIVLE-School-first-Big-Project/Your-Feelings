@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # App 추가 Section
     'mainApp',
+    'introductionApp',
 ]
 
 MIDDLEWARE = [
