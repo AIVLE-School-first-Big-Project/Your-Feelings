@@ -145,16 +145,118 @@
           </nav>
 
           <!-- / Navbar -->
+          <script>
+            const labels1 = ['January','February','March','April','May','June'];
+            const data1 = {
+              labels: labels1,
+              datasets: [{
+                label: '월별 행복했던 횟수',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 10, 1, 8],
+              }]
+            };
+            const config1 = {
+              type: 'line',
+              data: data1,
+              options: {}
+            };
+          </script>
+
+          <script>
+            {% comment %} 라벨링에 따라 변동 {% endcomment %}
+            const labels2 = ['행복', '기쁨', '슬픔', '우울'];
+            const data2 = {
+              labels: labels2,
+              datasets: [{
+                label: '감정 모아보기',
+                data: [3, 19, 2, 1],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(0, 205, 86)',
+              ],
+              }]
+            };
+            const config2 = {
+              type: 'doughnut',
+              data: data2,
+              options: {}
+            };
+          </script>
 
 
-
+          <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
-              
+              <div class="h-100 row">
+                <div id="feelingChart" class="carousel slide" data-bs-ride="carousel" data-bsinterval='false'>
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <div class="card">
+                        <!-- 월간 보기 시작 -->
+                        <div class="card-title">
+                          월간 보기
+                        </div>
+                        <div class="card-body">
+                          <div>
+                            <canvas id="happySum"></canvas>
+                          </div>
+                          <script>
+                            const happySum = new Chart(
+                              document.getElementById('happySum'),
+                              config1
+                            );
+                          </script>
+                        </div>
+                      </div>
+                    <!--월간 보기 끝-->
+                    </div>
+                    <div class="carousel-item h-50">
+                      <!-- 감정 별 보기 시작-->
+                      <div class="card">
+                        <div class="card-title">
+                          감정별 보기
+                        </div>
+                        <div class="card-body">
+                          <div>
+                            <canvas id="felling"></canvas>
+                          </div>
+                          <script>
+                            const felling = new Chart(
+                              document.getElementById('felling'),
+                              config2
+                            );
+                          </script>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <div class="card">
+                        <div class="card-body bg-secondary">
+                          테스트 중입니다.
+                        </div>
+                      </div>
+                      <div class="carousel-caption h-100 d-none d-md-block">
+                        <h5>Third slide label</h5>
+                        <p>Some representative placeholder content for the third slide.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
 
 
 
