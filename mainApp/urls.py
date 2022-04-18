@@ -7,4 +7,5 @@ urlpatterns = [
     path('chart', views.showChart, name='chart'),
     path('media', views.showMedia, name='media'),
     path('remind', views.showRemind, name='remind'),
+    path('diary_view', views.showDiary_view, name='diary_view'),
 ]
