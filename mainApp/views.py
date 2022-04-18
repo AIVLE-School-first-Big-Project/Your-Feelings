@@ -21,3 +21,6 @@ def showMedia(request):
 
 def showRemind(request):
     return render(request, 'mainApp/remind.html', {})
+
+def showDiary_view(request):
+    return render(request, 'mainApp/diary_view.html', {})
