@@ -24,3 +24,7 @@ def showRemind(request):
 
 def showDiary_view(request):
     return render(request, 'mainApp/diary_view.html', {})
+
+
+def showTamagotchi(request):
+    return render(request, 'mainApp/tamagotchi.html', {})
