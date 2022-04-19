@@ -78,14 +78,44 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                <div class="navbar-nav align-items-center">
+                  <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input type="date"/>
+                    <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                  </div>
+  
+                  <script>
+                    function showTime(){
+                      var date = new Date();
+                      var h = date.getHours(); // 0 - 23
+                      var m = date.getMinutes(); // 0 - 59
+                      var s = date.getSeconds(); // 0 - 59
+                      var session = "AM";
+                      
+                      if(h == 0){
+                          h = 12;
+                      }
+                      
+                      if(h > 12){
+                          h = h - 12;
+                          session = "PM";
+                      }
+                      
+                      h = (h < 10) ? "0" + h : h;
+                      m = (m < 10) ? "0" + m : m;
+                      s = (s < 10) ? "0" + s : s;
+                      
+                      var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
+                      document.getElementById("CurrentTime").innerText = time;
+                      document.getElementById("CurrentTime").textContent = time;
+                      
+                      setTimeout(showTime, 1000);
+                      
+                  }
+                  
+                  showTime();
+                  </script>
                 </div>
               </div>
               <!-- /Search -->
