@@ -10,8 +10,13 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="d-flex justify-content-center">
+<<<<<<< HEAD
             <a href="{% url 'main'%}" class="app-brand-link">
               <img src="{%static 'img/logo/main_logo.png'%}" class='h-75'/>
+=======
+            <a href="#" class="app-brand-link">
+              <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
+>>>>>>> 5c6ffdc1ce176437384c5db04111e60ec8d91f83
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -220,20 +225,20 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
-              <div class="h-100 row">
-                <div id="feelingChart" class="carousel slide" data-bs-ride="carousel" data-bsinterval='false'>
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="card">
-                        <!-- 월간 보기 시작 -->
-                        <div class="card-title">
-                          월간 보기
-                        </div>
+
+              <div class="row">
+                <!-- Bootstrap carousel -->
+                <div class="col-md">
+                  <h5 class="my-4">나의 감정들</h5>
+
+                  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                    <ol class="carousel-indicators">
+                      <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
+                      <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+                      <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
                         <div class="card-body">
                           <div>
                             <canvas id="happySum"></canvas>
@@ -245,18 +250,15 @@
                             );
                           </script>
                         </div>
-                      </div>
-                    <!--월간 보기 끝-->
-                    </div>
-                    <div class="carousel-item h-50">
-                      <!-- 감정 별 보기 시작-->
-                      <div class="card">
-                        <div class="card-title">
-                          감정별 보기
+                        <div class="carousel-caption d-none d-md-block">
+                          <h3>First slide</h3>
+                          <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
                         </div>
+                      </div>
+                      <div class="carousel-item">
                         <div class="card-body">
                           <div>
-                            <canvas id="felling"></canvas>
+                            <canvas id="felling"  style="margin: 10 auto;"></canvas>
                           </div>
                           <script>
                             const felling = new Chart(
@@ -266,26 +268,21 @@
                           </script>
 
                         </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="card">
-                        <div class="card-body bg-secondary">
-                          테스트 중입니다.
+                        <div class="carousel-caption d-none d-md-block">
+                          <h3>Second slide</h3>
+                          <p>In numquam omittam sea.</p>
                         </div>
                       </div>
-                      <div class="carousel-caption h-100 d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="../assets/img/elements/18.jpg" alt="Third slide" />
+                        <div class="carousel-caption d-none d-md-block">
+                          <h3>Third slide</h3>
+                          <p>Lorem ipsum dolor sit amet, virtute consequat ea qui, minim graeco mel no.</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-              </div>
-
-
-
 
 
 
