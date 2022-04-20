@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block edge %}
+<script src="https://unpkg.com/typeit@8.4.0/dist/index.umd.js"></script>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -24,15 +25,15 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="{% url 'main' %}" class="menu-link">
+              <a href="{% url 'main'%}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">메인 페이지</div>
               </a>
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item active">
-              <a href="#" class="menu-link">
+            <li class="menu-item">
+              <a href="{% url 'calendar'%}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div data-i18n="Boxicons">달력으로 보기</div>
               </a>
@@ -43,8 +44,8 @@
                 <div data-i18n="Boxicons">차트로 보기</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{% url 'media'%}" class="menu-link">
+            <li class="menu-item active">
+              <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-music"></i>
                 <div data-i18n="Boxicons">Media 추천</div>
               </a>
@@ -76,43 +77,45 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="date"/>
-                  <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                <div class="navbar-nav align-items-center">
+                  <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input type="date"/>
+                    <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                  </div>
+  
+                  <script>
+                    function showTime(){
+                      var date = new Date();
+                      var h = date.getHours(); // 0 - 23
+                      var m = date.getMinutes(); // 0 - 59
+                      var s = date.getSeconds(); // 0 - 59
+                      var session = "AM";
+                      
+                      if(h == 0){
+                          h = 12;
+                      }
+                      
+                      if(h > 12){
+                          h = h - 12;
+                          session = "PM";
+                      }
+                      
+                      h = (h < 10) ? "0" + h : h;
+                      m = (m < 10) ? "0" + m : m;
+                      s = (s < 10) ? "0" + s : s;
+                      
+                      var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
+                      document.getElementById("CurrentTime").innerText = time;
+                      document.getElementById("CurrentTime").textContent = time;
+                      
+                      setTimeout(showTime, 1000);
+                      
+                  }
+                  
+                  showTime();
+                  </script>
                 </div>
-
-                <script>
-                  function showTime(){
-                    var date = new Date();
-                    var h = date.getHours(); // 0 - 23
-                    var m = date.getMinutes(); // 0 - 59
-                    var s = date.getSeconds(); // 0 - 59
-                    var session = "AM";
-                    
-                    if(h == 0){
-                        h = 12;
-                    }
-                    
-                    if(h > 12){
-                        h = h - 12;
-                        session = "PM";
-                    }
-                    
-                    h = (h < 10) ? "0" + h : h;
-                    m = (m < 10) ? "0" + m : m;
-                    s = (s < 10) ? "0" + s : s;
-                    
-                    var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
-                    document.getElementById("CurrentTime").innerText = time;
-                    document.getElementById("CurrentTime").textContent = time;
-                    
-                    setTimeout(showTime, 1000);
-                    
-                }
-                
-                showTime();
-                </script>
               </div>
               <!-- /Search -->
 
@@ -179,76 +182,63 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container">
               <!-- {% block content %} -->
+              <div class="row">
+                <br><br><br>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <form enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label"><strong>Diary 제목</strong></label>
+                    <input type="text" name="title" class="form-control" placeholder="제목은 반드시 입력">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label"><strong>Diary 내용</strong></label>
+                    <textarea class="form-control" id="content" rows="10" cols="30" name="content">{{written|striptags}}</textarea>
+                </div>
+
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col">
+                  <small class="text-light fw-semibold d-block">공개 여부</small>
+                  <div class="form-check form-check-inline mt-3">
+                    <input class="form-check-input" type="radio" name="open_status" id="open_status" value="1" />
+                    <label class="form-check-label" for="inlineRadio1">O</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="open_status" id="open_status" value="0" />
+                    <label class="form-check-label" for="inlineRadio2">X</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                
+                <div class="col-6">
+                  <br>
+                    <input class="form-control" type="file" id="image" name="image" >
+                </div>
+                <div class="col-3"></div>
+                <div class="col-3 text-end">
+                    <input class="btn btn-primary" href="main/" type="submit" value="작성">
+                    <a class="btn btn-secondary" href="/main/" role="button">취소</a>
+                </div>
+            </div>
+          </form>
               
-              <link href="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.css'%}" rel='stylesheet' />
-              <script src="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.js'%}"> </script>
-
-              <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  var calendarEl = document.getElementById('calendar');
-                  let eventDict = {}
-                  eventDict['post'] = ['테스트']
-                  eventDict['date'] = ['2022-04-01']
-                  eventDict['url'] = ['https://www.google.com']
-                  
-                  var calendar = new FullCalendar.Calendar(calendarEl, {
-                    // initialDate: '2020-09-12',
-                    selectable: true,
-                    businessHours: true,
-                    dayMaxEvents: true, // allow "more" link when too many events
-                    
-                    events: [
-                      {
-                        title: eventDict['post'][0],
-                        start: eventDict['date'][0],
-                        url: eventDict['url'][0],
-                        // url 연결 연습
-                      },
-                    ]
-                  });
-                  calendar.render();
-                });
-              </script>
-
-
-              <div id='calendar'></div>
-              <style>
-
-                body {
-                  margin: 40px 10px;
-                  padding: 0;
-                  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-                  font-size: 14px;
-                }
               
-                #calendar {
-                  max-height: 800px;
-                  margin: 0 auto;
-                }
-              </style>
+            
+                
+                
+                
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              </div>
               <!-- {% endblock content %} -->
             </div>
             <!-- / Content -->
