@@ -1,0 +1,430 @@
+
+{% extends 'mainApp/base.html' %}
+{% load static %}
+
+{% block edge %}
+<script src="https://unpkg.com/typeit@8.4.0/dist/index.umd.js"></script>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="d-flex justify-content-center">
+            <a href="#" class="app-brand-link">
+              <img src="{%static 'img/logo/main_logo.png'%}" class='h-75'/>
+            </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item">
+              <a href="{% url 'main'%}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">메인 페이지</div>
+              </a>
+            </li>
+
+            <!-- Layouts -->
+            <li class="menu-item">
+              <a href="{% url 'calendar'%}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div data-i18n="Boxicons">달력으로 보기</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{% url 'chart'%}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                <div data-i18n="Boxicons">차트로 보기</div>
+              </a>
+            </li>
+            <li class="menu-item active">
+              <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-music"></i>
+                <div data-i18n="Boxicons">Media 추천</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{% url 'remind'%}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-history"></i>
+                <div data-i18n="Boxicons">추억 돌아보기</div>
+              </a>
+            </li>
+
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <!-- Search -->
+              <div class="navbar-nav align-items-center">
+                <div class="navbar-nav align-items-center">
+                  <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input type="date"/>
+                    <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                  </div>
+  
+                  <script>
+                    function showTime(){
+                      var date = new Date();
+                      var h = date.getHours(); // 0 - 23
+                      var m = date.getMinutes(); // 0 - 59
+                      var s = date.getSeconds(); // 0 - 59
+                      var session = "AM";
+                      
+                      if(h == 0){
+                          h = 12;
+                      }
+                      
+                      if(h > 12){
+                          h = h - 12;
+                          session = "PM";
+                      }
+                      
+                      h = (h < 10) ? "0" + h : h;
+                      m = (m < 10) ? "0" + m : m;
+                      s = (s < 10) ? "0" + s : s;
+                      
+                      var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
+                      document.getElementById("CurrentTime").innerText = time;
+                      document.getElementById("CurrentTime").textContent = time;
+                      
+                      setTimeout(showTime, 1000);
+                      
+                  }
+                  
+                  showTime();
+                  </script>
+                </div>
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="{% static 'mainApp/assets/img/avatars/1.png'%}" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                              <img src="{% static 'mainApp/assets/img/avatars/1.png'%}" alt class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block">John Doe</span>
+                            <small class="text-muted">Admin</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User -->
+              </ul>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+
+
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container">
+              <!-- {% block content %} -->
+              <div class=row>
+                <br>
+                <br>
+                </div>
+                <div class=row>
+                <h2 id="myElement" style="color: rgb(149, 103, 255); font-family: 'Poor Story', cursive; font-size : 70px; font-weight: bold;"></h2>
+                <!-- The script itself, loaded AFTER your root element. -->
+                <script src="<https://unpkg.com/typeit@8.4.0/dist/index.umd.js>"></script>
+                <script>
+                  new TypeIt("#myElement", {strings: "기분이 어떤가요?",}).go();
+                </script>
+              </div>
+              <div class=row>
+                <br>
+              </div>
+              <div class=row>
+                <div class=col>
+                  <button type="button" class="btn rounded-pill me-2 btn-warning" style="font-family: 'Poor Story', cursive; font-size : 30px; font-weight: bold;">
+                    <img src="{%static 'mainApp/assets/img/favicon/happy.png'%}" style="width: 40px; height: 40px;" />  행복해요</button>
+
+                  <button type="button" class="btn rounded-pill me-2 btn-secondary"  style="font-family: 'Poor Story', cursive; font-size : 30px; font-weight: bold;">
+                    <img src="{%static 'mainApp/assets/img/favicon/sad.png'%}" style="width: 40px; height: 40px;" />  슬퍼요</button>
+
+                  <button type="button" class="btn rounded-pill me-2 btn-success"   style="font-family: 'Poor Story', cursive; font-size : 30px; font-weight: bold;">
+                    <img src="{%static 'mainApp/assets/img/favicon/comfort.png'%}" style="width: 40px; height: 40px;" />  편안해요</button>
+
+                  <button type="button" class="btn rounded-pill me-2 btn-danger" style="font-family: 'Poor Story', cursive; font-size : 30px; font-weight: bold;">
+                    <img src="{%static 'mainApp/assets/img/favicon/angry.png'%}" style="width: 40px; height: 40px;" />  화나요!!</button>
+
+                  <button type="button" class="btn rounded-pill me-2 btn-info" style="font-family: 'Poor Story', cursive; font-size : 30px; font-weight: bold;">
+                    <img src="{%static 'mainApp/assets/img/favicon/surprise.png'%}" style="width: 40px; height: 40px;" />  놀라워요</button>
+
+                  <button type="button" class="btn rounded-pill me-2 btn-primary" style="font-family: 'Poor Story', cursive; font-size : 30px; font-weight: bold;">
+                    <img src="{%static 'mainApp/assets/img/favicon/fear.png'%}" style="width: 40px; height: 40px;" />  무서워요</button>
+                </div>  
+              </div>
+              <div class=row><br><br></div>
+              <div class=row>
+                <div class="col-md">
+                  <div class="card text-white bg-dark" style="width : 24rem; height: 30rem;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color:white; font-family: 'Poor Story', cursive; font-size : 45px; font-weight: bold;"><i class='bx bx-music bx-lg' ></i> Music</h5>
+                      <br>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                          <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
+                          <div class="w-100">
+                            <div class="d-flex justify-content-between">
+                              <div class="user-info">
+                                <h6 class="mb-1"style="color:white">노래제목1</h6>
+                                <small style="color:white">13 minutes</small>
+                                <div class="user-status">
+                                  <span class="badge badge-dot bg-success"></span>
+                                  <small style="color:white">노래 소개 내용</small>
+                                </div>
+                              </div>
+                              <div class="add-btn">
+                                <button class="btn btn-success btn-sm">바로듣기</button>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                          <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
+                          <div class="w-100">
+                            <div class="d-flex justify-content-between">
+                              <div class="user-info">
+                                <h6 class="mb-1"style="color:white">노래제목2</h6>
+                                <small style="color:white">13 minutes</small>
+                                <div class="user-status">
+                                  <span class="badge badge-dot bg-success"></span>
+                                  <small style="color:white">노래 소개 내용</small>
+                                </div>
+                              </div>
+                              <div class="add-btn">
+                                <button class="btn btn-success btn-sm">링크</button>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                          <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
+                          <div class="w-100">
+                            <div class="d-flex justify-content-between">
+                              <div class="user-info">
+                                <h6 class="mb-1"style="color:white">노래제목3</h6>
+                                <small style="color:white">13 minutes</small>
+                                <div class="user-status">
+                                  <span class="badge badge-dot bg-success"></span>
+                                  <small style="color:white">노래 소개 내용</small>
+                                </div>
+                              </div>
+                              <div class="add-btn">
+                                <button class="btn btn-success btn-sm">멜론</button>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                          <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
+                          <div class="w-100">
+                            <div class="d-flex justify-content-between">
+                              <div class="user-info">
+                                <h6 class="mb-1"style="color:white">노래제목4</h6>
+                                <small style="color:white">13 minutes</small>
+                                <div class="user-status">
+                                  <span class="badge badge-dot bg-success"></span>
+                                  <small style="color:white">노래 소개 내용</small>
+                                </div>
+                              </div>
+                              <div class="add-btn">
+                                <button class="btn btn-success btn-sm">지니</button>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="card text-white bg-dark" style="width : 32rem; height: 30rem;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color:white; font-family: 'Poor Story', cursive; font-size : 45px; font-weight: bold;"><i class='bx bx-film bx-lg'></i> Movie && Drama</h5>
+                      <br><br>
+                       <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+                      <div id="player"></div>
+
+                      <script>
+                        // 2. This code loads the IFrame Player API code asynchronously.
+                        var tag = document.createElement('script');
+
+                        tag.src = "https://www.youtube.com/iframe_api";
+                        var firstScriptTag = document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                        // 3. This function creates an <iframe> (and YouTube player)
+                        //    after the API code downloads.
+                        var player;
+                        function onYouTubeIframeAPIReady() {
+                          player = new YT.Player('player', {
+                            height: '300',
+                            width: '450',
+                            videoId: 'M7lc1UVf-VE',
+                            events: {
+                              'onReady': onPlayerReady,
+                              'onStateChange': onPlayerStateChange
+                            }
+                          });
+                        }
+
+                        // 4. The API will call this function when the video player is ready.
+                        function onPlayerReady(event) {
+                          event.target.playVideo();
+                        }
+
+                        // 5. The API calls this function when the player's state changes.
+                        //    The function indicates that when playing a video (state=1),
+                        //    the player should play for six seconds and then stop.
+                        var done = false;
+                        function onPlayerStateChange(event) {
+                          if (event.data == YT.PlayerState.PLAYING && !done) {
+                            setTimeout(stopVideo, 6000);
+                            done = true;
+                          }
+                        }
+                        function stopVideo() {
+                          player.stopVideo();
+                        }
+                      </script>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="card text-white bg-dark" style="width : 24rem; height: 30rem;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color:white; font-family: 'Poor Story', cursive; font-size : 45px; font-weight: bold;"><i class='bx bx-book-alt bx-lg'></i> Book</h5>
+                      <br>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                          <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
+                          <div class="w-100">
+                            <div class="d-flex justify-content-between">
+                              <div class="user-info">
+                                <h6 class="mb-1"style="color:white">도서명1</h6>
+                                <small style="color:white">소설</small>
+                                <div class="user-status">
+                                  <span class="badge badge-dot bg-success"></span>
+                                  <small style="color:white">줄거리</small>
+                                </div>
+                              </div>
+                              <div class="add-btn">
+                                <button class="btn btn-success btn-sm">소개 링크?</button>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        
+                        
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+              </div>
+              <!-- {% endblock content %} -->
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with ❤️ by
+                  Aivle School <strong>AI 수도권 1반 1조</strong>
+                </div>
+                <div>
+                  이대용 | 전현근 | 천명철 | 편승희 | 홍지의
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+{% endblock edge %}
