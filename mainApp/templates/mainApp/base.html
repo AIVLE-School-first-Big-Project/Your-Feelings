@@ -45,8 +45,13 @@
     <link rel="stylesheet" href="{%static 'mainApp/assets/css/demo.css'%}" />
     <!--구글폰트-->
     <link rel="preconnect" href="https://fonts.gstatic.com"> 
-    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap" rel="stylesheet">
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Black+Han+Sans&family=Cute+Font&family=Do+Hyeon&family=Dokdo&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gothic+A1&family=Gugi&family=Hi+Melody&family=Jua&family=Kirang+Haerang&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Myeongjo&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Stylish&family=Sunflower:wght@300&family=Yeon+Sung&display=swap"
+      rel="stylesheet">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet"
+  />
   </head>
 
 <body>
@@ -56,11 +61,12 @@
   {% endblock edge %}
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
+    <script src="{% static 'mainApp/assets/vendor/js/bootstrap.js'%}"></script>
+    <script src="{% static 'mainApp/assets/vendor/js/menu.js'%}"></script>
+    <script src="{% static 'mainApp/assets/vendor/js/helpers.js'%}"></script>
     <script src="{% static 'mainApp/assets/vendor/libs/jquery/jquery.js'%}"></script>
     <script src="{% static 'mainApp/assets/vendor/libs/popper/popper.js'%}"></script>
-    <script src="{% static 'mainApp/assets/vendor/js/bootstrap.js'%}"></script>
     <script src="{% static 'mainApp/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js'%}"></script>
-    <script src="{% static 'mainApp/assets/vendor/js/menu.js'%}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
