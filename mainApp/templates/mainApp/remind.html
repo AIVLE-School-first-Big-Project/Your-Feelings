@@ -72,7 +72,12 @@
                 <div data-i18n="Boxicons">추억 돌아보기</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="{% url 'tamagotchi' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div data-i18n="Boxicons">알 키우기</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
@@ -96,9 +101,15 @@
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input type="date"/>
-                  <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                 </div>
+                
 
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- User -->
+                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                 <script>
                   function showTime(){
                     var date = new Date();
@@ -130,11 +141,6 @@
                 
                 showTime();
                 </script>
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
