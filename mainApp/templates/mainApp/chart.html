@@ -9,10 +9,10 @@
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="#" class="app-brand-link">
-              <img src="{%static 'mainApp/assets/img/favicon/6.png'%}" style="width: 38px; height: 38px;" />
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Your Feeling</span>
+          <div class="d-flex justify-content-center">
+
+            <a href="{% url 'main' %}" class="app-brand-link">
+              <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -56,7 +56,12 @@
                 <div data-i18n="Boxicons">추억 돌아보기</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="{% url 'tamagotchi' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div data-i18n="Boxicons">알 키우기</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
@@ -80,9 +85,15 @@
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input type="date"/>
-                  <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                 </div>
+                
 
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- User -->
+                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                 <script>
                   function showTime(){
                     var date = new Date();
@@ -109,16 +120,10 @@
                     document.getElementById("CurrentTime").textContent = time;
                     
                     setTimeout(showTime, 1000);
-                    
                 }
                 
                 showTime();
                 </script>
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -221,72 +226,28 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
-              <div class="h-100 row">
-                <div id="feelingChart" class="carousel slide" data-bs-ride="carousel" data-bsinterval='false'>
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#feelingChart" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="card">
-                        <!-- 월간 보기 시작 -->
-                        <div class="card-title">
-                          월간 보기
-                        </div>
-                        <div class="card-body">
-                          <div>
-                            <canvas id="happySum"></canvas>
-                          </div>
-                          <script>
-                            const happySum = new Chart(
+
+              <div class="row">
+                <!-- Bootstrap carousel -->
+                <div class="col-4">
+                  <canvas id="happySum"></canvas>
+                    <script>
+                      const happySum = new Chart(
                               document.getElementById('happySum'),
                               config1
                             );
-                          </script>
-                        </div>
-                      </div>
-                    <!--월간 보기 끝-->
-                    </div>
-                    <div class="carousel-item h-50">
-                      <!-- 감정 별 보기 시작-->
-                      <div class="card">
-                        <div class="card-title">
-                          감정별 보기
-                        </div>
-                        <div class="card-body">
-                          <div>
-                            <canvas id="felling"></canvas>
-                          </div>
-                          <script>
-                            const felling = new Chart(
+                    </script>
+                </div>
+                <div class="col-4">
+                  <canvas id="felling"  style="margin: 10 auto;"></canvas>
+                  <script>
+                    const felling = new Chart(
                               document.getElementById('felling'),
                               config2
                             );
-                          </script>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="card">
-                        <div class="card-body bg-secondary">
-                          테스트 중입니다.
-                        </div>
-                      </div>
-                      <div class="carousel-caption h-100 d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
-                      </div>
-                    </div>
-                  </div>
+                  </script>
                 </div>
-
               </div>
-
-
-
 
 
 

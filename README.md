@@ -3,7 +3,8 @@
 
 
 
-
+# 로고
+![](./README_media/main_logo.png)
 ## 조원 소개
 - AI수도권 1조 [01조]
 > 전현근(조장)

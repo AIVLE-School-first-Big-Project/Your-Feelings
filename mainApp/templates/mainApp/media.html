@@ -10,10 +10,9 @@
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
-            <a href="#" class="app-brand-link">
-              <img src="{%static 'mainApp/assets/img/favicon/6.png'%}" style="width: 38px; height: 38px;" />
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Your Feeling</span>
+          <div class="d-flex justify-content-center">
+            <a href="{% url 'main' %}" class="app-brand-link">
+              <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -57,7 +56,12 @@
                 <div data-i18n="Boxicons">추억 돌아보기</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="{% url 'tamagotchi' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div data-i18n="Boxicons">알 키우기</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
@@ -82,46 +86,47 @@
                   <div class="nav-item d-flex align-items-center">
                     <i class="bx bx-search fs-4 lh-0"></i>
                     <input type="date"/>
-                    <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                   </div>
-  
-                  <script>
-                    function showTime(){
-                      var date = new Date();
-                      var h = date.getHours(); // 0 - 23
-                      var m = date.getMinutes(); // 0 - 59
-                      var s = date.getSeconds(); // 0 - 59
-                      var session = "AM";
-                      
-                      if(h == 0){
-                          h = 12;
-                      }
-                      
-                      if(h > 12){
-                          h = h - 12;
-                          session = "PM";
-                      }
-                      
-                      h = (h < 10) ? "0" + h : h;
-                      m = (m < 10) ? "0" + m : m;
-                      s = (s < 10) ? "0" + s : s;
-                      
-                      var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
-                      document.getElementById("CurrentTime").innerText = time;
-                      document.getElementById("CurrentTime").textContent = time;
-                      
-                      setTimeout(showTime, 1000);
-                      
-                  }
                   
-                  showTime();
-                  </script>
+
                 </div>
               </div>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
+                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                <script>
+                  function showTime(){
+                    var date = new Date();
+                    var h = date.getHours(); // 0 - 23
+                    var m = date.getMinutes(); // 0 - 59
+                    var s = date.getSeconds(); // 0 - 59
+                    var session = "AM";
+                    
+                    if(h == 0){
+                        h = 12;
+                    }
+                    
+                    if(h > 12){
+                        h = h - 12;
+                        session = "PM";
+                    }
+                    
+                    h = (h < 10) ? "0" + h : h;
+                    m = (m < 10) ? "0" + m : m;
+                    s = (s < 10) ? "0" + s : s;
+                    
+                    var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
+                    document.getElementById("CurrentTime").innerText = time;
+                    document.getElementById("CurrentTime").textContent = time;
+                    
+                    setTimeout(showTime, 1000);
+                    
+                }
+                
+                showTime();
+                </script>
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">

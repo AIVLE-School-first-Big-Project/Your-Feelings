@@ -8,12 +8,16 @@ class Emotion(models.Model):
 # 사용자가 작성한 일기들
 class Diary(models.Model):
     id = models.AutoField(primary_key=True)
+<<<<<<< HEAD
     user_id = models.ForeignKey("userApp.Users", on_delete=models.SET("탈퇴한 사용자"))
+=======
+    user_id = models.ForeignKey(Users, null=True,on_delete=models.SET("탈퇴한 사용자"))
+>>>>>>> 28314b37d9c40c652db95729711f0cad2ef7bf96
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=400)
-    open_status = models.IntegerField()
-    date = models.DateTimeField()
-    emotion = models.ForeignKey(Emotion, on_delete=models.PROTECT)
+    open_status = models.IntegerField(null=True,)
+    date = models.DateTimeField(null=True,)
+    emotion = models.ForeignKey(Emotion, null=True, on_delete=models.PROTECT)
     image = models.ImageField(blank=True, upload_to='media/')   # 사용지가 글 쓸 때 첨부하는 사진
     
 
