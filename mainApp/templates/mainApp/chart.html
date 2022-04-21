@@ -227,63 +227,27 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
 
-              <div class="row justify-content-center">
+              <div class="row">
                 <!-- Bootstrap carousel -->
-                <div class="col-10">
-                  <h5 class="my-4">나의 감정들</h5>
-
-                  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-                    <ol class="carousel-indicators">
-                      <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
-                      <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
-                      <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <div class="card-body">
-                          <div>
-                            <canvas id="happySum"></canvas>
-                          </div>
-                          <script>
-                            const happySum = new Chart(
+                <div class="col-4">
+                  <canvas id="happySum"></canvas>
+                    <script>
+                      const happySum = new Chart(
                               document.getElementById('happySum'),
                               config1
                             );
-                          </script>
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                          <h3>First slide</h3>
-                          <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <div class="card-body">
-                          <div>
-                            <canvas id="felling"  style="margin: 10 auto;"></canvas>
-                          </div>
-                          <script>
-                            const felling = new Chart(
+                    </script>
+                </div>
+                <div class="col-4">
+                  <canvas id="felling"  style="margin: 10 auto;"></canvas>
+                  <script>
+                    const felling = new Chart(
                               document.getElementById('felling'),
                               config2
                             );
-                          </script>
-
-                        </div>
-                        <div class="carousel-caption d-none d-md-block">
-                          <h3>Second slide</h3>
-                          <p>In numquam omittam sea.</p>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        
-                        <div class="carousel-caption d-none d-md-block">
-                          <h3>Third slide</h3>
-                          <p>Lorem ipsum dolor sit amet, virtute consequat ea qui, minim graeco mel no.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </script>
                 </div>
+              </div>
 
 
 
