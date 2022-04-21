@@ -1,0 +1,20 @@
+<h1> 회원 가입 </h1>
+
+{% if error %}
+    {{ error }}
+{% endif %}
+
+<form action="{% url 'user:signup' %}" method="POST">
+    {% csrf_token %}
+    Username <input type="text" name="username" id="username"><br><br>
+
+    Password <input type="password" name="password" id="password"> <br>
+    Re-enter Password <input type="password" name="password2" id="password2"> <br><br>
+
+    Name <input type="text" name="full_name" id="full_name"><br><br>
+
+    Email <input type="email" name="email" id="email"><br><br>
+
+    <input type="submit" value="signup">
+
+</form>

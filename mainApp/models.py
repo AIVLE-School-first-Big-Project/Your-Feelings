@@ -1,13 +1,4 @@
-from tkinter import CASCADE
-from turtle import ondrag
 from django.db import models
-from sympy import print_mathml
-
-
-# 사용자
-class Users(models.Model):
-    id = models.CharField(max_length=15, primary_key=True)
-    password = models.CharField(max_length=50)
 
 # 감정
 class Emotion(models.Model):
@@ -17,7 +8,7 @@ class Emotion(models.Model):
 # 사용자가 작성한 일기들
 class Diary(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(Users, on_delete=models.SET("탈퇴한 사용자"))
+    user_id = models.ForeignKey("userApp.Users", on_delete=models.SET("탈퇴한 사용자"))
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=400)
     open_status = models.IntegerField()

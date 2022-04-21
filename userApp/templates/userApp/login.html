@@ -1,0 +1,18 @@
+
+{% if error %}
+{{ error }}
+{% endif %}
+<!-- 로그인 실패했을 때 띄울 메시지 -->
+
+<h1>로그인</h1>
+{{ username }}
+<form action="{% url 'user:login' %}" method="POST">
+    {% csrf_token %}
+    Username: <input type="text" name="username" id="">
+    <br>
+    Password: <input type="password" name="password" id="">
+    <br>
+    <input type="submit" value="login" id="login">
+</form>
+
+회원이 아니라면? <a href="{% url 'user:signup'%}">회원가입 고!</a>

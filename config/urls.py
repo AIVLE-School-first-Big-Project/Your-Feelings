@@ -22,4 +22,5 @@ urlpatterns = [
     # 추가 앱 최상단 경로
     path('main/', include('mainApp.urls')),
     path('index/', include('introductionApp.urls')),
+    path('user/', include('userApp.urls'))
 ]

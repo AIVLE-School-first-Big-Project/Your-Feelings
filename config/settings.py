@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # App 추가 Section
     'mainApp',
     'introductionApp',
+    'userApp'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db2.sqlite3',
     }
 }
 
@@ -135,3 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT_URL = '.'
+
+LOGIN_REDIRECT_URL = '/main/'
+
+AUTH_USER_MODEL = "userApp.Users"
