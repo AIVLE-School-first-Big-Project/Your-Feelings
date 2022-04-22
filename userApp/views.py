@@ -47,4 +47,17 @@ def login(request):
         return render(request, 'userApp/login.html')
 
 def logout(request):
-    return render(request, 'userApp/logout.html')
+    request.session.flush()
+    return redirect("main")
+
+
+def mypage(request):
+    user = request.user
+    context = {}
+
+    context['user'] = user
+
+    return render(request, "userApp/mypage.html")
+
+
+    
