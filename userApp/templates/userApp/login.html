@@ -1,5 +1,4 @@
 <h1>로그인</h1>
-{{ username }}
 <form action="{% url 'user:login' %}" method="POST">
     {% csrf_token %}
     {% if form.errors %}
