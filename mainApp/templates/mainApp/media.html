@@ -143,8 +143,10 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            {% if user.is_authenticated %}
+                            <span class="fw-semibold d-block">{{ user.username }}</span>
+                            <small class="text-muted">User</small>
+                          {% endif %}
                           </div>
                         </div>
                       </a>
@@ -168,9 +170,14 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{% url 'user:logout' %}">
+                        {% if user.is_authenticated %}
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
+                        {% else %}
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log In</span>
+                        {% endif %}
                       </a>
                     </li>
                   </ul>
