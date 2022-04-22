@@ -1,4 +1,5 @@
-<h1> 회원 가입 </h1>
+{% extends 'mainApp/base.html' %}
+{% comment %} <h1> 회원 가입 </h1>
 
 {% if error %}
     {{ error }}
@@ -17,4 +18,112 @@
 
     <input type="submit" value="signup">
 
-</form>
+</form> {% endcomment %}
+
+
+{% load static %}
+
+{% block edge %}
+        <!-- Content -->
+
+    <!-- Content -->
+
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+          <div class="authentication-inner">
+            <!-- Register Card -->
+            <div class="card">
+              <div class="card-body">
+                <!-- Logo -->
+                <div class="app-brand justify-content-center">
+                    <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
+                </div>
+                <!-- /Logo -->
+                <h4 class="mb-2">Adventure starts here 🚀</h4>
+                <p class="mb-4">Make your app management easy and fun!</p>
+  
+                <form id="formAuthentication" class="mb-3" action="{% url 'user:signup' %}" method="POST">
+                    {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      name="username"
+                      placeholder="Enter your username"
+                      autofocus
+                    />
+                  </div>
+
+                  <div class="mb-3 form-password-toggle">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="password"
+                        id="password"
+                        class="form-control"
+                        name="password"
+                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                        aria-describedby="password"
+                      />
+                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    </div>
+                  </div>
+                  <div class="mb-3 form-password-toggle">
+                    <label class="form-label" for="password">Re-enter Password</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="password"
+                        id="password2"
+                        class="form-control"
+                        name="password2"
+                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                        aria-describedby="password"
+                      />
+                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="full_name" class="form-label">name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="full_name"
+                      name="full_name"
+                      placeholder="Enter your full_name"
+                      autofocus
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                  </div>
+  
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                      <label class="form-check-label" for="terms-conditions">
+                        I agree to
+                        <a href="javascript:void(0);">privacy policy & terms</a>
+                      </label>
+                    </div>
+                  </div>
+                </form>
+  
+                <p class="text-center">
+                  <span>Already have an account?</span>
+                  <a href="auth-login-basic.html">
+                    <span>Sign in instead</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- Register Card -->
+          </div>
+        </div>
+      </div>
+  
+      <!-- / Content -->
+
+{% endblock edge %}
