@@ -36,7 +36,9 @@
               <div class="card-body">
                 <!-- Logo -->
                 <div class="app-brand justify-content-center">
+                  <a href="{% url 'main' %}">
                     <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
+                  </a>
                 </div>
                 <!-- /Logo -->
                 <h4 class="mb-2">Adventure starts here 🚀</h4>
@@ -113,7 +115,7 @@
   
                 <p class="text-center">
                   <span>Already have an account?</span>
-                  <a href="auth-login-basic.html">
+                  <a href="{% url "user:login"%}">
                     <span>Sign in instead</span>
                   </a>
                 </p>

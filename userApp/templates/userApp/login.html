@@ -1,36 +1,5 @@
-<<<<<<< HEAD
-<h1>로그인</h1>
-<form action="{% url 'user:login' %}" method="POST">
-    {% csrf_token %}
-    {% if form.errors %}
-    <div class="alert alert-danger">
-        {% for field in form %}
-        <!-- 필드 오류 -->
-        {% if field.errors %}
-        <div>
-            <strong>{{ field.label }}</strong>
-            {{ field.errors }}
-        </div>
-        {% endif %}
-        {% endfor %}
-        <!-- 넌필드 오류 -->
-        {% for error in form.non_field_errors %}
-        <div>
-            <strong>{{ error }}</strong>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    Username: <input type="text" name="username" id="">
-    <br>
-    Password: <input type="password" name="password" id="">
-    <br>
-    <input type="submit" value="login" id="login">
-</form>
-=======
 {% extends 'mainApp/base.html' %}
 {% load static %}
->>>>>>> 2d9a41c1ed30ee23b179e71d8633e2ded282ca8d
 
 {% block edge %}
 <body>
@@ -44,7 +13,9 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
+                <a href="{% url 'main' %}">
                 <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
+                </a>
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Welcome to Sneat! 👋</h4>
