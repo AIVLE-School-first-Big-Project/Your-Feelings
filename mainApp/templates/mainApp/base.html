@@ -56,6 +56,12 @@
 
 <body>
 
+  {% if user.is_authenticated %}
+    
+  {% else %}
+    <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+  {% endif %}
+
   {%block edge%}
 
   {% endblock edge %}
