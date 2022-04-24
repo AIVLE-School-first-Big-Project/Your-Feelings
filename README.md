@@ -47,8 +47,11 @@
 ![](./README_media/flow3.png)
 
 
+## API 사용법
+url = '3.34.5.170:5000/api?text=' + 텍스트  
+return type = dictionary  
 
-
+![](./README_media/캡처.png)
 
 
 version-1.0
