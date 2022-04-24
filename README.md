@@ -51,7 +51,7 @@
 url = '3.34.5.170:5000/api?text=' + 텍스트  
 return type = dictionary  
 
-![](./README_media/캡처.png)
+![](./README_media/api_usage.png)
 
 
 version-1.0
