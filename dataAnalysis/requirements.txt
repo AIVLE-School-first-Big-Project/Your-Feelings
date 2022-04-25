@@ -1,0 +1,10 @@
+konlpy==0.6.0
+gensim==4.1.2
+apyori==1.1.2
+py-hanspell==1.1
+lyricsgenius==3.0.1
+missingno==0.5.0
+seaborn==0.11.2
+wordcloud==1.8.1
+networkx==2.6.3
+nltk==3.7
