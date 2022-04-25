@@ -49,14 +49,14 @@
 
 ## API 사용법
 ### KOBERT  
-url = '3.34.5.170:5000/kobert?text=' + 텍스트  
-return type = dictionary  
+- url = '3.34.5.170:5000/kobert?text=' + 텍스트  
+- return type = dictionary  
 
 ![](./README_media/api_kobert.png)
 
 ### BERT
-url = '3.34.5.170:5000/bert?text=' + 텍스트  
-return type = dictionary  
+- url = '3.34.5.170:5000/bert?text=' + 텍스트  
+- return type = dictionary  
 
 ![](./README_media/api_bert.png)
 
