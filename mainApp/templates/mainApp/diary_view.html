@@ -199,12 +199,13 @@
                   <div class="card h-100" style="width: 800px; height: 800px;">
                     <img class="card-img-top" src="{%static 'mainApp/assets/img/backgrounds/18.jpg'%}" alt="Card image cap" />
                     <div class="card-body">
-                      <h2 class="card-title" ><h1 class="display-1" style="font-family: 'Yeon Sung', cursive;">다이어리 제목</h1></h2>
-                      <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;">오늘은 어떠했고 저러했고 저러해서 이러했다. 오늘은 어떠했고 저러했고 저러해서 이러했다.<br>오늘은 어떠했고 저러했고 저러해서 이러했다. 오늘은 어떠했고 저러했고 저러해서 이러했다.<br>오늘은 어떠했고 저러했고 저러해서 이러했다. 오늘은 어떠했고 저러했고 저러해서 이러했다.
+                      <h2 class="card-title" ><h1 class="display-1" style="font-family: 'Yeon Sung', cursive;">{{ diary.title }}</h1></h2>
+                      <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;">
+                        {{ diary.content }}
                       </h4>
                     </div>
                     <div class="card-footer text-muted">
-                      22022-04-18
+                      {{ diary.date }}
                     </div>
                   </div>
                 </div>
