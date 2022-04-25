@@ -48,10 +48,16 @@
 
 
 ## API 사용법
-url = '3.34.5.170:5000/api?text=' + 텍스트  
+### KOBERT  
+url = '3.34.5.170:5000/kobert?text=' + 텍스트  
 return type = dictionary  
 
-![](./README_media/api_usage.png)
+![](./README_media/api_kobert.png)
 
+### BERT
+url = '3.34.5.170:5000/bert?text=' + 텍스트  
+return type = dictionary  
+
+![](./README_media/api_bert.png)
 
 version-1.0
