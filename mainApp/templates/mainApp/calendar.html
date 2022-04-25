@@ -32,23 +32,43 @@
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item active">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div data-i18n="Boxicons">달력으로 보기</div>
+
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">상세 보기</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item active">
+                  <a href="{% url 'calendar' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <div data-i18n="Boxicons">달력으로 보기</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'chart' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                    <div data-i18n="Boxicons">차트로 보기</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'media' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-music"></i>
+                    <div data-i18n="Boxicons">Media 추천보기</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="menu-item">
+
             </li>
             <li class="menu-item">
-              <a href="{% url 'chart'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-                <div data-i18n="Boxicons">차트로 보기</div>
-              </a>
+
             </li>
             <li class="menu-item">
-              <a href="{% url 'media'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-music"></i>
-                <div data-i18n="Boxicons">Media 추천</div>
-              </a>
+              
             </li>
             <li class="menu-item">
               <a href="{% url 'remind'%}" class="menu-link">
@@ -211,6 +231,7 @@
                       myCustomButton: {
                         text: '글쓰기',
                         click: function() {
+
                           window.location.href="{% url 'post' %}"; // 다이어리 작성 링크
                         }
                       }
@@ -235,6 +256,7 @@
                     ]
                     // 다이어리 데이터 이벤트에 추가
                   });
+                  
                   calendar.render();
                 });
               </script>

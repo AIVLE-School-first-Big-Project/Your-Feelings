@@ -13,9 +13,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="{% url 'main' %}">
                 <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
-                </a>
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Welcome to Sneat! 👋</h4>
@@ -23,26 +21,7 @@
 
               <form class="mb-3" action="{% url 'user:login' %}" method="POST">
                 {% csrf_token %}
-                {% if form.errors %}
-                <div class="alert alert-primary alert-dismissible" role="alert">
-                    {% for field in form %}
-                    <!-- 필드 오류 -->
-                    {% if field.errors %}
-                    <div>
-                        <strong>{{ field.label }}</strong>
-                        {{ field.errors }}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                    <!-- 넌필드 오류 -->
-                    {% for error in form.non_field_errors %}
-                    <div>
-                        <strong>{{ error }}</strong>
-                    </div>
-                    {% endfor %}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endif %}
+                {% include 'userApp/detail/form_error.html'%}
                 <div class="mb-3">
                   <label for="email" class="form-label">Username</label>
                   <input
