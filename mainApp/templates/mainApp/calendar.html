@@ -228,6 +228,20 @@
                   eventDict['url'] = ['https://www.google.com']
                   
                   var calendar = new FullCalendar.Calendar(calendarEl, {
+                    customButtons: {
+                      myCustomButton: {
+                        text: '글쓰기',
+                        click: function() {
+                          // 여기에 포스팅 링크 연결
+                          window.location.href="http://www.naver.com";
+                        }
+                      }
+                    },
+                    headerToolbar: {
+                      left: 'myCustomButton',
+                      center: 'title',
+                      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
                     // initialDate: '2020-09-12',
                     selectable: true,
                     businessHours: true,
@@ -236,11 +250,9 @@
                     events: [
                       {
                         title: eventDict['post'][0],
-                        start: eventDict['date'][0],
-                        
+                        start: eventDict['date'][0],                        
                         url: eventDict['url'][0],
-                        
-                        // url 연결 연습
+
                       },
                     ]
                   });
