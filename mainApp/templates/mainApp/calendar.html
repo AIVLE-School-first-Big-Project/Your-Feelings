@@ -250,7 +250,7 @@
                           {
                             title: "{{ diary1.title }}",
                             date: "{{ diary1.date | date:'Y-m-d' }}",
-                            url : "{% url 'diary_view' date=diary1.date %}" //다이어리 view 링크
+                            url : "{% url 'diary_view' id=diary1.id %}" //다이어리 view 링크
                           },
                         {% endfor %}
                     ]

@@ -9,7 +9,7 @@ urlpatterns = [
     path('chart', views.showChart, name='chart'),
     path('media', views.showMedia, name='media'),
     path('remind', views.showRemind, name='remind'),
-    path('diary_view/<date>/', views.showDiary_view, name='diary_view'),
+    path('diary_view/<id>/', views.showDiary_view, name='diary_view'),
     path('post', views.postDiary, name='post'),
     path('tamagotchi', views.showTamagotchi, name='tamagotchi'),
 
