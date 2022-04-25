@@ -21,7 +21,7 @@
 
               <form class="mb-3" action="{% url 'user:login' %}" method="POST">
                 {% csrf_token %}
-                {% include 'userApp/detail/form)e'%}
+                {% include 'userApp/detail/form_error.html'%}
                 <div class="mb-3">
                   <label for="email" class="form-label">Username</label>
                   <input
