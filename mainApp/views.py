@@ -41,12 +41,13 @@ def showRemind(request):
     return render(request, 'mainApp/remind.html', {})
 
 def showDiary_view(request, id):
-    current_user = Users.objects.get(id=request.user.id)
     showdiary = Diary.objects.get(
         id=id
         )
+    diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
     context ={
         'showdiary' : showdiary,
+        'diaryemotion' : diaryemotion
     }
     return render(request, 'mainApp/diary_view.html', context)
 
