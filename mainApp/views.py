@@ -14,14 +14,19 @@ import requests
 import json
 # Create your views here.
 
-API_URL = 'http://3.34.5.170:5000/api?text='
+API_URL = 'http://3.34.5.170:5000/kobert?text='
 
 def showMain(request):
     return render(request, 'mainApp/main.html', {})
 
 
 def showCalendar(request):
-    return render(request, 'mainApp/calendar.html', {})
+    current_user = Users.objects.get(id=request.user.id)
+    diary = Diary.objects.filter(user_id=current_user)
+    context ={
+        'diary' : diary,
+    }
+    return render(request, 'mainApp/calendar.html', context)
 
 
 def showChart(request):
@@ -35,8 +40,16 @@ def showMedia(request):
 def showRemind(request):
     return render(request, 'mainApp/remind.html', {})
 
-def showDiary_view(request):
-    return render(request, 'mainApp/diary_view.html', {})
+def showDiary_view(request, id):
+    showdiary = Diary.objects.get(
+        id=id
+        )
+    diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
+    context ={
+        'showdiary' : showdiary,
+        'diaryemotion' : diaryemotion
+    }
+    return render(request, 'mainApp/diary_view.html', context)
 
 def postDiary(request):
     if request.method == 'POST' and request.POST['title'] != '':
@@ -44,7 +57,7 @@ def postDiary(request):
         title=request.POST['title']
         content=request.POST['content']
         open_status=request.POST['open_status']
-        date=datetime.datetime.now()
+        date=datetime.datetime.now().strftime('%Y-%m-%d')
         api_result=requests.get(API_URL+content).text
         emotion = Emotion.objects.create(
             description=json.loads(api_result),
@@ -63,7 +76,7 @@ def postDiary(request):
             emotion=emotion,
         )
         new_article.save()
-        return redirect('/main/')
+        return redirect('calendar')
     elif request.method == 'POST' and request.POST['title'] == '' :
         context = {'written' : request.POST['content']}
         return render(request, 'mainApp/diary_post.html', context)

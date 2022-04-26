@@ -32,23 +32,43 @@
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item active">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div data-i18n="Boxicons">달력으로 보기</div>
+
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">상세 보기</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item active">
+                  <a href="{% url 'calendar' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <div data-i18n="Boxicons">달력으로 보기</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'chart' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                    <div data-i18n="Boxicons">차트로 보기</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'media' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-music"></i>
+                    <div data-i18n="Boxicons">Media 추천보기</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="menu-item">
+
             </li>
             <li class="menu-item">
-              <a href="{% url 'chart'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-                <div data-i18n="Boxicons">차트로 보기</div>
-              </a>
+
             </li>
             <li class="menu-item">
-              <a href="{% url 'media'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-music"></i>
-                <div data-i18n="Boxicons">Media 추천</div>
-              </a>
+              
             </li>
             <li class="menu-item">
               <a href="{% url 'remind'%}" class="menu-link">
@@ -201,27 +221,42 @@
 
               <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                  var calendarEl = document.getElementById('calendar');
-                  let eventDict = {}
-                  eventDict['post'] = ['테스트']
-                  eventDict['date'] = ['2022-04-01']
-                  eventDict['url'] = ['https://www.google.com']
                   
+                  var calendarEl = document.getElementById('calendar');
+                  let eventDict = {}                  
+                  var diary = "{{ diary }}"
+                    
                   var calendar = new FullCalendar.Calendar(calendarEl, {
-                    // initialDate: '2020-09-12',
+                    customButtons: {
+                      myCustomButton: {
+                        text: '글쓰기',
+                        click: function() {
+
+                          window.location.href="{% url 'post' %}"; // 다이어리 작성 링크
+                        }
+                      }
+                    },
+                    headerToolbar: {
+                      left: 'myCustomButton',
+                      center: 'title',
+                      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
                     selectable: true,
                     businessHours: true,
                     dayMaxEvents: true, // allow "more" link when too many events
                     
                     events: [
-                      {
-                        title: eventDict['post'][0],
-                        start: eventDict['date'][0],
-                        url: eventDict['url'][0],
-                        // url 연결 연습
-                      },
+                      {% for diary1 in diary %}
+                          {
+                            title: "{{ diary1.title }}",
+                            date: "{{ diary1.date | date:'Y-m-d' }}",
+                            url : "{% url 'diary_view' id=diary1.id %}" //다이어리 view 링크
+                          },
+                        {% endfor %}
                     ]
+                    // 다이어리 데이터 이벤트에 추가
                   });
+                  
                   calendar.render();
                 });
               </script>
