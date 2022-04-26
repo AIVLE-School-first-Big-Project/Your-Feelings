@@ -41,7 +41,7 @@ def showMedia(request):
 
 def showRemind(request):
     current_user = Users.objects.get(id=request.user.id)
-    diary = Diary.objects.filter(user_id=current_user).order_by('date')
+    diary = Diary.objects.filter(user_id=current_user).order_by('-date')
     context ={
         'diary' : diary,
     }
