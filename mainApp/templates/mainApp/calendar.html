@@ -173,7 +173,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{% url 'user:mypage' %}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -226,12 +226,12 @@
                   let eventDict = {}                  
                   var diary = "{{ diary }}"
                     
-                  var calendar = new FullCalendar.Calendar(calendarEl, {
+                  var calendar = new FullCalendar.Calendar(calendarEl,{
+                    height:780,
                     customButtons: {
                       myCustomButton: {
                         text: '글쓰기',
                         click: function() {
-
                           window.location.href="{% url 'post' %}"; // 다이어리 작성 링크
                         }
                       }
@@ -253,7 +253,8 @@
                             url : "{% url 'diary_view' id=diary1.id %}" //다이어리 view 링크
                           },
                         {% endfor %}
-                    ]
+                    ],
+                    eventColor: '#bd96fc'
                     // 다이어리 데이터 이벤트에 추가
                   });
                   
