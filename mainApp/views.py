@@ -40,7 +40,12 @@ def showMedia(request):
 
 
 def showRemind(request):
-    return render(request, 'mainApp/remind.html', {})
+    current_user = Users.objects.get(id=request.user.id)
+    diary = Diary.objects.filter(user_id=current_user).order_by('date')
+    context ={
+        'diary' : diary,
+    }
+    return render(request, 'mainApp/remind.html', context)
 
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
