@@ -12,9 +12,11 @@ from django.utils import timezone
 import datetime
 import requests
 import json
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
-API_URL = 'http://3.34.5.170:5000/kobert?text='
+KOBERT_API_URL = 'http://3.34.5.170:5000/kobert?text='
 
 def showMain(request):
     return render(request, 'mainApp/main.html', {})
@@ -58,25 +60,32 @@ def postDiary(request):
         content=request.POST['content']
         open_status=request.POST['open_status']
         date=datetime.datetime.now().strftime('%Y-%m-%d')
-        api_result=requests.get(API_URL+content).text
-        emotion = Emotion.objects.create(
-            description=json.loads(api_result),
-        )
+        #api_result=requests.get(KOBERT_API_URL+content).text
+        #emotion = Emotion.objects.create(
+        #    description=json.loads(api_result),
+        #)
         # print('cur user id:', request.user.id)
         # print('emotion:', json.loads(api_result))
-        
         current_user = Users.objects.get(id=request.user.id)
-        new_article=Diary.objects.create(
-            user_id=current_user,
-            title=title,
-            content=content,
-            open_status=open_status,
-            date=date,
-            image=image,
-            emotion=emotion,
-        )
-        new_article.save()
-        return redirect('calendar')
+        try:
+            todaydiary = Diary.objects.get(user_id=current_user, date=date)
+        except ObjectDoesNotExist:
+            todaydiary = 1
+        if todaydiary == 1:
+            new_article=Diary.objects.create(
+                    user_id=current_user,
+                    title=title,
+                    content=content,
+                    open_status=open_status,
+                    date=date,
+                    image=image,
+                    #emotion=emotion,
+                )
+            new_article.save()
+            return redirect('calendar')
+        else :
+            messages.warning(request, "이미 작성한 다이어리가 있어요.")
+            return redirect('calendar')                
     elif request.method == 'POST' and request.POST['title'] == '' :
         context = {'written' : request.POST['content']}
         return render(request, 'mainApp/diary_post.html', context)
