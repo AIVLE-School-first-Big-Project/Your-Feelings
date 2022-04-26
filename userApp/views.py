@@ -4,6 +4,13 @@ from django.urls import reverse
 from .models import Users
 from django.contrib import auth
 
+# def if_session(request):
+#     username = request.user
+
+#     if username:
+#         user = Users.objects.get(username=username)
+#         return 
+
 
 def signup(request):
     if request.method == "POST":
@@ -17,8 +24,8 @@ def signup(request):
                 email = request.POST.get("email"),
                 full_name = request.POST.get("full_name")
             )
-            auth.login(request, user)
-            return redirect("user:login")
+            # auth.login(request, user)
+            return redirect("main")
         else:
             return render(request, "userApp/signup.html", {'error': "비밀번호가 일치하지 않습니다"})
     return render(request, "userApp/signup.html")
@@ -35,7 +42,7 @@ def login(request):
 
             if password != user.password:
                 context['error'] = "비밀번호가 틀렸습니다"
-                return render(request, "userApp/login.html")
+                return render(request, "userApp/login.html", context)
         except Users.DoesNotExist:
             context['error'] = "존재하지 않는 아이디입니다"
             return render(request, "userApp/login")
@@ -47,7 +54,7 @@ def login(request):
         return render(request, 'userApp/login.html')
 
 def logout(request):
-    request.session.flush()
+    auth.logout(request)
     return redirect("main")
 
 
@@ -57,7 +64,20 @@ def mypage(request):
 
     context['user'] = user
 
-    return render(request, "userApp/mypage.html")
+    return render(request, "userApp/mypage.html", context)
 
+
+def update(request):
+
+    return render(request, "userApp/update.html")
+
+
+def delete(request):
+    username = request.user
+    user = Users.objects.get(username=username)
+
+    user.delete()
+    auth.logout(request)
+    return redirect("main")
 
     

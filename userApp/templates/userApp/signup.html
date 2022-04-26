@@ -45,7 +45,32 @@
                 <p class="mb-4">Make your app management easy and fun!</p>
   
                 <form id="formAuthentication" class="mb-3" action="{% url 'user:signup' %}" method="POST">
-                    {% csrf_token %}
+                  {% csrf_token %}
+
+                  {% if form.errors %}
+                  <div class="alert alert-primary alert-dismissible" role="alert">
+
+                    {% for field in form %}
+                    <!-- 필드 오류 -->
+                      {% if field.errors %}
+                      <div>
+                          <strong>{{ field.label }}</strong>
+                          {{ field.errors }}
+                      </div>
+                      {% endif %}
+                    {% endfor %}
+
+                    <!-- 넌필드 오류 -->
+                    {% for error in form.non_field_errors %}
+                      <div>
+                          <strong>{{ error }}</strong>
+                      </div>
+                    {% endfor %}
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  {% endif %}
+
                   <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input
@@ -57,15 +82,16 @@
                       autofocus
                     />
                   </div>
+                  
 
                   <div class="mb-3 form-password-toggle">
                     <label class="form-label" for="password">Password</label>
                     <div class="input-group input-group-merge">
                       <input
                         type="password"
-                        id="password"
+                        id="password1"
                         class="form-control"
-                        name="password"
+                        name="password1"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password"
                       />
@@ -93,7 +119,7 @@
                       class="form-control"
                       id="full_name"
                       name="full_name"
-                      placeholder="Enter your full_name"
+                      placeholder="Enter your full name"
                       autofocus
                     />
                   </div>
@@ -107,13 +133,9 @@
                   </form>
                 
                 <p class="text-center">
-                  <span>Already have an account?</span>
-<<<<<<< HEAD
+                  <span>이미 계정이 있으신가요?</span>
                   <a href="{% url 'user:login'%}">
-=======
-                  <a href="{% url "user:login"%}">
->>>>>>> 48f437172e16ed5b07defa9c53a047cd0e735de2
-                    <span>Sign in instead</span>
+                    <span>로그인하러 고!</span>
                   </a>
                 </p>
               </div>

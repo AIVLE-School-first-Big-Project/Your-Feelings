@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 48f437172e16ed5b07defa9c53a047cd0e735de2
 {% extends 'mainApp/base.html' %}
 {% load static %}
 
@@ -22,8 +18,8 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+              <h4 class="mb-2">How do you feel today? 👋</h4>
+              <p class="mb-4">오늘의 기분을 기록하러 가볼까요?</p>
 
               <form class="mb-3" action="{% url 'user:login' %}" method="POST">
                 {% csrf_token %}
@@ -83,9 +79,9 @@
               </form>
 
               <p class="text-center">
-                <span>New on our platform?</span>
+                <span>아직 회원이 아니신가요?</span>
                 <a href="{% url 'user:signup'%}">
-                  <span>Create an account</span>
+                  <span>회원 가입하러 고!</span>
                 </a>
               </p>
             </div>
