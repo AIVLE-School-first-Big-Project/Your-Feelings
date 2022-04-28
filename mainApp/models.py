@@ -15,6 +15,7 @@ class Diary(models.Model):
     date = models.DateTimeField(null=True,)
     emotion = models.ForeignKey(Emotion, null=True, on_delete=models.PROTECT)
     image = models.ImageField(blank=True, upload_to='media/')   # 사용지가 글 쓸 때 첨부하는 사진
+
     
 
 # 감정별 랜덤으로 지정해주는 사진 데베
