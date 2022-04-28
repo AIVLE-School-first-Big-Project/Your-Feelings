@@ -51,10 +51,10 @@ def showDiary_view(request, id):
     showdiary = Diary.objects.get(
         id=id
         )
-    diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
+    #diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
     context ={
         'showdiary' : showdiary,
-        'diaryemotion' : diaryemotion
+        #'diaryemotion' : diaryemotion
     }
     return render(request, 'mainApp/diary_view.html', context)
 
