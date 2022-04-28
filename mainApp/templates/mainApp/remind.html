@@ -257,12 +257,12 @@
                       <tr> 
                         {% for diary in diary %}
                         <td>
-                          <div class="card mb-3" style="width: 23rem; height:36rem;">
+                          <div class="card mb-3" style="width: 23rem; height:630px;">
                             <img class="card-img-top" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" alt="Card image cap" />
                             <div class="card-body">
                               <h1 class="card-title" style="font-family: 'Nanum Pen Script', cursive;">{{ diary.title }}</h1>
                               <p class="card-text">
-                                {{ diary.content }}
+                                {{diary.content|safe|striptags|truncatechars:60}}
                               </p>
                               <img class="card-img-top" src="{% static 'mainApp/assets/img/favicon/1.png'%}" style="width:70px;height:70px;float:right" />
                               <p class="card-text">
