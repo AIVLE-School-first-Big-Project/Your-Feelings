@@ -175,7 +175,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{% url 'user:mypage' %}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -220,20 +220,103 @@
                   {%include 'mainApp/tamagotchi_detail/detail_1.html'%}
                 </div>
 
-                <div class="row">
+                <div class="row justify-content-center">
                   <div class="col">
                     <div class="card">
-                      a
+                      <h5 class="card-header">'너의 기분은'과 함께한 기간</h5>
+                      <div class="card-body">
+
+                      </div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="card">
-                      b
+                      <h5 class="card-header">작성한 글</h5>
+                      <div class="card-body">
+                        
+                      </div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="card">
-                      c
+                      <h5 class="card-header">수집한 감정</h5>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/anger_1.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/anger_2.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/disgust_1.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/disgust_2.png'%}" class='img-fluid'>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/disgust_3.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/disgust_4.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/fear_1.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/joy_1.png'%}" class='img-fluid'>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/joy_2.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/joy_3.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/joy_4.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/joy_5.png'%}" class='img-fluid'>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/neutral_1.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/neutral_2.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/neutral_3.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/sadness_1.png'%}" class='img-fluid'>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/sadness_2.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/sadness_3.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/surprise_1.png'%}" class='img-fluid'>
+                          </div>
+                          <div class="col-3">
+                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              data-bs-html="true"
+                              title="아직 수집하지 못했어요!"
+                            >
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block edge %}
-<script src="https://unpkg.com/typeit@8.4.0/dist/index.umd.js"></script>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -11,6 +10,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="d-flex justify-content-center">
+
             <a href="{% url 'main' %}" class="app-brand-link">
               <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
             </a>
@@ -25,30 +25,50 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="{% url 'main'%}" class="menu-link">
+              <a href="{% url 'main' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">메인 페이지</div>
               </a>
             </li>
 
             <!-- Layouts -->
-            <li class="menu-item">
-              <a href="{% url 'calendar'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div data-i18n="Boxicons">달력으로 보기</div>
+
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">상세 보기</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item active">
+                  <a href="{% url 'calendar' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <div data-i18n="Boxicons">달력으로 보기</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'chart' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                    <div data-i18n="Boxicons">차트로 보기</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'media' %}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-music"></i>
+                    <div data-i18n="Boxicons">Media 추천보기</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="menu-item">
+
             </li>
             <li class="menu-item">
-              <a href="{% url 'chart'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-                <div data-i18n="Boxicons">차트로 보기</div>
-              </a>
+
             </li>
-            <li class="menu-item active">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-music"></i>
-                <div data-i18n="Boxicons">Media 추천</div>
-              </a>
+            <li class="menu-item">
+              
             </li>
             <li class="menu-item">
               <a href="{% url 'remind'%}" class="menu-link">
@@ -56,7 +76,12 @@
                 <div data-i18n="Boxicons">추억 돌아보기</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="{% url 'tamagotchi' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div data-i18n="Boxicons">알 키우기</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
@@ -77,50 +102,49 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
-                <div class="navbar-nav align-items-center">
-                  <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="date"/>
-                    <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
-                  </div>
-  
-                  <script>
-                    function showTime(){
-                      var date = new Date();
-                      var h = date.getHours(); // 0 - 23
-                      var m = date.getMinutes(); // 0 - 59
-                      var s = date.getSeconds(); // 0 - 59
-                      var session = "AM";
-                      
-                      if(h == 0){
-                          h = 12;
-                      }
-                      
-                      if(h > 12){
-                          h = h - 12;
-                          session = "PM";
-                      }
-                      
-                      h = (h < 10) ? "0" + h : h;
-                      m = (m < 10) ? "0" + m : m;
-                      s = (s < 10) ? "0" + s : s;
-                      
-                      var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
-                      document.getElementById("CurrentTime").innerText = time;
-                      document.getElementById("CurrentTime").textContent = time;
-                      
-                      setTimeout(showTime, 1000);
-                      
-                  }
-                  
-                  showTime();
-                  </script>
+                <div class="nav-item d-flex align-items-center">
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <input type="date"/>
                 </div>
+                
+
               </div>
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
+                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                <script>
+                  function showTime(){
+                    var date = new Date();
+                    var h = date.getHours(); // 0 - 23
+                    var m = date.getMinutes(); // 0 - 59
+                    var s = date.getSeconds(); // 0 - 59
+                    var session = "AM";
+                    
+                    if(h == 0){
+                        h = 12;
+                    }
+                    
+                    if(h > 12){
+                        h = h - 12;
+                        session = "PM";
+                    }
+                    
+                    h = (h < 10) ? "0" + h : h;
+                    m = (m < 10) ? "0" + m : m;
+                    s = (s < 10) ? "0" + s : s;
+                    
+                    var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
+                    document.getElementById("CurrentTime").innerText = time;
+                    document.getElementById("CurrentTime").textContent = time;
+                    
+                    setTimeout(showTime, 1000);
+                    
+                }
+                
+                showTime();
+                </script>
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -140,7 +164,7 @@
                             {% if user.is_authenticated %}
                             <span class="fw-semibold d-block">{{ user.username }}</span>
                             <small class="text-muted">User</small>
-                          {% endif %}
+                            {% endif %}
                           </div>
                         </div>
                       </a>
@@ -149,7 +173,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{% url 'user:mypage' %}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -184,14 +208,23 @@
           <!-- / Navbar -->
 
 
-
-          <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container">
               <!-- {% block content %} -->
-              <div class="row"><br><br><br></div>
+              <div class="row row-cols-6  g-4">
+                <div class="col">
+                </div>
+                <div class="col">
+                  <a href="{% url 'calendar'%}" >
+                  <button  type="button" class="btn btn-primary me-2" href="{% url 'calendar' %}" aria-pressed="true">
+                    <i class="bx bx-left-arrow-circle bx-fade-left"></i> 이전
+                  </button>
+                </a>
+                </div>
+                
+              </div>
               <div class="row row-cols-6  g-4">
                 <div class="col">
                 </div>
@@ -223,6 +256,8 @@
 
               <!-- {% endblock content %} -->
             </div>
+          
+
             <!-- / Content -->
 
             <!-- Footer -->
