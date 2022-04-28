@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 class SignupForm(forms.ModelForm):
     class Meta:
         model = Users
-        fields = ['full_name', 'username', 'password1']
+        fields = ['full_name', 'username', 'password']
 
     
     # def clean_username(self):

@@ -46,7 +46,7 @@ def signup(request):
                 return redirect('user:login')
         else:
             form = SignupForm()
-    return render(request, 'userApp/signup')
+    return render(request, 'userApp/signup.html')
             
 
 def login(request):

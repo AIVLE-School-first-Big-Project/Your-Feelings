@@ -233,7 +233,11 @@
 
                   <br>
                   <div class="card" >
-                    <img class="card-img-top" src="{%static 'mainApp/assets/img/backgrounds/18.jpg'%}" alt="Card image cap" />
+                    {% if showdiary.image %}
+                      <img class="card-img-top" src='{{showdiary.image.url}}' style="height:400px;" alt="Card image cap" />
+                    {% else %}
+                      <img class="card-img-top" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="height:400px;" alt="Card image cap" />
+                    {% endif %}
                     <div class="card-body">
                       <h2 class="card-title" ><h1 class="display-1" style="font-family: 'Yeon Sung', cursive;">{{ showdiary.title }}</h1></h2>
                       <br>
