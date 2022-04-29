@@ -107,8 +107,12 @@ def showTamagotchi(request):
     totaldiary = Diary.objects.filter(user_id=now_user)
     duringtime = now_user.last_login - now_user.date_joined
     totaldiarynum = len(totaldiary)
+    point = duringtime.days + totaldiarynum
+    daypercent = duringtime.days/365*100
     context ={
-        'duringtime' : duringtime,
+        'duringtime' : duringtime.days,
         'totaldiary' : totaldiarynum,
+        'point' : point,
+        'daypercent' : daypercent,
     }
     return render(request, 'mainApp/tamagotchi.html', context)
