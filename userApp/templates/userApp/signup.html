@@ -17,30 +17,22 @@
                     <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
                 </div>
                 <!-- /Logo -->
-                <h4 class="mb-2">Adventure starts here 🚀</h4>
-                <p class="mb-4">Make your app management easy and fun!</p>
+                <h4 class="mb-2">Join us!</h4>
+                <p class="mb-4">We will fill your life with happiness</p>
   
                 <form id="formAuthentication" class="mb-3" action="{% url 'user:signup' %}" method="POST">
                   {% csrf_token %}
+                  {% if error %}
+                    <strong>{{ error }} </strong>
+                  {% endif%}
 
                   {% if form.errors %}
                   <div class="alert alert-primary alert-dismissible" role="alert">
 
                     {% for field in form %}
-                    <!-- 필드 오류 -->
-                      {% if field.errors %}
-                      <div>
-                          <strong>{{ field.label }}</strong>
-                          {{ field.errors }}
-                      </div>
-                      {% endif %}
-                    {% endfor %}
-
-                    <!-- 넌필드 오류 -->
-                    {% for error in form.non_field_errors %}
-                      <div>
-                          <strong>{{ error }}</strong>
-                      </div>
+                      {% for error in field.errors %}
+                        {{ field.label}} : {{ error }}<br>
+                      {% endfor %}
                     {% endfor %}
                     
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -75,7 +67,7 @@
                     </div>
                   </div>
                   <div class="mb-3 form-password-toggle">
-                    <label class="form-label" for="password">Re-enter Password</label>
+                    <label class="form-label" for="password2">Re-enter Password</label>
                     <div class="input-group input-group-merge">
                       <input
                         type="password"
