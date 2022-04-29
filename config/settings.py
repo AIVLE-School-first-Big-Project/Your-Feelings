@@ -143,3 +143,5 @@ LOGIN_REDIRECT_URL = '/main/'
 LOGOUT_REDIRECT_URL = '/user/login'
 
 AUTH_USER_MODEL = "userApp.Users"
+
+DJANGO_SETTINGS_MODULE = "YOUR-FEELINGS.config.settings"

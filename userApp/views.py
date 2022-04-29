@@ -6,38 +6,23 @@ from userApp.forms import SignupForm
 from .models import Users
 from django.contrib import auth
 
-# def if_session(request):
-#     username = request.user
-
-#     if username:
-#         user = Users.objects.get(username=username)
-#         return 
-
 
 def signup(request):
-    # if request.method == "POST":
-    #     pw1 = request.POST.get("password")
-    #     pw2 = request.POST.get("password2")
-
-    #     if pw1 == pw2:
-    #         user = Users.objects.create_user(
-    #             username = request.POST.get("username"),
-    #             password = request.POST.get("password"),
-    #             email = request.POST.get("email"),
-    #             full_name = request.POST.get("full_name")
-    #         )
-    #         # auth.login(request, user)
-    #         return redirect("main")
-    #     else:
-    #         return render(request, "userApp/signup.html", {'error': "비밀번호가 일치하지 않습니다"})
-    # return render(request, "userApp/signup.html")
-
-    if request.method == "POST":
+    if request.method == 'POST':
         form = SignupForm(request.POST)
-        context ={}
-        password2 = request.POST.get('password2')
-
         if form.is_valid():
+<<<<<<< HEAD
+            form.save()
+
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = auth.authenticate(username=username, password=raw_password)
+            auth.login(request, user)
+            return redirect("main")
+    else:
+        form = SignupForm()
+    return render(request, 'userApp/signup.html', {'form': form})
+=======
             if form.password1 != password2:
                 context['error'] = "비밀번호가 일치하지 않습니다."
                 return render(request, "userApp/signup", context)
@@ -47,6 +32,7 @@ def signup(request):
         else:
             form = SignupForm()
     return render(request, 'userApp/signup.html')
+>>>>>>> c86bff43381af0b1475b1ed9d23ef7c1e01ad33b
             
 
 def login(request):
@@ -64,7 +50,7 @@ def login(request):
                 return render(request, "userApp/login.html", context)
         except Users.DoesNotExist:
             context['error'] = "존재하지 않는 아이디입니다"
-            return render(request, "userApp/login")
+            return render(request, "userApp/login.html")
         else:
             request.session['username'] = user.username
             request.session['password'] = user.password
