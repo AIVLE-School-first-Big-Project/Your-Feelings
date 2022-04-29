@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Users
 
 class SignupForm(UserCreationForm):
@@ -16,3 +16,12 @@ class SignupForm(UserCreationForm):
             'email': '이메일',
             'full_name': '이름',
         }
+
+
+
+class EditProfileForm(UserChangeForm):
+    full_name = forms.CharField(max_length=50, required=True, help_text="이름을 입력해주세요")
+    
+    class Meta:
+        model = Users
+        fields = ['full_name', 'password']

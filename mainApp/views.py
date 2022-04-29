@@ -63,7 +63,10 @@ def postDiary(request):
         image=request.FILES['image'] if request.FILES else None
         title=request.POST['title']
         content=request.POST['content']
-        open_status=request.POST['open_status']
+        try:
+            open_status=request.POST['open_status']
+        except:
+            messages.warning(request, "공개 여부를 선택해주세요")
         date=datetime.datetime.now().strftime('%Y-%m-%d')
         #api_result=requests.get(KOBERT_API_URL+content).text
         #emotion = Emotion.objects.create(

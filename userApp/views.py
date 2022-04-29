@@ -1,38 +1,24 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-
-from userApp.forms import SignupForm
-from .models import Users
+from userApp.forms import SignupForm, EditProfileForm
 from django.contrib import auth
+
+from .models import Users
 
 
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-<<<<<<< HEAD
             form.save()
 
             username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password')
+            raw_password = form.cleaned_data.get('password1')
             user = auth.authenticate(username=username, password=raw_password)
-            auth.login(request, user)
-            return redirect("main")
+            # auth.login(request, user)
+            return redirect("user:login")
     else:
         form = SignupForm()
     return render(request, 'userApp/signup.html', {'form': form})
-=======
-            if form.password1 != password2:
-                context['error'] = "비밀번호가 일치하지 않습니다."
-                return render(request, "userApp/signup", context)
-            else:
-                form.save()
-                return redirect('user:login')
-        else:
-            form = SignupForm()
-    return render(request, 'userApp/signup.html')
->>>>>>> c86bff43381af0b1475b1ed9d23ef7c1e01ad33b
             
 
 def login(request):
@@ -72,14 +58,23 @@ def mypage(request):
     return render(request, "userApp/mypage.html", context)
 
 
-def update(request):
+def edit_profile(request):
+    user = request.user
 
-    username = request.user
-    user = Users.objects.get(username=username)
+    if request.method == "POST":
+        form = EditProfileForm(data=request.POST, instance=user)
+
+        if form.is_valid():
+            form.save()
+            return redirect("user:mypage")
+    else:
+        form = EditProfileForm(instance=user)
+    
+    return render(request, "userApp/edit_profile.html", {'form': form})
 
 
-
-    return render(request, "userApp/update.html")
+def edit_password(request):
+    pass
 
 
 def delete(request):
