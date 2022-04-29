@@ -11,7 +11,6 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-<<<<<<< HEAD
             form.save()
 
             username = form.cleaned_data.get('username')
@@ -22,17 +21,6 @@ def signup(request):
     else:
         form = SignupForm()
     return render(request, 'userApp/signup.html', {'form': form})
-=======
-            if form.password1 != password2:
-                context['error'] = "비밀번호가 일치하지 않습니다."
-                return render(request, "userApp/signup", context)
-            else:
-                form.save()
-                return redirect('user:login')
-        else:
-            form = SignupForm()
-    return render(request, 'userApp/signup.html')
->>>>>>> c86bff43381af0b1475b1ed9d23ef7c1e01ad33b
             
 
 def login(request):
