@@ -100,4 +100,12 @@ def postDiary(request):
 
 
 def showTamagotchi(request):
-    return render(request, 'mainApp/tamagotchi.html', {})
+    now_user = Users.objects.get(id=request.user.id)
+    totaldiary = Diary.objects.filter(user_id=now_user)
+    duringtime = now_user.last_login - now_user.date_joined
+    totaldiarynum = len(totaldiary)
+    context ={
+        'duringtime' : duringtime,
+        'totaldiary' : totaldiarynum,
+    }
+    return render(request, 'mainApp/tamagotchi.html', context)
