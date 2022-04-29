@@ -9,7 +9,7 @@
     height :11px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #d2b6ff;
+    background-color: #3f3761;
     border-radius: 10px;
   }
   ::-webkit-scrollbar-track {
@@ -252,31 +252,45 @@
               <div class="row">
                 <div style="overflow-x:auto; ">
                 <div class="col">
-
+                    <br><br>
                     <table> 
                       <tr> 
                         {% for diary in diary %}
+                        {% if diary.id|divisibleby:3 %}
                         <td>
-                          <div class="card mb-3" style="width: 23rem; height:630px;">
-                            {% if diary.image %}
-                              <img class="card-img-top" src='{{diary.image.url}}' style="height:400px;" alt="Card image cap" />
+                          <a href="{% url 'diary_view' id=diary.id %}">
+                            <div class="card mb-3">
+                              {% if diary.image %}
+                              <img src='{{diary.image.url}}' class="card-img" style="width: 23rem; height:450px" alt="...">
                             {% else %}
-                              <img class="card-img-top" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="height:400px;" alt="Card image cap" />
+                              <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="width: 23rem; height:450px" class="card-img" alt="...">
                             {% endif %}
-                            
-                            <div class="card-body">
-                              <h1 class="card-title" style="font-family: 'Nanum Pen Script', cursive;">{{ diary.title }}</h1>
-                              <p class="card-text">
-                                {{diary.content|safe|striptags|truncatechars:60}}
-                              </p>
-                              <img class="card-img-top" src="{% static 'mainApp/assets/img/favicon/1.png'%}" style="width:70px;height:70px;float:right" />
-                              <p class="card-text">
-                                <br>
-                                <small class="text-muted">{{ diary.date|date:'Y-m-d' }}</small>
-                              </p>
+                              <div class="card-body">
+                                <h5 class="card-title"style="font-family: 'Poor Story', cursive; font-weight: bold;">{{ diary.title }}</h5>
+                                <p class="card-text"></p>
+                                <p class="card-text"><small class="text-muted">{{ diary.date|date:'Y-m-d' }}</small></p>
+                              </div>
                             </div>
-                          </div>
+                        </a>
                         </td> 
+                        {% else %}
+                        <td>
+                          <a href="{% url 'diary_view' id=diary.id %}">
+                            <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title"style="font-family: 'Poor Story', cursive; font-weight: bold;">{{ diary.title }}</h5>
+                                <p class="card-text"></p>
+                                <p class="card-text"><small class="text-muted">{{ diary.date|date:'Y-m-d' }}</small></p>
+                              </div>
+                              {% if diary.image %}
+                              <img src='{{diary.image.url}}' class="card-img-bottom" style="width: 23rem; height:450px" alt="...">
+                            {% else %}
+                              <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="width: 23rem; height:450px" class="card-img-bottom" alt="...">
+                            {% endif %}
+                            </div>
+                        </a>
+                        </td> 
+                        {% endif %}
                         {% endfor %}
                       </tr> 
                     </table>
