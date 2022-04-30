@@ -249,8 +249,14 @@
                   <div class="col">
                     <div class="card" style = "height:500px;">
                       <h3 class="card-header" style="font-family: 'Poor Story', cursive; font-size:40px; font-weight: bold;">작성한 글</h3>
-                      <div class="card-body">
-                        {{ totaldiary }}
+                      <div class="card-body text-center">
+                        <div class="d-flex align-items-center justify-content-center" style="height: 350px;">
+                          <b>
+                            <p class="fs-1">{{ totaldiary }}</p>
+                          </b>
+                        </div>
+                        
+                        
                       </div>
                     </div>
                   </div>
@@ -262,49 +268,58 @@
                           <div class="col-3">
                             {% if  point > 1 %}
                             <img src="{% static 'img/emotion/emotion/anger_1.png'%}" class='img-fluid'>
+                            
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 2 %}
                             <img src="{% static 'img/emotion/emotion/anger_2.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 3 %}
                             <img src="{% static 'img/emotion/emotion/disgust_1.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 4 %}
                             <img src="{% static 'img/emotion/emotion/disgust_2.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                         </div>
@@ -313,48 +328,56 @@
                             {% if  point > 5 %}
                             <img src="{% static 'img/emotion/emotion/disgust_3.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 6 %}
                             <img src="{% static 'img/emotion/emotion/disgust_4.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 7 %}
                             <img src="{% static 'img/emotion/emotion/fear_1.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 8 %}
                             <img src="{% static 'img/emotion/emotion/joy_1.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                         </div>
@@ -363,48 +386,56 @@
                             {% if  point > 9 %}
                             <img src="{% static 'img/emotion/emotion/joy_2.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 10 %}
                             <img src="{% static 'img/emotion/emotion/joy_3.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 11 %}
                             <img src="{% static 'img/emotion/emotion/joy_4.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 12 %}
                             <img src="{% static 'img/emotion/emotion/joy_5.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                         </div>
@@ -413,48 +444,56 @@
                             {% if  point > 13 %}
                             <img src="{% static 'img/emotion/emotion/neutral_1.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 14 %}
                             <img src="{% static 'img/emotion/emotion/neutral_2.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 15 %}
                             <img src="{% static 'img/emotion/emotion/neutral_3.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 16 %}
                             <img src="{% static 'img/emotion/emotion/sadness_1.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                         </div>
@@ -463,46 +502,54 @@
                             {% if  point > 17 %}
                             <img src="{% static 'img/emotion/emotion/sadness_2.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 18 %}
                             <img src="{% static 'img/emotion/emotion/sadness_3.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             {% if  point > 19 %}
                             <img src="{% static 'img/emotion/emotion/surprise_1.png'%}" class='img-fluid'>
                             {% else %}
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                             {% endif %}
                           </div>
                           <div class="col-3">
                             
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-html="true"
-                              title="아직 수집하지 못했어요!"
-                            >
+                            <div class="border border-success">
+                              <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class='img-fluid'
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="아직 수집하지 못했어요!"
+                              >
+                            </div>
                           </div>
                         </div>
                       </div>

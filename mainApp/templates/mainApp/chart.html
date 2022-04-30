@@ -205,46 +205,9 @@
           </nav>
 
           <!-- / Navbar -->
-          <script>
-            const labels1 = ['January','February','March','April','May','June'];
-            const data1 = {
-              labels: labels1,
-              datasets: [{
-                label: '월별 행복했던 횟수',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 10, 1, 8],
-              }]
-            };
-            const config1 = {
-              type: 'line',
-              data: data1,
-              options: {}
-            };
-          </script>
 
-          <script>
-            {% comment %} 라벨링에 따라 변동 {% endcomment %}
-            const labels2 = ['행복', '기쁨', '슬픔', '우울'];
-            const data2 = {
-              labels: labels2,
-              datasets: [{
-                label: '감정 모아보기',
-                data: [3, 19, 2, 1],
-                backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                'rgb(0, 205, 86)',
-              ],
-              }]
-            };
-            const config2 = {
-              type: 'doughnut',
-              data: data2,
-              options: {}
-            };
-          </script>
+
+
 
 
           <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
@@ -253,26 +216,59 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
+              <div class="row">
+                <h6 class="text-muted">Basic</h6>
+                <div class="nav-align-top mb-4">
+                  <ul class="nav nav-pills mb-3" role="tablist">
+                    <li class="nav-item">
+                      <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home" aria-selected="true">
+                        월별 보기
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile" aria-selected="false">
+                        감정별 보기
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-messages" aria-controls="navs-pills-top-messages" aria-selected="false">
+                        빈 탭
+                      </button>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane fade active show" id="navs-pills-top-home" role="tabpanel">
+                      {%include 'mainApp/chart_detail/line_chart.html'%}
+                    </div>
+                    <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
+                      <div class="d-flex justify-content-center">
+                        <div class="col-6">
+                          {%include 'mainApp/chart_detail/doughnut_chart.html'%}
+                        </div>
+                      </div>
+                      </div>
+                    <div class="tab-pane fade" id="navs-pills-top-messages" role="tabpanel">
+                      <p>
+                        Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
+                        cupcake gummi bears cake chocolate.
+                      </p>
+                      <p class="mb-0">
+                        Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie brownie cake. Sweet
+                        roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
+                        jelly-o tart brownie jelly.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="row">
                 <!-- Bootstrap carousel -->
                 <div class="col-4">
-                  <canvas id="happySum"></canvas>
-                    <script>
-                      const happySum = new Chart(
-                              document.getElementById('happySum'),
-                              config1
-                            );
-                    </script>
+                  
                 </div>
                 <div class="col-4">
-                  <canvas id="felling"  style="margin: 10 auto;"></canvas>
-                  <script>
-                    const felling = new Chart(
-                              document.getElementById('felling'),
-                              config2
-                            );
-                  </script>
+                  
                 </div>
               </div>
 

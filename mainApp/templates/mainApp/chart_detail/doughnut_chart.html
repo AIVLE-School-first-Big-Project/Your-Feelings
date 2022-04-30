@@ -1,0 +1,30 @@
+<script>
+  {% comment %} 라벨링에 따라 변동 {% endcomment %}
+  const labels2 = ['행복', '기쁨', '슬픔', '우울'];
+  const data2 = {
+    labels: labels2,
+    datasets: [{
+      label: '감정 모아보기',
+      data: [3, 19, 2, 1],
+      backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)',
+      'rgb(0, 205, 86)',
+    ],
+    }]
+  };
+  const config2 = {
+    type: 'doughnut',
+    data: data2,
+    options: {}
+  };
+</script>
+
+<canvas id="felling"  style="margin: 10 auto;"></canvas>
+<script>
+  const felling = new Chart(
+            document.getElementById('felling'),
+            config2
+          );
+</script>
