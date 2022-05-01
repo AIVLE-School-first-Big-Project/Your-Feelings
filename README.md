@@ -52,12 +52,12 @@
 - url = '3.35.8.82:5000/kobert?text=' + 텍스트  
 - return type = dictionary  
 
-![](./README_media/kobert.PNG)
+![](./README_media/kobert.png)
 
 ### BERT
 - url = '3.35.8.82:5000/bert?text=' + 텍스트  
 - return type = dictionary  
 
-![](./README_media/bert.PNG)
+![](./README_media/bert.png)
 
 version-1.0
