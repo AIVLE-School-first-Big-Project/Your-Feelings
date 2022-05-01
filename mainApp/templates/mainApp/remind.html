@@ -260,11 +260,13 @@
                         <td>
                           <a href="{% url 'diary_view' id=diary.id %}">
                             <div class="card mb-3">
-                              {% if diary.image %}
-                              <img src='{{diary.image.url}}' class="card-img" style="width: 23rem; height:450px" alt="...">
-                            {% else %}
-                              <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="width: 23rem; height:450px" class="card-img" alt="...">
-                            {% endif %}
+                              <div style="width: 23rem; height:450px;">
+                                {% if diary.image %}
+                                <img src='{{diary.image.url}}' class="card-img" style="object-fit: cover;">
+                                {% else %}
+                                <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="object-fit: cover;" class="card-img" alt="...">
+                                {% endif %}
+                              </div>
                               <div class="card-body">
                                 <h5 class="card-title"style="font-family: 'Poor Story', cursive; font-weight: bold;">{{ diary.title }}</h5>
                                 <p class="card-text"></p>
@@ -282,11 +284,13 @@
                                 <p class="card-text"></p>
                                 <p class="card-text"><small class="text-muted">{{ diary.date|date:'Y-m-d' }}</small></p>
                               </div>
-                              {% if diary.image %}
-                              <img src='{{diary.image.url}}' class="card-img-bottom" style="width: 23rem; height:450px" alt="...">
-                            {% else %}
-                              <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="width: 23rem; height:450px" class="card-img-bottom" alt="...">
-                            {% endif %}
+                              <div style="width: 23rem; height:450px;">
+                                {% if diary.image %}
+                                <img src='{{diary.image.url}}' class="card-img-bottom" style="object-fit: cover;">
+                                {% else %}
+                                <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="object-fit: cover;" class="card-img-bottom" alt="...">
+                                {% endif %}
+                              </div>
                             </div>
                         </a>
                         </td> 
