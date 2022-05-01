@@ -14,12 +14,18 @@ import requests
 import json
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+import re
 # Create your views here.
 
-KOBERT_API_URL = 'http://3.34.5.170:5000/kobert?text='
+KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
 
 def showMain(request):
-    return render(request, 'mainApp/main.html', {})
+    current_user = Users.objects.get(id=request.user.id)
+    diary = Diary.objects.filter(user_id=current_user)
+    context ={
+        'diary' : diary,
+    }
+    return render(request, 'mainApp/main.html', context)
 
 
 def showCalendar(request):
@@ -51,10 +57,31 @@ def showDiary_view(request, id):
     showdiary = Diary.objects.get(
         id=id
         )
-    #diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
+    diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
+    bestemotion = diaryemotion.description
+    keys = []
+    values = []
+    emotion_list = bestemotion.split(",")
+    for emotion in emotion_list :
+        pair = emotion.split(":")
+        keys.append(pair[0])
+        values.append(pair[1])
+    dict_emotion = dict(zip(keys,values))
+    sort_emotion = sorted(dict_emotion.items(), key=lambda x: x[1], reverse=True)
+    firstemotion = sort_emotion[0][0].replace("'",'').replace("{",'').replace("}","")
+    firstvalue = float(sort_emotion[0][1])
+    secondemotion = sort_emotion[1][0].replace("'",'').replace("{",'').replace("}","")
+    secondvalue = float(sort_emotion[1][1])
+    thirdemotion = sort_emotion[2][0].replace("'",'').replace("{",'').replace("}","")
+    thirdvalue = float(sort_emotion[2][1])
     context ={
         'showdiary' : showdiary,
-        #'diaryemotion' : diaryemotion
+        'firstemotion' : firstemotion,
+        'firstvalue' : firstvalue,
+        'secondemotion' : secondemotion,
+        'secondvalue' : secondvalue,
+        'thirdemotion' : thirdemotion,
+        'thirdvalue' : thirdvalue,
     }
     return render(request, 'mainApp/diary_view.html', context)
 
@@ -68,10 +95,10 @@ def postDiary(request):
         except:
             messages.warning(request, "공개 여부를 선택해주세요")
         date=datetime.datetime.now().strftime('%Y-%m-%d')
-        #api_result=requests.get(KOBERT_API_URL+content).text
-        #emotion = Emotion.objects.create(
-        #    description=json.loads(api_result),
-        #)
+        api_result=requests.get(KOBERT_API_URL+content).text
+        emotion = Emotion.objects.create(
+            description=json.loads(api_result),
+        )
         # print('cur user id:', request.user.id)
         # print('emotion:', json.loads(api_result))
         current_user = Users.objects.get(id=request.user.id)
@@ -87,7 +114,7 @@ def postDiary(request):
                     open_status=open_status,
                     date=date,
                     image=image,
-                    #emotion=emotion,
+                    emotion=emotion,
                 )
             new_article.save()
             return redirect('calendar')
