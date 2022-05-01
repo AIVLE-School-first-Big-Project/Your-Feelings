@@ -1,4 +1,3 @@
-
 {% extends 'mainApp/base.html' %}
 {% load static %}
 
@@ -209,7 +208,7 @@
 
           <!-- / Navbar -->
 
-
+          <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -217,34 +216,43 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
-              
+              <div class="row">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <div class="col-6">
+                  <link href="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.css'%}" rel='stylesheet' />
+                  <script src="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.js'%}"> </script>
+                  {%include 'mainApp/calendar_detail/calendar_detail.html'%}
+                
+                </div>
+                <div class="col-6">
+                  <div class="row">
+                    <div class="card">
+                      <h5 class="card-header">월 별 감정 통계</h5>
+                      <div class="card-body">
+                        {%include 'mainApp/chart_detail/line_chart.html'%}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="card">
+                      <h5 class="card-header">이런 노래는 어때요?</h5>
+                      <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between ">
+                          <div class="w-25">
+                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class="img-fluid">
+                          </div>
+                          <div class="w-25">
+                            노래 제목 : ~~~
+                          </div>
+                          <div class="w-25">
+                            가수 : ~~~
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- {% endblock content %} -->
             </div>
             <!-- / Content -->
