@@ -242,12 +242,6 @@
                 <script>
                   new TypeIt("#myElement", {strings: "추억 돌아보기",}).go();
                 </script>
-
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
               </div>
                 <div class="w-5 btn-group">
                   <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -264,60 +258,108 @@
                     <li><a class="dropdown-item" href="javascript:void(0);">Paprika</a></li>
                   </ul>
                 </div>
-              <div class="row">
-                <div style="overflow-x:auto; ">
-                <div class="col">
-                    <br><br>
-                    <table> 
-                      <tr> 
-                        {% for diary in diary %}
-                        {% if diary.id|divisibleby:3 %}
-                        <td>
-                          <a href="{% url 'diary_view' id=diary.id %}">
-                            <div class="card mb-3">
-                              <div style="width: 23rem; height:450px;">
-                                {% if diary.image %}
-                                <img src='{{diary.image.url}}' class="card-img" style="object-fit: cover;">
-                                {% else %}
-                                <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="object-fit: cover;" class="card-img" alt="...">
-                                {% endif %}
-                              </div>
-                              <div class="card-body">
-                                <h5 class="card-title"style="font-family: 'Poor Story', cursive; font-weight: bold;">{{ diary.title }}</h5>
-                                <p class="card-text"></p>
-                                <p class="card-text"><small class="text-muted">{{ diary.date|date:'Y-m-d' }}</small></p>
-                              </div>
-                            </div>
-                        </a>
-                        </td> 
+                <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+              <div class="row mt-3">
+                <div>
+                  <style>
+                    .grid {
+                      background: #DDD;
+                    }
+                    
+                    /* clear fix */
+                    .grid:after {
+                      content: '';
+                      display: block;
+                      clear: both;
+                    }
+                    
+                    /* ---- .grid-item ---- */
+                    
+                    .grid-sizer,
+                    .grid-item {
+                      width: 33.3%;
+                    }
+                    
+                    .grid-item {
+                      float: left;
+                    }
+                    
+                    .grid-item img {
+                      display: block;
+                      max-width: 100%;
+                    }
+                    
+                    .bottom-right {
+                      position: absolute;
+                      bottom: 8px;
+                      right: 16px;
+                    }
+                  </style>
+                  <div class="grid">
+                    <div class="grid-sizer"></div>
+                    {% for diary in diary %}
+                    {% if diary.id%}
+                    <a href="{% url 'diary_view' id=diary.id %}">
+                      <div class="grid-item">
+                        {% if diary.image %}
+                        <img src='{{diary.image.url}}'>
                         {% else %}
-                        <td>
-                          <a href="{% url 'diary_view' id=diary.id %}">
-                            <div class="card">
-                              <div class="card-body">
-                                <h5 class="card-title"style="font-family: 'Poor Story', cursive; font-weight: bold;">{{ diary.title }}</h5>
-                                <p class="card-text"></p>
-                                <p class="card-text"><small class="text-muted">{{ diary.date|date:'Y-m-d' }}</small></p>
-                              </div>
-                              <div style="width: 23rem; height:450px;">
-                                {% if diary.image %}
-                                <img src='{{diary.image.url}}' class="card-img-bottom" style="object-fit: cover;">
-                                {% else %}
-                                <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="object-fit: cover;" class="card-img-bottom" alt="...">
-                                {% endif %}
-                              </div>
-                            </div>
-                        </a>
-                        </td> 
+                        <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}">
                         {% endif %}
-                        {% endfor %}
-                      </tr> 
-                    </table>
+                        <div class="bottom-right">여기 날짜 입력</div>
+                      </div>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    <!--테스트용 시작 삭제 가능-->
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
+                      </div>
+                      <div class="grid-item">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
+                      </div>
+                    <!-- 테스트용 끝 삭제 가능-->
+                  </div>
 
                 </div>
-                </div>
-              </div>
             </div>
+          </div>
+            <script>
+              // init Masonry
+              var grid = document.querySelector('.grid');
+
+              var msnry = new Masonry( grid, {
+                itemSelector: '.grid-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+              });
+
+              imagesLoaded( grid ).on( 'progress', function() {
+                // layout Masonry after each image loads
+                msnry.layout();
+              });
+            </script>
             <!-- / Content -->
 
             <!-- Footer -->
