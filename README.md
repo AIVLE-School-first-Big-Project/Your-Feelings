@@ -78,14 +78,14 @@
 
 ## API 사용법
 ### KOBERT  
-- url = '3.35.8.82:5000/kobert?text=' + 텍스트  
-- return type = dictionary  
+- url = `'3.35.8.82:5000/kobert?text=' + 텍스트`
+- return type = `dictionary`
 
 ![](./README_media/kobert.png)
 
 ### BERT
-- url = '3.35.8.82:5000/bert?text=' + 텍스트  
-- return type = dictionary  
+- url = `'3.35.8.82:5000/bert?text=' + 텍스트`
+- return type = `dictionary`
 
 ![](./README_media/bert.png)
 
