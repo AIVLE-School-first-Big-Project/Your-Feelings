@@ -98,6 +98,12 @@
                 <div data-i18n="Boxicons">알 키우기</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="{% url 'share' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cool"></i>
+                <div data-i18n="Boxicons">다른 사람은?</div>
+              </a>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
@@ -306,7 +312,7 @@
                         {% else %}
                         <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}">
                         {% endif %}
-                        <div class="bottom-right">여기 날짜 입력</div>
+                        <div class="bottom-right"><h5 style="color:white;">{{ diary.date|date:'Y-m-d' }}</h5></div>
                       </div>
                     </a>
                     {% endif %}
