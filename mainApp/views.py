@@ -88,14 +88,51 @@ def showDiary_view(request, id):
         '슬픔': ['sadness_1', 'sadness_2', 'sadness_3'],
         '놀람': ['surprise_1']
     }
+    try:
+        recommended = RecommendList.objects.get(post_id=showdiary)
     
+    except:
+        recommended = None
+        
     context ={
         'showdiary' : showdiary,
         'firstemotion' : firstemotion,
-        'emoticon' : random.choice(emoticon_dict[firstemotion.strip()])
+        'emoticon' : random.choice(emoticon_dict[firstemotion.strip()]),
+        'recommended' : recommended
+        # 'firstvalue' : firstvalue,
+        # 'secondemotion' : secondemotion,
+        # 'secondvalue' : secondvalue,
+        # 'thirdemotion' : thirdemotion,
+        # 'thirdvalue' : thirdvalue,
     }
     
     return render(request, 'mainApp/diary_view.html', context)
+
+def calculateMin(objects, emotion):
+    keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
+    val = float('inf')
+    target = None
+    for i in objects:
+        target_emo = eval(Emotion.objects.get(id=i.emotion_id).description)
+        diary_emo = emotion.description
+        hap = sum((target_emo[key]-diary_emo[key])**2 for key in keys)
+        if val > hap:
+            val = hap
+            target = i
+            print(val, i.title)
+    return target
+
+def getRecommendation(emotion):
+    books = Books.objects.all()
+    movies = Movies.objects.all()
+    music = Music.objects.all()
+    
+    for i in [books, movies, music]:
+        yield calculateMin(i, emotion)
+    # book = random.choice(Books.objects.all())
+    # movie = random.choice(Movies.objects.all())
+    # music = random.choice(Music.objects.all())
+
 
 def remove_diary(request, diary_id):
     diary = Diary.objects.get(id=diary_id)
@@ -135,6 +172,13 @@ def postDiary(request):
                     image=image,
                     emotion=emotion,
                 )
+            movie, music, book = getRecommendation(emotion)
+            RecommendList.objects.create(
+                post_id = new_article,
+                rec_movie = movie,
+                rec_music = music,
+                rec_book = book,
+                ).save()
             new_article.save()
             return redirect('calendar')
         else :

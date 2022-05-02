@@ -320,17 +320,17 @@
                       <div class="col text-center">
                           <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
                           <h2>음악</h2>
-                          <p>위에는 음악 쎔네일 or 이미지 아무거나, 여기 자리에는 해당 음악 설명</p>
+                          <p>{{ recommended.rec_music.title|default_if_none:'-' }}</p>
                       </div>
                       <div class="col text-center">
                         <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
                         <h2>영화</h2>
-                        <p>위에는 영화 쎔네일 or 이미지 아무거나, 여기 자리에는 해당 영화 설명</p>
+                        <p>{{ recommended.rec_movie.title|default_if_none:'-' }}</p>
                       </div>
                       <div class="col text-center">
                         <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
                         <h2>도서</h2>
-                        <p>위에는 도서 쎔네일 or 이미지 아무거나, 여기 자리에는 해당 도서 설명</p>
+                        <p>{{ recommended.rec_book.title|default_if_none:'-' }}</p>
                       </div>
                     </div>
                   </div>
