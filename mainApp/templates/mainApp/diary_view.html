@@ -246,9 +246,9 @@
                   <div class="card">
                     <div style="height: 400px;">
                         {% if showdiary.image %}
-                          <img class="mh-100 card-img-top" src='{{showdiary.image.url}}' style="object-fit: cover;" alt="Card image cap" />
+                          <img class="img-fluid" src='{{showdiary.image.url}}' />
                         {% else %}
-                          <img class="card-img-top" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" style="object-fit: cover;" alt="Card image cap" />
+                          <img class="img-fluid" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" />
                         {% endif %}
                     </div>
                     <div class="card-body">
@@ -257,16 +257,12 @@
                       <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;">
                         {{ showdiary.content }}
                       </h4>
-                      {{ firstemotion }}
-                      {{emoticon}}
                       {% comment %}
                       : {{ firstvalue }}<br>
                       2. {{ secondemotion }} : {{ secondvalue }}<br>
                       3. {{ thirdemotion }} : {{ thirdvalue }}<br>
                       {% endcomment %}
-                      {% with 'img/emotion/emotion/'|add:emoticon|add:'.png' as image_path %}
-                      <img class="scale-with-grid" src="{% static image_path %}" style="float:right; width: 150px; height: 150px;" alt='{{emoticon}}'/>
-                      {% endwith %}
+                      
                     </div>
                     <div class="card-footer text-muted">
                       {{ showdiary.date|date:'Y-m-d' }}
@@ -281,87 +277,35 @@
                   <br>
                   <div class="card" >
                     <div class="card-body">
-                      <h2 class="card-title" ><h1 class="display-1" style="font-family: 'Yeon Sung', cursive; font-weight: bold;">추천드려요!</h1></h2>
-                      <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;">
-                        <br>
-
-                        <h2 style="font-family: 'Yeon Sung', cursive; font-weight: bold;"><i class='bx bx-music bx-lg' ></i> 음악</h2>
-                        <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
-                            <div class="w-100">
-                              <div class="d-flex justify-content-between">
-                                <div class="user-info">
-                                  <h6 class="mb-1">Danish sesame snaps halvah</h6>
-                                  <small>13 minutes</small>
-                                  <div class="user-status">
-                                    <span class="badge badge-dot bg-success"></span>
-                                    <small>Online</small>
-                                  </div>
-                                </div>
-                                <div class="add-btn">
-                                  <button class="btn btn-dark btn-sm">Add</button>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
+                      <h2 class="card-title">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <div class="w-75">
+                            오늘의 기분은?
+                          </div>
+                          <div class="w-25 border border-success rounded">
+                            {% with 'img/emotion/emotion/'|add:emoticon|add:'.png' as image_path %}
+                            <img class="img-fluid" src="{% static image_path %}" alt='{{emoticon}}'/>
+                            {% endwith %}
+                          </div>
                         </div>
-
-                        <br><br><br>
-
-                        <h2 style="font-family: 'Yeon Sung', cursive;font-weight: bold;"><i class='bx bx-film bx-lg'></i> 영화</h2>
-                        <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
-                            <div class="w-100">
-                              <div class="d-flex justify-content-between">
-                                <div class="user-info">
-                                  <h6 class="mb-1">Danish sesame snaps halvah</h6>
-                                  <small>13 minutes</small>
-                                  <div class="user-status">
-                                    <span class="badge badge-dot bg-success"></span>
-                                    <small>Online</small>
-                                  </div>
-                                </div>
-                                <div class="add-btn">
-                                  <button class="btn btn-dark btn-sm">Add</button>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                          
-                        </div>
-
-                        <br><br><br>
-
-                        <h2 style="font-family: 'Yeon Sung', cursive; font-weight: bold;"><i class='bx bx-book-alt bx-lg'></i> 도서</h2>
-                        <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                            <img src="{%static 'mainApp/assets/img/favicon/7.png'%}" alt="User Image" class="rounded-circle me-3 w-px-50">
-                            <div class="w-100">
-                              <div class="d-flex justify-content-between">
-                                <div class="user-info">
-                                  <h6 class="mb-1">Danish sesame snaps halvah</h6>
-                                  <small>13 minutes</small>
-                                  <div class="user-status">
-                                    <span class="badge badge-dot bg-success"></span>
-                                    <small>Online</small>
-                                  </div>
-                                </div>
-                                <div class="add-btn">
-                                  <button class="btn btn-dark btn-sm">Add</button>
-                                </div>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-
-                      </h4>
-                    </div>
-                    <div class="card-footer text-muted">
+                      </h2>
+                      <div class="col text-center">
+                          <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                          <h2>음악</h2>
+                          <p>위에는 음악 쎔네일 or 이미지 아무거나, 여기 자리에는 해당 음악 설명</p>
+                      </div>
+                      <div class="col text-center">
+                        <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                        <h2>영화</h2>
+                        <p>위에는 영화 쎔네일 or 이미지 아무거나, 여기 자리에는 해당 영화 설명</p>
+                      </div>
+                      <div class="col text-center">
+                        <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                        <h2>도서</h2>
+                        <p>위에는 도서 쎔네일 or 이미지 아무거나, 여기 자리에는 해당 도서 설명</p>
+                      </div>
                     </div>
                   </div>
-                  
                 </div>            
               </div>
               <!-- {% endblock content %} -->
