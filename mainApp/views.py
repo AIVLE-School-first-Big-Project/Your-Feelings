@@ -88,16 +88,22 @@ def showDiary_view(request, id):
         '분노': ['anger_1', 'anger_2'],
         '혐오': ['disgust_1','disgust_2','disgust_3','disgust_4'],
         '불안': ['fear_1'],
-        '기쁨': ['joy_1', 'joy_2', 'joy_3', 'joy_4', 'joy_5'],
+        '행복': ['joy_1', 'joy_2', 'joy_3', 'joy_4', 'joy_5'],
         '중립': ['neutral_1', 'neutral_2', 'neutral_3'],
         '슬픔': ['sadness_1', 'sadness_2', 'sadness_3'],
         '놀람': ['surprise_1']
     }
-    
+    try:
+        recommended = RecommendList.objects.get(post_id=showdiary)
+        Music.objects.get(recommended)
+    except:
+        recommended = None
+        
     context ={
         'showdiary' : showdiary,
         'firstemotion' : firstemotion,
-        'emoticon' : random.choice(emoticon_dict[firstemotion.strip()])
+        'emoticon' : random.choice(emoticon_dict[firstemotion.strip()]),
+        'recommended' : recommended
         # 'firstvalue' : firstvalue,
         # 'secondemotion' : secondemotion,
         # 'secondvalue' : secondvalue,
@@ -106,6 +112,12 @@ def showDiary_view(request, id):
     }
     
     return render(request, 'mainApp/diary_view.html', context)
+
+def getRecommendation(emotion):
+    book = random.choice(Books.objects.all())
+    movie = random.choice(Movies.objects.all())
+    music = random.choice(Music.objects.all())
+    return movie, music, book
 
 def postDiary(request):
     if request.method == 'POST' and request.POST['title'] != '':
@@ -138,6 +150,13 @@ def postDiary(request):
                     image=image,
                     emotion=emotion,
                 )
+            movie, music, book = getRecommendation(emotion)
+            RecommendList.objects.create(
+                post_id = new_article,
+                rec_movie = movie,
+                rec_music = music,
+                rec_book = book,
+                ).save()
             new_article.save()
             return redirect('calendar')
         else :
