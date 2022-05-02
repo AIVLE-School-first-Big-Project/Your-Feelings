@@ -109,15 +109,30 @@ def showDiary_view(request, id):
     
     return render(request, 'mainApp/diary_view.html', context)
 
+def calculateMin(objects, emotion):
+    keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
+    val = float('inf')
+    target = None
+    for i in objects:
+        target_emo = eval(Emotion.objects.get(id=i.emotion_id).description)
+        diary_emo = emotion.description
+        hap = sum((target_emo[key]-diary_emo[key])**2 for key in keys)
+        if val > hap:
+            val = hap
+            target = i
+            print(val, i.title)
+    return target
+
 def getRecommendation(emotion):
     books = Books.objects.all()
+    movies = Movies.objects.all()
+    music = Music.objects.all()
     
-    for book in books:
-        book.emotion
-    book = random.choice(Books.objects.all())
-    movie = random.choice(Movies.objects.all())
-    music = random.choice(Music.objects.all())
-    return movie, music, book
+    for i in [books, movies, music]:
+        yield calculateMin(i, emotion)
+    # book = random.choice(Books.objects.all())
+    # movie = random.choice(Movies.objects.all())
+    # music = random.choice(Music.objects.all())
 
 
 def remove_diary(request, diary_id):
