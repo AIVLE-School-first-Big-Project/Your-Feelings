@@ -32,13 +32,13 @@
 
         <!-- Layouts -->
 
-        <li class="menu-item active open">
+        <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-dock-top"></i>
             <div data-i18n="Account Settings">상세 보기</div>
           </a>
           <ul class="menu-sub">
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="{% url 'calendar' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div data-i18n="Boxicons">달력으로 보기</div>
@@ -81,7 +81,7 @@
             <div data-i18n="Boxicons">알 키우기</div>
           </a>
         </li>
-        <li class="menu-item">
+        <li class="menu-item active">
           <a href="{% url 'share' %}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-cool"></i>
             <div data-i18n="Boxicons">다른 사람은?</div>
@@ -209,59 +209,42 @@
           </ul>
         </div>
       </nav>
-
       <!-- / Navbar -->
-
-
 
       <!-- Content wrapper -->
       <div class="content-wrapper">
-        <!-- Content -->
-
-        <div class="container-xxl flex-grow-1 container-p-y">
-          {% if messages %}
-          {% for message in messages %}
-
-          <div class="alert alert-warning alert-dismissible" role="alert">
-            <h6 class="alert-heading d-flex align-items-center fw-bold mb-1">이크!</h6>
-            <p class="mb-0">{{ message.message }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            </button>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <br>
+              <h1 class="display-1" id="myElement" style="font-family: 'Poor Story', cursive; font-size : 70px; font-weight: bold;"></h1>
+                <script>
+                  new TypeIt("#myElement", {strings: "다른 사람은?",}).go();
+                </script>
+              
+            </div>
           </div>
 
-          {% endfor %}
-          {% endif %}
-          <!-- {% block content %} -->
-
-          <link href="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.css'%}" rel='stylesheet' />
-          <script src="{%static 'mainApp/assets/vendor/libs/fullcalendar.js/main.js'%}"> </script>
-          {%include 'mainApp/calendar_detail/calendar_detail.html'%}
-
-          <!-- {% endblock content %} -->
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            
+            {% for diary in diary %}
+            <div class="col">
+              <br>
+              <div class="card h-100">
+                <div class="card-body">
+                  <h1 class="card-title" style="font-family: 'Yeon Sung', cursive;">{{ diary.title }}</h1>
+                  <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;"><br>{{ diary.content|striptags|truncatechars:60 }}</h4>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            
+            </div>
         </div>
+      </div>      
 
-        <!-- / Content -->
 
-        <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-            <div class="mb-2 mb-md-0">
-              ©
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              , made with ❤️ by
-              Aivle School <strong>AI 수도권 1반 1조</strong>
-            </div>
-            <div>
-              이대용 | 전현근 | 천명철 | 편승희 | 홍지의
-            </div>
-          </div>
-        </footer>
-        <!-- / Footer -->
 
-        <div class="content-backdrop fade"></div>
-      </div>
       <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->
