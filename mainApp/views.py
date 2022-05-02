@@ -77,21 +77,30 @@ def showDiary_view(request, id):
     dict_emotion = dict(zip(keys,values))
     sort_emotion = sorted(dict_emotion.items(), key=lambda x: x[1], reverse=True)
     firstemotion = sort_emotion[0][0].replace("'",'').replace("{",'').replace("}","")
-    firstvalue = float(sort_emotion[0][1])
-    secondemotion = sort_emotion[1][0].replace("'",'').replace("{",'').replace("}","")
-    secondvalue = float(sort_emotion[1][1])
-    thirdemotion = sort_emotion[2][0].replace("'",'').replace("{",'').replace("}","")
-    thirdvalue = float(sort_emotion[2][1])
+    if '행복' in firstemotion:
+        emot = 0
+    elif '슬픔' in firstemotion:
+        emot = 1
+    elif '놀람' in firstemotion:
+        emot = 2
+    elif '공포' in firstemotion:
+        emot = 3
+    elif '분노' in firstemotion:
+        emot = 4
+    else :
+        emot = 5
     context ={
         'showdiary' : showdiary,
         'firstemotion' : firstemotion,
-        'firstvalue' : firstvalue,
-        'secondemotion' : secondemotion,
-        'secondvalue' : secondvalue,
-        'thirdemotion' : thirdemotion,
-        'thirdvalue' : thirdvalue,
+        'emot' : emot,
+        'sort_emotion' : sort_emotion
     }
     return render(request, 'mainApp/diary_view.html', context)
+
+def remove_diary(request, diary_id):
+    diary = Diary.objects.get(id=diary_id)
+    diary.delete()
+    return redirect('calendar')
 
 def postDiary(request):
     if request.method == 'POST' and request.POST['title'] != '':
