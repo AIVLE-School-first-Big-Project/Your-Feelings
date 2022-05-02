@@ -12,6 +12,9 @@ urlpatterns = [
     path('diary_view/<id>/', views.showDiary_view, name='diary_view'),
     path('post', views.postDiary, name='post'),
     path('tamagotchi', views.showTamagotchi, name='tamagotchi'),
+    path('share', views.showSharediary, name='share'),
+    path('remove/<diary_id>', views.remove_diary, name='remove_diary'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
    

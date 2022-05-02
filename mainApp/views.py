@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-from .models import Diary, Emotion, StoreEmotions
+from .models import *
 from userApp.models import Users
 from .forms import DiaryForm
 from config import settings
@@ -15,6 +15,7 @@ import json
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 import re
+import random
 # Create your views here.
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
@@ -77,6 +78,14 @@ def showRemind(request):
     }
     return render(request, 'mainApp/remind.html', context)
 
+def showSharediary(request):
+    current_user = Users.objects.get(id=request.user.id)
+    diary = Diary.objects.filter(open_status=1).order_by('-date')
+    context ={
+        'diary' : diary,
+    }
+    return render(request, 'mainApp/share.html', context)
+
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
         id=id
@@ -93,21 +102,68 @@ def showDiary_view(request, id):
     dict_emotion = dict(zip(keys,values))
     sort_emotion = sorted(dict_emotion.items(), key=lambda x: x[1], reverse=True)
     firstemotion = sort_emotion[0][0].replace("'",'').replace("{",'').replace("}","")
-    firstvalue = float(sort_emotion[0][1])
-    secondemotion = sort_emotion[1][0].replace("'",'').replace("{",'').replace("}","")
-    secondvalue = float(sort_emotion[1][1])
-    thirdemotion = sort_emotion[2][0].replace("'",'').replace("{",'').replace("}","")
-    thirdvalue = float(sort_emotion[2][1])
+
+    emoticon_dict ={
+        '분노': ['anger_1', 'anger_2'],
+        '혐오': ['disgust_1','disgust_2','disgust_3','disgust_4'],
+        '공포': ['fear_1'],
+        '행복': ['joy_1', 'joy_2', 'joy_3', 'joy_4', 'joy_5'],
+        '중립': ['neutral_1', 'neutral_2', 'neutral_3'],
+        '슬픔': ['sadness_1', 'sadness_2', 'sadness_3'],
+        '놀람': ['surprise_1']
+    }
+    try:
+        recommended = RecommendList.objects.get(post_id=showdiary)
+    
+    except:
+        recommended = None
+        
     context ={
         'showdiary' : showdiary,
         'firstemotion' : firstemotion,
-        'firstvalue' : firstvalue,
-        'secondemotion' : secondemotion,
-        'secondvalue' : secondvalue,
-        'thirdemotion' : thirdemotion,
-        'thirdvalue' : thirdvalue,
+        'emoticon' : random.choice(emoticon_dict[firstemotion.strip()]),
+        'recommended' : recommended
+        # 'firstvalue' : firstvalue,
+        # 'secondemotion' : secondemotion,
+        # 'secondvalue' : secondvalue,
+        # 'thirdemotion' : thirdemotion,
+        # 'thirdvalue' : thirdvalue,
     }
+    
     return render(request, 'mainApp/diary_view.html', context)
+
+def calculateMin(objects, emotion):
+    keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
+    val = float('inf')
+    target = None
+    for i in objects:
+        target_emo = eval(Emotion.objects.get(id=i.emotion_id).description)
+        diary_emo = emotion.description
+        hap = sum((target_emo[key]-diary_emo[key])**2 for key in keys)
+        if val > hap:
+            val = hap
+            target = i
+            print(val, i.title)
+    return target
+
+def getRecommendation(emotion):
+    books = Books.objects.all()
+    movies = Movies.objects.all()
+    music = Music.objects.all()
+    
+    for i in [books, movies, music]:
+        yield calculateMin(i, emotion)
+    # book = random.choice(Books.objects.all())
+    # movie = random.choice(Movies.objects.all())
+    # music = random.choice(Music.objects.all())
+
+
+def remove_diary(request, diary_id):
+    diary = Diary.objects.get(id=diary_id)
+    emotion = Emotion.objects.get(id=diary.emotion_id)
+    emotion.delete()
+    diary.delete()
+    return redirect('calendar')
 
 def postDiary(request):
     if request.method == 'POST' and request.POST['title'] != '':
@@ -145,6 +201,13 @@ def postDiary(request):
                     image=image,
                     emotion=emotion,
                 )
+            movie, music, book = getRecommendation(emotion)
+            RecommendList.objects.create(
+                post_id = new_article,
+                rec_movie = movie,
+                rec_music = music,
+                rec_book = book,
+                ).save()
             new_article.save()
             return redirect('calendar')
         else :
