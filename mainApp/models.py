@@ -1,4 +1,6 @@
 from django.db import models
+import os
+from config import settings
 
 # 감정
 class Emotion(models.Model):
@@ -11,10 +13,13 @@ class Diary(models.Model):
     user_id = models.ForeignKey("userApp.Users", on_delete=models.SET("탈퇴한 사용자"))
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=400)
-    open_status = models.IntegerField(null=True,)
-    date = models.DateTimeField(null=True,)
-    emotion = models.ForeignKey(Emotion, null=True, on_delete=models.PROTECT)
+    open_status = models.IntegerField()
+    date = models.DateTimeField()
+    emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
     image = models.ImageField(blank=True, upload_to='media/')   # 사용지가 글 쓸 때 첨부하는 사진
+    def delete(self, *args, **kwargs):
+        super(Diary, self).delete(*args, **kwargs)
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
 
     
 

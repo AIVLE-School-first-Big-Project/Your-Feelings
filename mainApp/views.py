@@ -78,7 +78,6 @@ def showDiary_view(request, id):
     dict_emotion = dict(zip(keys,values))
     sort_emotion = sorted(dict_emotion.items(), key=lambda x: x[1], reverse=True)
     firstemotion = sort_emotion[0][0].replace("'",'').replace("{",'').replace("}","")
-    print(sort_emotion)
 
     emoticon_dict ={
         '분노': ['anger_1', 'anger_2'],
@@ -94,17 +93,14 @@ def showDiary_view(request, id):
         'showdiary' : showdiary,
         'firstemotion' : firstemotion,
         'emoticon' : random.choice(emoticon_dict[firstemotion.strip()])
-        # 'firstvalue' : firstvalue,
-        # 'secondemotion' : secondemotion,
-        # 'secondvalue' : secondvalue,
-        # 'thirdemotion' : thirdemotion,
-        # 'thirdvalue' : thirdvalue,
     }
     
     return render(request, 'mainApp/diary_view.html', context)
 
 def remove_diary(request, diary_id):
     diary = Diary.objects.get(id=diary_id)
+    emotion = Emotion.objects.get(id=diary.emotion_id)
+    emotion.delete()
     diary.delete()
     return redirect('calendar')
 
