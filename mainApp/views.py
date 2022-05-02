@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-from .models import Diary, Emotion
+from .models import Diary, Emotion, StoreEmotions
 from userApp.models import Users
 from .forms import DiaryForm
 from config import settings
@@ -20,11 +20,13 @@ import re
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
 
 def showMain(request):
-    current_user = Users.objects.get(id=request.user.id)
-    diary = Diary.objects.filter(user_id=current_user)
-    context ={
-        'diary' : diary,
-    }
+    context ={}
+    try:
+        current_user = Users.objects.get(id=request.user.id)
+        diary = Diary.objects.filter(user_id=current_user)
+        context['diary'] = diary
+    except:
+        pass
     return render(request, 'mainApp/main.html', context)
 
 
@@ -38,8 +40,30 @@ def showCalendar(request):
 
 
 def showChart(request):
-    return render(request, 'mainApp/chart.html', {})
+    return render(request, 'mainApp/chart.html')
 
+
+def showDoughnutChart(request):
+    user_id = request.user.id
+    user = Users.objects.get(user_id=user_id)
+    context = {}
+
+    diaries = Diary.objects.filter(user_id=user_id)
+
+    emotions = {'angry': 0, 'anxious': 0, 'happy': 0, 'sad': 0, 'surprised': 0}
+
+
+
+
+    return render(request, 'mainApp/chart_detail/doughnut_chart.html', context)
+
+
+def showLineChart(request):
+    user_id = request.user.id
+
+    context = {}
+
+    return render(request, 'mainApp/chart_detail/line_chart.html', context)
 
 def showMedia(request):
     return render(request, 'mainApp/media.html', {})
@@ -90,15 +114,20 @@ def postDiary(request):
         image=request.FILES['image'] if request.FILES else None
         title=request.POST['title']
         content=request.POST['content']
-        try:
-            open_status=request.POST['open_status']
-        except:
-            messages.warning(request, "공개 여부를 선택해주세요")
+        public=request.POST['public']
+        
         date=datetime.datetime.now().strftime('%Y-%m-%d')
         api_result=requests.get(KOBERT_API_URL+content).text
-        emotion = Emotion.objects.create(
-            description=json.loads(api_result),
+
+        description = json.loads(api_result)
+
+        StoreEmotions.objects.create(
+            emotions=description,
         )
+
+        max_emotion = max(description, key=description.get)
+        emotion = Emotion.objects.get(description=max_emotion)
+
         # print('cur user id:', request.user.id)
         # print('emotion:', json.loads(api_result))
         current_user = Users.objects.get(id=request.user.id)
@@ -111,7 +140,7 @@ def postDiary(request):
                     user_id=current_user,
                     title=title,
                     content=content,
-                    open_status=open_status,
+                    public=public,
                     date=date,
                     image=image,
                     emotion=emotion,
