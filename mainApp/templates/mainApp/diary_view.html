@@ -251,11 +251,16 @@
                       <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;">
                         {{ showdiary.content }}
                       </h4>
-                      1. {{ firstemotion }} : {{ firstvalue }}<br>
+                      {{ firstemotion }}
+                      {{emoticon}}
+                      {% comment %}
+                      : {{ firstvalue }}<br>
                       2. {{ secondemotion }} : {{ secondvalue }}<br>
                       3. {{ thirdemotion }} : {{ thirdvalue }}<br>
-                      <img src="{%static 'img/emotion/emotion/joy_1.png'%}" style="float:right; width: 150px; height: 150px;" >   <!-- 감정이미지 -->
-                      <img src="{%static 'img/emotion/emotion/neutral_1.png'%}" style=" float:right; width: 80px; height: 80px;" > <!-- 감정이미지 -->
+                      {% endcomment %}
+                      {% with 'img/emotion/emotion/'|add:emoticon|add:'.png' as image_path %}
+                      <img class="scale-with-grid" src="{% static image_path %}" style="float:right; width: 150px; height: 150px;" alt='{{emoticon}}'/>
+                      {% endwith %}
                     </div>
                     <div class="card-footer text-muted">
                       {{ showdiary.date|date:'Y-m-d' }}

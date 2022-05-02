@@ -15,6 +15,7 @@ import json
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 import re
+import random
 # Create your views here.
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
@@ -70,18 +71,30 @@ def showDiary_view(request, id):
     sort_emotion = sorted(dict_emotion.items(), key=lambda x: x[1], reverse=True)
     firstemotion = sort_emotion[0][0].replace("'",'').replace("{",'').replace("}","")
     firstvalue = float(sort_emotion[0][1])
-    secondemotion = sort_emotion[1][0].replace("'",'').replace("{",'').replace("}","")
-    secondvalue = float(sort_emotion[1][1])
-    thirdemotion = sort_emotion[2][0].replace("'",'').replace("{",'').replace("}","")
-    thirdvalue = float(sort_emotion[2][1])
+    # secondemotion = sort_emotion[1][0].replace("'",'').replace("{",'').replace("}","")
+    # secondvalue = float(sort_emotion[1][1])
+    # thirdemotion = sort_emotion[2][0].replace("'",'').replace("{",'').replace("}","")
+    # thirdvalue = float(sort_emotion[2][1])
+
+    emoticon_dict ={
+        '분노': ['anger_1', 'anger_2'],
+        '혐오': ['disgust_1','disgust_2','disgust_3','disgust_4'],
+        '불안': ['fear_1'],
+        '기쁨': ['joy_1', 'joy_2', 'joy_3', 'joy_4', 'joy_5'],
+        '중립': ['neutral_1', 'neutral_2', 'neutral_3'],
+        '슬픔': ['sadness_1', 'sadness_2', 'sadness_3'],
+        '놀람': ['surprise_1']
+    }
+    
     context ={
         'showdiary' : showdiary,
         'firstemotion' : firstemotion,
-        'firstvalue' : firstvalue,
-        'secondemotion' : secondemotion,
-        'secondvalue' : secondvalue,
-        'thirdemotion' : thirdemotion,
-        'thirdvalue' : thirdvalue,
+        'emoticon' : random.choice(emoticon_dict[firstemotion.strip()])
+        # 'firstvalue' : firstvalue,
+        # 'secondemotion' : secondemotion,
+        # 'secondvalue' : secondvalue,
+        # 'thirdemotion' : thirdemotion,
+        # 'thirdvalue' : thirdvalue,
     }
     return render(request, 'mainApp/diary_view.html', context)
 
