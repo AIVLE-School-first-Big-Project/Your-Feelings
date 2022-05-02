@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-from .models import Diary, Emotion
+from .models import *
 from userApp.models import Users
 from .forms import DiaryForm
 from config import settings
@@ -104,6 +104,7 @@ def showDiary_view(request, id):
         # 'thirdemotion' : thirdemotion,
         # 'thirdvalue' : thirdvalue,
     }
+    
     return render(request, 'mainApp/diary_view.html', context)
 
 def postDiary(request):
