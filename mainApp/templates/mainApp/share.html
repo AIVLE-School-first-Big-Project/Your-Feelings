@@ -224,19 +224,37 @@
               
             </div>
           </div>
-
+          <br>
           <div class="row row-cols-1 row-cols-md-3 g-4">
-
+            
             {% for diary in diary %}
+            
             <div class="col">
-              <br>
-              <div class="card h-100">
-                <div class="card-header">{{ diary.user_id }}</div>
-                <div class="card-body">
-                  <h1 class="card-title" style="font-family: 'Yeon Sung', cursive;">{{ diary.title }}</h1>
-                  <h4 class="card-text" style="font-family: 'Yeon Sung', cursive;"><br>{{ diary.content|striptags|truncatechars:60 }}</h4>
+              <div class="col-md">
+                <div class="card mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      {% if diary.image %}
+                        <img class="card-img card-img-left" style="height:auto" src="{{diary.image.url}}" alt="Card image" />
+                        {% else %}
+                        <img class="card-img card-img-left" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" alt="Card image" />
+                        {% endif %}
+                      
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h2 class="card-title" style="font-family: 'Yeon Sung', cursive;">{{ diary.title }}</h2>
+                        <h5 class="card-text" style="font-family: 'Yeon Sung', cursive;">
+                          {{ diary.content|striptags|truncatechars:40 }}
+                        </h5>
+                        <p class="card-text" style="text-align:right"><small class="text-muted"><i class='bx bx-user'> </i> {{ diary.user_id }}</small></p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
+
             </div>
             {% endfor %}
             
