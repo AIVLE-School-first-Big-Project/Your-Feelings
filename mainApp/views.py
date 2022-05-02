@@ -54,6 +54,14 @@ def showRemind(request):
     }
     return render(request, 'mainApp/remind.html', context)
 
+def showSharediary(request):
+    current_user = Users.objects.get(id=request.user.id)
+    diary = Diary.objects.filter(open_status=1).order_by('-date')
+    context ={
+        'diary' : diary,
+    }
+    return render(request, 'mainApp/share.html', context)
+
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
         id=id
