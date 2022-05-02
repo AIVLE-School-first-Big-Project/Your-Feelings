@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 import re
 import random
+from tqdm import tqdm
 # Create your views here.
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
@@ -80,7 +81,7 @@ def showRemind(request):
 
 def showSharediary(request):
     current_user = Users.objects.get(id=request.user.id)
-    diary = Diary.objects.filter(open_status=1).order_by('-date')
+    diary = Diary.objects.filter(public=1).order_by('-date')
     context ={
         'diary' : diary,
     }
@@ -88,7 +89,7 @@ def showSharediary(request):
 
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
-        id=id
+        id=  id
         )
     diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
     bestemotion = diaryemotion.description
@@ -115,7 +116,6 @@ def showDiary_view(request, id):
     }
     try:
         recommended = RecommendList.objects.get(post_id=showdiary)
-    
     except:
         recommended = None
         
@@ -137,14 +137,14 @@ def calculateMin(objects, emotion):
     keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
     val = float('inf')
     target = None
-    for i in objects:
+    for i in tqdm(objects):
         target_emo = eval(Emotion.objects.get(id=i.emotion_id).description)
         diary_emo = emotion.description
         hap = sum((target_emo[key]-diary_emo[key])**2 for key in keys)
         if val > hap:
             val = hap
             target = i
-            print(val, i.title)
+            # print(val, i.title)
     return target
 
 def getRecommendation(emotion):
