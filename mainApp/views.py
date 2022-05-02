@@ -96,6 +96,7 @@ def showDiary_view(request, id):
     values = []
     emotion_list = bestemotion.split(",")
     for emotion in emotion_list :
+        print(emotion)
         pair = emotion.split(":")
         keys.append(pair[0])
         values.append(pair[1])
@@ -151,7 +152,7 @@ def getRecommendation(emotion):
     movies = Movies.objects.all()
     music = Music.objects.all()
     
-    for i in [books, movies, music]:
+    for i in [movies, music, books]:
         yield calculateMin(i, emotion)
     # book = random.choice(Books.objects.all())
     # movie = random.choice(Movies.objects.all())
@@ -177,12 +178,12 @@ def postDiary(request):
 
         description = json.loads(api_result)
 
-        StoreEmotions.objects.create(
-            emotions=description,
+        emotion = Emotion.objects.create(
+            description = description,
         )
 
-        max_emotion = max(description, key=description.get)
-        emotion = Emotion.objects.get(description=max_emotion)
+        # max_emotion = max(description, key=description.get)
+        # emotion = Emotion.objects.get(description=max_emotion)
 
         # print('cur user id:', request.user.id)
         # print('emotion:', json.loads(api_result))
