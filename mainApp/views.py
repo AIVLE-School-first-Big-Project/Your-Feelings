@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from .models import *
-from userApp.models import Users
+from userApp.models import UserEmotions, Users
 from .forms import DiaryForm
 from config import settings
 import os
@@ -50,12 +50,7 @@ def showDoughnutChart(request):
     user = Users.objects.get(user_id=user_id)
     context = {}
 
-    diaries = Diary.objects.filter(user_id=user_id)
-
     emotions = {'공포': 0, '놀람': 0, '분노': 0, '슬픔': 0, '중립': 0, "행복": 0, "혐오": 0}
-
-
-
 
     return render(request, 'mainApp/chart_detail/doughnut_chart.html', context)
 
@@ -182,12 +177,34 @@ def postDiary(request):
             description = description,
         )
 
-        # max_emotion = max(description, key=description.get)
+        max_emotion = max(description, key=description.get)
         # emotion = Emotion.objects.get(description=max_emotion)
 
         # print('cur user id:', request.user.id)
         # print('emotion:', json.loads(api_result))
         current_user = Users.objects.get(id=request.user.id)
+
+        user_emotions = UserEmotions.objects.get(user_id=request.user.id)
+        if max_emotion  == '공포':
+            user_emotions.terrified += 1
+            user_emotions.save()
+        elif max_emotion == "놀람":
+            user_emotions.surprised += 1
+            user_emotions.save()
+        elif max_emotion == "슬픔":
+            user_emotions.sad += 1
+            user_emotions.save()
+        elif max_emotion == "중립":
+            user_emotions.neutral += 1
+            user_emotions.save()
+        elif max_emotion == "행복":
+            user_emotions.happy += 1
+            user_emotions.save()
+        else:
+            user_emotions.hate += 1
+            user_emotions.save()
+
+
         try:
             todaydiary = Diary.objects.get(user_id=current_user, date=date)
         except ObjectDoesNotExist:

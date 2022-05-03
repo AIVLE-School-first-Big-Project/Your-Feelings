@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from userApp.forms import SignupForm, EditProfileForm
 from django.contrib import auth
 
-from .models import Users
+from .models import Users, UserEmotions
 
 
 def signup(request):
@@ -15,6 +15,11 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = auth.authenticate(username=username, password=raw_password)
             # auth.login(request, user)
+
+            UserEmotions.objects.create(
+                user = Users.objects.get(username=username)
+            )
+
             return redirect("user:login")
     else:
         form = SignupForm()
