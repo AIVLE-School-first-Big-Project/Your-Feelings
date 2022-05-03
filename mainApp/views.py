@@ -51,7 +51,7 @@ def showDoughnutChart(request):
 
     diaries = Diary.objects.filter(user_id=user_id)
 
-    emotions = {'angry': 0, 'anxious': 0, 'happy': 0, 'sad': 0, 'surprised': 0}
+    emotions = {'공포': 0, '놀람': 0, '분노': 0, '슬픔': 0, '중립': 0, "행복": 0, "혐오": 0}
 
 
 
