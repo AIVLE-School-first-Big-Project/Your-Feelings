@@ -16,33 +16,38 @@ book2 = pd.read_csv(path+'naver_books.csv')
 music = pd.read_csv(path+'music_datasets.csv')
 music2 = pd.read_csv(path+'music_datasets_4000.csv')
 
+def insert_music():
+      music_instances = [Music(title=i['title'],
+                              artist=i['artists'],
+                              genre=i['genre'],
+                              lyrics=i['new_lyrics'],
+                              emotion=Emotion.objects.create(description=i['emotions'])
+                              )
+                              for i in tqdm(music.to_dict('records'))]
+      Music.objects.bulk_create(music_instances)
 
-music_instances = [Music(title=i['title'],
-                         artist=i['artists'],
-                         genre=i['genre'],
-                         lyrics=i['new_lyrics'],
-                         emotion=Emotion.objects.create(description=i['emotions'])
-                         )
-                         for i in tqdm(music.to_dict('records'))]
+def insert_book():
+      book_instances = [Books(title=i['title'],
+                              author=i['author'],
+                              # genre=i['genre'],
+                              summary=i['description'],
+                              emotion=Emotion.objects.create(description=i['emotions'])
+                              )
+                        for i in tqdm(book.to_dict('records'))]
+      Books.objects.bulk_create(book_instances)
 
-book_instances = [Books(title=i['title'],
-                        author=i['author'],
-                        # genre=i['genre'],
-                        summary=i['description'],
-                        emotion=Emotion.objects.create(description=i['emotions'])
-                        )
-                  for i in tqdm(book.to_dict('records'))]
+def insert_movie():
+      movie_instances = [Movies(title=i['title'],
+                              category=i['category'],
+                              genre=i['genre'],
+                              actors=i['actors'],
+                              description=i['content'],
+                              release_year=i['year'],
+                              emotion=Emotion.objects.create(description=i['emotions'])
+                              )
+                        for i in tqdm(movie.to_dict('records'))]
+      Movies.objects.bulk_create(movie_instances)
 
-movie_instances = [Movies(title=i['title'],
-                          category=i['category'],
-                          genre=i['genre'],
-                          actors=i['actors'],
-                          description=i['content'],
-                          release_year=i['year'],
-                          emotion=Emotion.objects.create(description=i['emotions'])
-                          )
-                   for i in tqdm(movie.to_dict('records'))]
-
-Music.objects.bulk_create(music_instances)
-Books.objects.bulk_create(book_instances)
-Movies.objects.bulk_create(movie_instances)
+insert_music()
+insert_book()
+insert_movie()

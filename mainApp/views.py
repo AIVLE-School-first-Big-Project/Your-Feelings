@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 import re
 import random
+from tqdm import tqdm
 # Create your views here.
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
@@ -80,7 +81,7 @@ def showRemind(request):
 
 def showSharediary(request):
     current_user = Users.objects.get(id=request.user.id)
-    diary = Diary.objects.filter(open_status=1).order_by('-date')
+    diary = Diary.objects.filter(public=1).order_by('-date')
     context ={
         'diary' : diary,
     }
@@ -88,7 +89,7 @@ def showSharediary(request):
 
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
-        id=id
+        id=  id
         )
     diaryemotion = Emotion.objects.get(pk = showdiary.emotion_id)
     bestemotion = diaryemotion.description
@@ -96,6 +97,7 @@ def showDiary_view(request, id):
     values = []
     emotion_list = bestemotion.split(",")
     for emotion in emotion_list :
+        print(emotion)
         pair = emotion.split(":")
         keys.append(pair[0])
         values.append(pair[1])
@@ -114,7 +116,6 @@ def showDiary_view(request, id):
     }
     try:
         recommended = RecommendList.objects.get(post_id=showdiary)
-    
     except:
         recommended = None
         
@@ -136,14 +137,14 @@ def calculateMin(objects, emotion):
     keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
     val = float('inf')
     target = None
-    for i in objects:
+    for i in tqdm(objects):
         target_emo = eval(Emotion.objects.get(id=i.emotion_id).description)
         diary_emo = emotion.description
         hap = sum((target_emo[key]-diary_emo[key])**2 for key in keys)
         if val > hap:
             val = hap
             target = i
-            print(val, i.title)
+            # print(val, i.title)
     return target
 
 def getRecommendation(emotion):
@@ -151,7 +152,7 @@ def getRecommendation(emotion):
     movies = Movies.objects.all()
     music = Music.objects.all()
     
-    for i in [books, movies, music]:
+    for i in [movies, music, books]:
         yield calculateMin(i, emotion)
     # book = random.choice(Books.objects.all())
     # movie = random.choice(Movies.objects.all())
@@ -177,12 +178,12 @@ def postDiary(request):
 
         description = json.loads(api_result)
 
-        StoreEmotions.objects.create(
-            emotions=description,
+        emotion = Emotion.objects.create(
+            description = description,
         )
 
-        max_emotion = max(description, key=description.get)
-        emotion = Emotion.objects.get(description=max_emotion)
+        # max_emotion = max(description, key=description.get)
+        # emotion = Emotion.objects.get(description=max_emotion)
 
         # print('cur user id:', request.user.id)
         # print('emotion:', json.loads(api_result))
