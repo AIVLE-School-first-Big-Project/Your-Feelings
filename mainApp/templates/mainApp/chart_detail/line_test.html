@@ -9,9 +9,11 @@ line test<br><br>
 <script>
     const months = [1];
 
+    {% comment %}
+    왜 안 됨.........?? 자스 모르겠다 ㅎ
     {% for month, cnt in monthly_happy.items %}
         months.push(month);
-    {% endfor %}
+    {% endfor %} {% endcomment %}
 
     document.write(months);
 </script>
