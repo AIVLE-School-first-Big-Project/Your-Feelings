@@ -1,12 +1,12 @@
 <script>
-  const labels1 = ['January', 'February', 'March', 'April', 'May', 'June'];
+  const labels1 = "{{ months }}";
   const data1 = {
     labels: labels1,
     datasets: [{
       label: '월별 행복했던 횟수',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 10, 1, 8],
+      data: {{ happy_cnt }},
     }]
   };
   const config1 = {

@@ -37,8 +37,50 @@ def showCalendar(request):
 
 def showChart(request):
     user_id = request.user.id
+    
+    # donut chart에 필요한 부분 ================================
     user_emotions = UserEmotions.objects.get(user_id=user_id)
     context = {"user_emotions": user_emotions}
+
+    # line chart에 필요한 부분 =================================
+    end_date = timezone.now() + relativedelta(days=1)
+    start_date = end_date - relativedelta(months=6)
+
+    diaries = Diary.objects.filter(
+        user_id_id = user_id,
+        date__range=[start_date, end_date]
+    )
+
+    context = {}
+    context['diaries'] = diaries
+
+    monthly_happy = {}
+    
+    for i in range(5):
+        m = (timezone.now() - relativedelta(months=i)).strftime("%Y/%m")
+        monthly_happy[m] = 0
+
+    
+    for d in diaries:
+        month = d.date.strftime("%Y/%m")
+        emotion = d.max_emotion
+
+        if emotion == "행복":
+            monthly_happy[month] += 1
+
+    months = []
+    happy_cnt =[]
+    for mth, cnt in monthly_happy.items():
+        months.append(mth)
+        happy_cnt.append(cnt)
+    
+    months.reverse()
+    happy_cnt.reverse()
+
+    context['months'] = months
+    context['happy_cnt'] = happy_cnt
+    
+
     return render(request, 'mainApp/chart.html', context)
 
 
@@ -56,8 +98,10 @@ def showLineChart(request):
     context['diaries'] = diaries
 
     monthly_happy = {}
+    
     for i in range(5):
-        monthly_happy[(timezone.now() - relativedelta(months=i)).strftime("%Y/%m")] = 0
+        m = (timezone.now() - relativedelta(months=i)).strftime("%Y/%m")
+        monthly_happy[m] = 0
 
     
     for d in diaries:
@@ -67,7 +111,17 @@ def showLineChart(request):
         if emotion == "행복":
             monthly_happy[month] += 1
 
-    context['monthly_happy'] = monthly_happy
+    months = []
+    happy_cnt =[]
+    for mth, cnt in monthly_happy.items():
+        months.append(mth)
+        happy_cnt.append(cnt)
+    
+    months.reverse()
+    happy_cnt.reverse()
+
+    context['months'] = months
+    context['happy_cnt'] = happy_cnt
 
 
     return render(request, 'mainApp/chart_detail/line_test.html', context)

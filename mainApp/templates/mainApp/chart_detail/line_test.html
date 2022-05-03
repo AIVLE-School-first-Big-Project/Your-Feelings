@@ -4,16 +4,5 @@ line test<br><br>
     {{d.date | date:'Y/m'}}<br>
 {% endfor %}
 
-{{monthly_happy}}
-
-<script>
-    const months = [1];
-
-    {% comment %}
-    왜 안 됨.........?? 자스 모르겠다 ㅎ
-    {% for month, cnt in monthly_happy.items %}
-        months.push(month);
-    {% endfor %} {% endcomment %}
-
-    document.write(months);
-</script>
+months: {{months}}<br>
+count: {{happy_cnt}}
