@@ -42,25 +42,42 @@ def showCalendar(request):
 
 
 def showChart(request):
-    return render(request, 'mainApp/chart.html')
-
-
-def showDoughnutChart(request):
     user_id = request.user.id
-    user = Users.objects.get(user_id=user_id)
-    context = {}
-
-    emotions = {'공포': 0, '놀람': 0, '분노': 0, '슬픔': 0, '중립': 0, "행복": 0, "혐오": 0}
-
-    return render(request, 'mainApp/chart_detail/doughnut_chart.html', context)
+    user_emotions = UserEmotions.objects.get(user_id=user_id)
+    context = {"user_emotions": user_emotions}
+    return render(request, 'mainApp/chart.html', context)
 
 
 def showLineChart(request):
     user_id = request.user.id
 
+    diaries = Diary.objects.filter(
+        user_id_id = user_id,
+        date__lt = timezone.now() - datetime.timedelta(days=180)
+    )
+
     context = {}
 
-    return render(request, 'mainApp/chart_detail/line_chart.html', context)
+    context['diaries'] = diaries
+
+    monthly_happy = {}
+
+    for d in diaries:
+        date = d.date.strftime("%Y-%m")
+        emotion = d.emotion
+
+        emotions = json.loads(emotion.description)
+        max_emotion = max(emotions, key=emotions.get)
+
+        if max_emotion == "행복":
+            if monthly_happy[date] == 0:
+                monthly_happy[date] = 1
+            else:
+                monthly_happy[date] += 1
+
+    context['monthly_happy'] = monthly_happy
+
+    return render(request, 'mainApp/chart_detail/line_test.html', context)
 
 def showMedia(request):
     return render(request, 'mainApp/media.html', {})
@@ -92,6 +109,7 @@ def showDiary_view(request, id):
     values = []
     emotion_list = bestemotion.split(",")
     for emotion in emotion_list :
+        print(emotion)
         pair = emotion.split(":")
         keys.append(pair[0])
         values.append(pair[1])
@@ -217,6 +235,7 @@ def postDiary(request):
                     date=date,
                     image=image,
                     emotion=emotion,
+                    max_emotion = max_emotion
                 )
             movie, music, book = getRecommendation(emotion)
             RecommendList.objects.create(
@@ -244,28 +263,11 @@ def showTamagotchi(request):
     duringtime = now_user.last_login - now_user.date_joined
     totaldiarynum = len(totaldiary)
     point = duringtime.days + totaldiarynum
-    
-    todaytime = datetime.datetime.now()
-    
-    yeardiary = Diary.objects.filter(
-        user_id=now_user,
-        date__year=todaytime.year,
-        )
-    
-    monthdiary = Diary.objects.filter(
-        user_id=now_user,
-        date__year=todaytime.year,
-        date__month=todaytime.month,
-        )    
-    
-    yearpercent = len(yeardiary)/365*100
-    monthpercent = len(monthdiary)/30*100
-    
+    daypercent = duringtime.days/365*100
     context ={
         'duringtime' : duringtime.days,
         'totaldiary' : totaldiarynum,
         'point' : point,
-        'yearpercent' : yearpercent,
-        'monthpercent' : monthpercent,
+        'daypercent' : daypercent,
     }
     return render(request, 'mainApp/tamagotchi.html', context)
