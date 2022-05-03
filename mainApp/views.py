@@ -37,10 +37,11 @@ def showCalendar(request):
 
 def showChart(request):
     user_id = request.user.id
+    context = {}
     
     # donut chart에 필요한 부분 ================================
     user_emotions = UserEmotions.objects.get(user_id=user_id)
-    context = {"user_emotions": user_emotions}
+    context["user_emotions"] = user_emotions
 
     # line chart에 필요한 부분 =================================
     end_date = timezone.now() + relativedelta(days=1)
@@ -51,7 +52,6 @@ def showChart(request):
         date__range=[start_date, end_date]
     )
 
-    context = {}
     context['diaries'] = diaries
 
     monthly_happy = {}
