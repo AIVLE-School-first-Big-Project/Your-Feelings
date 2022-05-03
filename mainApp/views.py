@@ -15,6 +15,8 @@ from tqdm import tqdm
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
 
+
+
 def showMain(request):
     context ={}
     try:
@@ -39,11 +41,10 @@ def showChart(request):
     user_id = request.user.id
     context = {}
     
-    # donut chart에 필요한 부분 ================================
+    # donut chart
     user_emotions = UserEmotions.objects.get(user_id=user_id)
-    context["user_emotions"] = user_emotions
 
-    # line chart에 필요한 부분 =================================
+    # line chart
     end_date = timezone.now() + relativedelta(days=1)
     start_date = end_date - relativedelta(months=6)
 
@@ -52,11 +53,8 @@ def showChart(request):
         date__range=[start_date, end_date]
     )
 
-    context['diaries'] = diaries
-
     monthly_happy = {}
-    
-    for i in range(5):
+    for i in range(4, -1, -1):
         m = (timezone.now() - relativedelta(months=i)).strftime("%Y/%m")
         monthly_happy[m] = 0
 
@@ -73,58 +71,18 @@ def showChart(request):
     for mth, cnt in monthly_happy.items():
         months.append(mth)
         happy_cnt.append(cnt)
-    
-    months.reverse()
-    happy_cnt.reverse()
 
-    context['months'] = months
-    context['happy_cnt'] = happy_cnt
-    
+    # context
+    context = {
+        'user_emotions': user_emotions,
+        'diaries': diaries,
+        'months': months,
+        'happy_cnt': happy_cnt
+    }    
 
     return render(request, 'mainApp/chart.html', context)
 
 
-def showLineChart(request):
-    user_id = request.user.id
-    end_date = timezone.now() + relativedelta(days=1)
-    start_date = end_date - relativedelta(months=6)
-
-    diaries = Diary.objects.filter(
-        user_id_id = user_id,
-        date__range=[start_date, end_date]
-    )
-
-    context = {}
-    context['diaries'] = diaries
-
-    monthly_happy = {}
-    
-    for i in range(5):
-        m = (timezone.now() - relativedelta(months=i)).strftime("%Y/%m")
-        monthly_happy[m] = 0
-
-    
-    for d in diaries:
-        month = d.date.strftime("%Y/%m")
-        emotion = d.max_emotion
-
-        if emotion == "행복":
-            monthly_happy[month] += 1
-
-    months = []
-    happy_cnt =[]
-    for mth, cnt in monthly_happy.items():
-        months.append(mth)
-        happy_cnt.append(cnt)
-    
-    months.reverse()
-    happy_cnt.reverse()
-
-    context['months'] = months
-    context['happy_cnt'] = happy_cnt
-
-
-    return render(request, 'mainApp/chart_detail/line_test.html', context)
 
 def showMedia(request):
     return render(request, 'mainApp/media.html', {})
@@ -138,6 +96,7 @@ def showRemind(request):
     }
     return render(request, 'mainApp/remind.html', context)
 
+
 def showSharediary(request):
     current_user = Users.objects.get(id=request.user.id)
     diary = Diary.objects.filter(public=1).order_by('-date')
@@ -145,6 +104,7 @@ def showSharediary(request):
         'diary' : diary,
     }
     return render(request, 'mainApp/share.html', context)
+
 
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
@@ -192,6 +152,7 @@ def showDiary_view(request, id):
     
     return render(request, 'mainApp/diary_view.html', context)
 
+
 def calculateMin(objects, emotion):
     keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
     val = float('inf')
@@ -205,6 +166,7 @@ def calculateMin(objects, emotion):
             target = i
             # print(val, i.title)
     return target
+
 
 def getRecommendation(emotion):
     books = Books.objects.all()
@@ -225,6 +187,7 @@ def remove_diary(request, diary_id):
     diary.delete()
     return redirect('calendar')
 
+
 def postDiary(request):
     if request.method == 'POST' and request.POST['title'] != '':
         image=request.FILES['image'] if request.FILES else None
@@ -242,10 +205,6 @@ def postDiary(request):
         )
 
         max_emotion = max(description, key=description.get)
-        # emotion = Emotion.objects.get(description=max_emotion)
-
-        # print('cur user id:', request.user.id)
-        # print('emotion:', json.loads(api_result))
         current_user = Users.objects.get(id=request.user.id)
 
         user_emotions = UserEmotions.objects.get(user_id=request.user.id)
