@@ -92,7 +92,6 @@ def showDiary_view(request, id):
     values = []
     emotion_list = bestemotion.split(",")
     for emotion in emotion_list :
-        print(emotion)
         pair = emotion.split(":")
         keys.append(pair[0])
         values.append(pair[1])
@@ -245,11 +244,28 @@ def showTamagotchi(request):
     duringtime = now_user.last_login - now_user.date_joined
     totaldiarynum = len(totaldiary)
     point = duringtime.days + totaldiarynum
-    daypercent = duringtime.days/365*100
+    
+    todaytime = datetime.datetime.now()
+    
+    yeardiary = Diary.objects.filter(
+        user_id=now_user,
+        date__year=todaytime.year,
+        )
+    
+    monthdiary = Diary.objects.filter(
+        user_id=now_user,
+        date__year=todaytime.year,
+        date__month=todaytime.month,
+        )    
+    
+    yearpercent = len(yeardiary)/365*100
+    monthpercent = len(monthdiary)/30*100
+    
     context ={
         'duringtime' : duringtime.days,
         'totaldiary' : totaldiarynum,
         'point' : point,
-        'daypercent' : daypercent,
+        'yearpercent' : yearpercent,
+        'monthpercent' : monthpercent,
     }
     return render(request, 'mainApp/tamagotchi.html', context)

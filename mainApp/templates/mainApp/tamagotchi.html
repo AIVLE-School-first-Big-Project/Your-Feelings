@@ -229,31 +229,37 @@
                 </div>
                  
                 <div class="row justify-content-center">
-                  <div class="col">
+                  <div class="col-md">
                     <div class="card" style = "height:500px;">
                       <h3 class="card-header" style="font-family: 'Poor Story', cursive; font-size:36px;font-weight: bold;">'너의 기분은'과 함께한 기간</h3>
                       <div class="card-body">
                         
-                        <div id="daychart">
+                        <div id="chart1" style="width: 300px;  margin: 0 auto;">
                         </div>
+                        
                         <script>
-                          var options = {
+                          var options1 = {
                             chart: {
-                                height: 400,
-                                type: 'radialBar',
+                              height: 280,
+                              type: "radialBar",
                             },
-                            series: [{{ daypercent|floatformat }}],
-                            labels: ['올해는 '],
-                          }
+                            series: [{{yearpercent|floatformat}}, {{monthpercent|floatformat}}],
+                            plotOptions: {
+                              radialBar: {
+                                dataLabels: {
+                                  
+                                }
+                              }
+                            },
+                            labels: ['이번 해', '이번달']
+                          };
                           
-                          var chart = new ApexCharts(document.querySelector("#daychart"), options);
-                          
-                          chart.render();
+                          new ApexCharts(document.querySelector("#chart1"), options1).render();
                         </script>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <div class="card" style = "height:500px;">
                       <h3 class="card-header" style="font-family: 'Poor Story', cursive; font-size:40px; font-weight: bold;">작성한 글</h3>
                       <div class="card-body text-center">
@@ -267,7 +273,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <div class="card" style = "height:500px;">
                       <h3 class="card-header" style="font-family: 'Poor Story', cursive; font-weight: bold;">수집한 감정</h3>
                       <div class="card-body">
