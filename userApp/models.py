@@ -12,9 +12,11 @@ class Users(AbstractUser):
 
 class UserEmotions(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    joy = models.IntegerField()
-    anger = models.IntegerField()
-    anxious = models.IntegerField()
-    sad = models.IntegerField()
-    surprised = models.IntegerField()
+    terrified = models.IntegerField(default=0)
+    surprised = models.IntegerField(default=0)
+    angry = models.IntegerField(default=0)
+    sad = models.IntegerField(default=0)
+    neutral = models.IntegerField(default=0)
+    happy = models.IntegerField(default=0)
+    hate = models.IntegerField(default=0)
     
