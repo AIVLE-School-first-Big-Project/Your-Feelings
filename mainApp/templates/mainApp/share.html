@@ -235,9 +235,9 @@
                   <div class="row g-0">
                     <div class="col-md-4">
                       {% if diary.image %}
-                        <img class="card-img card-img-left" style="height:auto" src="{{diary.image.url}}" alt="Card image" />
+                        <img class="card-img card-img-left" style="width:100%; height:100%;" src="{{diary.image.url}}" alt="Card image" />
                         {% else %}
-                        <img class="card-img card-img-left" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" alt="Card image" />
+                        <img class="card-img card-img-left" style="width:100%; height:100%;" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" alt="Card image" />
                         {% endif %}
                       
                     </div>
