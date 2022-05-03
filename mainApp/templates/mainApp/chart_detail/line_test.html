@@ -1,7 +1,17 @@
 line test<br><br>
 
 {% for d in diaries %}
-    {{d.date}}
+    {{d.date | date:'Y/m'}}<br>
 {% endfor %}
 
-{{ monthly_happy }}
+{{monthly_happy}}
+
+<script>
+    const months = [1];
+
+    {% for month, cnt in monthly_happy.items %}
+        months.push(month);
+    {% endfor %}
+
+    document.write(months);
+</script>

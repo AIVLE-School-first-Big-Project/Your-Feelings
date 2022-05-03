@@ -1,20 +1,14 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator
 from .models import *
 from userApp.models import UserEmotions, Users
 from .forms import DiaryForm
-from config import settings
-import os
-from django.http import HttpResponse
-import urllib
 from django.utils import timezone
 import datetime
+from dateutil.relativedelta import relativedelta
 import requests
 import json
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-import re
 import random
 from tqdm import tqdm
 # Create your views here.
@@ -50,32 +44,31 @@ def showChart(request):
 
 def showLineChart(request):
     user_id = request.user.id
+    end_date = timezone.now() + relativedelta(days=1)
+    start_date = end_date - relativedelta(months=6)
 
     diaries = Diary.objects.filter(
         user_id_id = user_id,
-        date__lt = timezone.now() - datetime.timedelta(days=180)
+        date__range=[start_date, end_date]
     )
 
     context = {}
-
     context['diaries'] = diaries
 
     monthly_happy = {}
+    for i in range(5):
+        monthly_happy[(timezone.now() - relativedelta(months=i)).strftime("%Y/%m")] = 0
 
+    
     for d in diaries:
-        date = d.date.strftime("%Y-%m")
-        emotion = d.emotion
+        month = d.date.strftime("%Y/%m")
+        emotion = d.max_emotion
 
-        emotions = json.loads(emotion.description)
-        max_emotion = max(emotions, key=emotions.get)
-
-        if max_emotion == "행복":
-            if monthly_happy[date] == 0:
-                monthly_happy[date] = 1
-            else:
-                monthly_happy[date] += 1
+        if emotion == "행복":
+            monthly_happy[month] += 1
 
     context['monthly_happy'] = monthly_happy
+
 
     return render(request, 'mainApp/chart_detail/line_test.html', context)
 
