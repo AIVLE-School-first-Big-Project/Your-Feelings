@@ -16,28 +16,7 @@ from tqdm import tqdm
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
 
 
-
-def showMain(request):
-    context ={}
-    try:
-        current_user = Users.objects.get(id=request.user.id)
-        diary = Diary.objects.filter(user_id=current_user)
-        context['diary'] = diary
-    except:
-        pass
-    return render(request, 'mainApp/main.html', context)
-
-
-def showCalendar(request):
-    current_user = Users.objects.get(id=request.user.id)
-    diary = Diary.objects.filter(user_id=current_user)
-    context ={
-        'diary' : diary,
-    }
-    return render(request, 'mainApp/calendar.html', context)
-
-
-def showChart(request):
+def charts(request):
     user_id = request.user.id
     context = {}
     
@@ -96,8 +75,33 @@ def showChart(request):
         'happy_cnt': happy_cnt,
         'sad_cnt': sad_cnt,
         'angry_cnt': angry_cnt
-    }    
+    }
 
+    return context
+
+
+def showMain(request):
+    context = charts(request)
+    try:
+        current_user = Users.objects.get(id=request.user.id)
+        diary = Diary.objects.filter(user_id=current_user)
+        context['diary'] = diary
+    except:
+        pass
+    return render(request, 'mainApp/main.html', context)
+
+
+def showCalendar(request):
+    current_user = Users.objects.get(id=request.user.id)
+    diary = Diary.objects.filter(user_id=current_user)
+    context ={
+        'diary' : diary,
+    }
+    return render(request, 'mainApp/calendar.html', context)
+
+
+def showChart(request):
+    context = charts(request)
     return render(request, 'mainApp/chart.html', context)
 
 
