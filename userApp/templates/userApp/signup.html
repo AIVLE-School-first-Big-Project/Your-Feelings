@@ -14,91 +14,98 @@
               <div class="card-body">
                 <!-- Logo -->
                 <div class="app-brand justify-content-center">
+                  <div class="col-3">
                     <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
+                  </div>
                 </div>
                 <!-- /Logo -->
-                <h4 class="mb-2">Join us!</h4>
-                <p class="mb-4">We will fill your life with happiness</p>
-  
-                <form id="formAuthentication" class="mb-3" action="{% url 'user:signup' %}" method="POST">
-                  {% csrf_token %}
-                  {% if error %}
-                    <strong>{{ error }} </strong>
-                  {% endif%}
+                <div class="row justify-content-center">
+                  <div class="col-4">
 
-                  {% if form.errors %}
-                  <div class="alert alert-primary alert-dismissible" role="alert">
-
-                    {% for field in form %}
-                      {% for error in field.errors %}
-                        {{ field.label}} : {{ error }}<br>
-                      {% endfor %}
-                    {% endfor %}
-                    
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <h4 class="mb-2">Join us!</h4>
+                    <p class="mb-4">We will fill your life with happiness</p>
+      
+                    <form id="formAuthentication" class="mb-3" action="{% url 'user:signup' %}" method="POST">
+                      {% csrf_token %}
+                      {% if error %}
+                        <strong>{{ error }} </strong>
+                      {% endif%}
+    
+                      {% if form.errors %}
+                      <div class="alert alert-primary alert-dismissible" role="alert">
+    
+                        {% for field in form %}
+                          {% for error in field.errors %}
+                            {{ field.label}} : {{ error }}<br>
+                          {% endfor %}
+                        {% endfor %}
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {% endif %}
+    
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="username"
+                          name="username"
+                          placeholder="Enter your username"
+                          autofocus
+                        />
+                      </div>
+                      
+    
+                      <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                            type="password"
+                            id="password1"
+                            class="form-control"
+                            name="password1"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="password"
+                          />
+                          <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
+                      </div>
+                      <div class="mb-3 form-password-toggle">
+                        <label class="form-label" for="password2">Re-enter Password</label>
+                        <div class="input-group input-group-merge">
+                          <input
+                            type="password"
+                            id="password2"
+                            class="form-control"
+                            name="password2"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="password"
+                          />
+                          <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="full_name" class="form-label">name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="full_name"
+                          name="full_name"
+                          placeholder="Enter your full name"
+                          autofocus
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                      </div>
+                      <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit" value="signup">Sign up</button>
+                      </div>
+                      </form>
                   </div>
-                  {% endif %}
-
-                  <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="username"
-                      name="username"
-                      placeholder="Enter your username"
-                      autofocus
-                    />
-                  </div>
-                  
-
-                  <div class="mb-3 form-password-toggle">
-                    <label class="form-label" for="password">Password</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                        type="password"
-                        id="password1"
-                        class="form-control"
-                        name="password1"
-                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                        aria-describedby="password"
-                      />
-                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                  </div>
-                  <div class="mb-3 form-password-toggle">
-                    <label class="form-label" for="password2">Re-enter Password</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                        type="password"
-                        id="password2"
-                        class="form-control"
-                        name="password2"
-                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                        aria-describedby="password"
-                      />
-                      <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="full_name" class="form-label">name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="full_name"
-                      name="full_name"
-                      placeholder="Enter your full name"
-                      autofocus
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-primary d-grid w-100" type="submit" value="signup">Sign up</button>
-                  </div>
-                  </form>
+                </div>
                 
                 <p class="text-center">
                   <span>이미 계정이 있으신가요?</span>
