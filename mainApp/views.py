@@ -56,7 +56,7 @@ def showChart(request):
     monthly_happy = {}
     monthly_sad = {}
     monthly_angry = {}
-    for i in range(4, -1, -1):
+    for i in range(5, -1, -1):
         m = (timezone.now() - relativedelta(months=i)).strftime("%Y/%m")
         monthly_happy[m] = 0
         monthly_sad[m] = 0
@@ -203,6 +203,8 @@ def remove_diary(request, diary_id):
     emotion = Emotion.objects.get(id=diary.emotion_id)
     emotion.delete()
     diary.delete()
+
+
     return redirect('calendar')
 
 
