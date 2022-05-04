@@ -3,11 +3,27 @@
   const labels1 = {{ months | safe }};
   const data1 = {
     labels: labels1,
-    datasets: [{
+    datasets: [
+    {
+      type: 'line',
       label: '월별 행복했던 횟수',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
       data: {{ happy_cnt | safe }},
+    },
+    {
+      type: 'line',
+      label: '월별 슬펐던 횟수',
+      backgroundColor: 'rgb(121, 126, 246)',
+      borderColor: 'rgb(121, 126, 246)',
+      data: {{ sad_cnt | safe }},
+    },
+    {
+      type: 'line',
+      label: '월별 화났던 횟수',
+      backgroundColor: 'rgb(73, 222, 222)',
+      borderColor: 'rgb(73, 222, 222)',
+      data: {{ angry_cnt | safe }},
     }]
   };
   const config1 = {

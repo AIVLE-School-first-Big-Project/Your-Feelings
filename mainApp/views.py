@@ -54,9 +54,13 @@ def showChart(request):
     )
 
     monthly_happy = {}
+    monthly_sad = {}
+    monthly_angry = {}
     for i in range(4, -1, -1):
         m = (timezone.now() - relativedelta(months=i)).strftime("%Y/%m")
         monthly_happy[m] = 0
+        monthly_sad[m] = 0
+        monthly_angry[m] = 0
 
     
     for d in diaries:
@@ -65,19 +69,33 @@ def showChart(request):
 
         if emotion == "행복":
             monthly_happy[month] += 1
+        elif emotion == "슬픔":
+            monthly_sad[month] += 1
+        elif emotion == "분노":
+            monthly_angry[month] += 1
 
     months = []
-    happy_cnt =[]
+    happy_cnt = []
     for mth, cnt in monthly_happy.items():
         months.append(mth)
         happy_cnt.append(cnt)
+
+    sad_cnt = []
+    for _, cnt in monthly_sad.items():
+        sad_cnt.append(cnt)
+    
+    angry_cnt = []
+    for _, cnt in monthly_angry.items():
+        angry_cnt.append(cnt)
 
     # context
     context = {
         'user_emotions': user_emotions,
         'diaries': diaries,
         'months': months,
-        'happy_cnt': happy_cnt
+        'happy_cnt': happy_cnt,
+        'sad_cnt': sad_cnt,
+        'angry_cnt': angry_cnt
     }    
 
     return render(request, 'mainApp/chart.html', context)
