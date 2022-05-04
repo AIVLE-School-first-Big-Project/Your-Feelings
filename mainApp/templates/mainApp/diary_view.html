@@ -310,28 +310,30 @@
                           <div class="w-75">
                             <h1 class="display-1" style="font-family: 'Yeon Sung', cursive;">오늘의 기분은?</h1>
                           </div>
-                          <div class="w-25 border border-primary rounded">
+                          <div class="w-25 text-center">
                             {% with 'img/emotion/emotion/'|add:emoticon|add:'.png' as image_path %}
                             <img class="img-fluid" src="{% static image_path %}" alt='{{emoticon}}'/>
+                            <span class="badge rounded-pill bg-label-primary" style='font-size:1rem'>{{firstemotion}}</span>
+                            
                             {% endwith %}
                           </div>
                         </div>
                       </h2>
                       <div class="col text-center">
                         <br>
-                          <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                          <i class='bx bx-music' style='font-size:50px'></i>
                           <h1 style="font-family: 'Yeon Sung', cursive;">음악: {{ recommended.rec_music.title|default_if_none:'-' }}</h1>
                           <h4 style="font-family: 'Yeon Sung', cursive;">{{ recommended.rec_music.artist|default_if_none:'-' }}</h4>
                       </div>
                       <div class="col text-center">
                         <br>
-                        <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                        <i class='bx bx-movie' style='font-size:50px'></i>
                         <h1 style="font-family: 'Yeon Sung', cursive;">영화: {{ recommended.rec_movie.title|default_if_none:'-' }}</h1>
                         <h4 style="font-family: 'Yeon Sung', cursive;">{{ recommended.rec_movie.release_year|default_if_none:'-' }}</h4>
                       </div>
                       <br>
                       <div class="col text-center">
-                        <svg class="bd-placeholder-img rounded-circle" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+                        <i class='bx bx-book-open' style='font-size:50px'></i>
                         <h1 style="font-family: 'Yeon Sung', cursive;">도서: {{ recommended.rec_book.title|default_if_none:'-' }}</h1>
                         <h4 style="font-family: 'Yeon Sung', cursive;">{{ recommended.rec_book.author|default_if_none:'-' }}</h4>
                       </div>
