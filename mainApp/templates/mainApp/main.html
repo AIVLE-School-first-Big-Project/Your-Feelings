@@ -51,12 +51,12 @@
                     <div data-i18n="Boxicons">차트로 보기</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                {% comment %} <li class="menu-item">
                   <a href="{% url 'media' %}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-music"></i>
                     <div data-i18n="Boxicons">Media 추천보기</div>
                   </a>
-                </li>
+                </li> {% endcomment %}
               </ul>
             </li>
 
@@ -141,7 +141,7 @@
                       m = (m < 10) ? "0" + m : m;
                       s = (s < 10) ? "0" + s : s;
                       
-                      var time = '현재 시각 :' + h + ":" + m + ":" + s + " " + session;
+                      var time = '현재 시각 :' + h + ":" + m + " " + session;
                       document.getElementById("CurrentTime").innerText = time;
                       document.getElementById("CurrentTime").textContent = time;
                       
