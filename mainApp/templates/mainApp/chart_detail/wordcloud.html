@@ -2,39 +2,21 @@
   <div id="container" style="width:100%; height:100%;"></div>
 </div>
 
+<div class="row">
+
+
+</div>
+
 <script> anychart.onDocumentReady(function () {
     var data = [
+      {% for i,j in cnt %}
       {
-        "x": "IT",
-        "value": 1,
-        category: "Sino-Tibetan"
-      },
-      {
-        "x":"Python",
-        "value": 2,
-        category: "Indo-European"
-      },
-      {
-        "x": "소프트웨어",
-        "value": 3,
-        category:
-          "Indo-European"
-      },
-      {
-        "x": "JAVA",
-        "value": 1,
-        category: "Indo-European"
-      },
-      {
-        "x": "C++",
-        "value": 4,
+        "x": "{{i}}",
+        "value": {{j|safe}},
         category: "Afro-Asiatic"
       },
-      {
-        "x": "HTML",
-        "value": 2,
-        category: "Afro-Asiatic"
-      }
+      {% endfor %}
+
     ];
     var chart = anychart.tagCloud(data);
     chart.angles([0]);
