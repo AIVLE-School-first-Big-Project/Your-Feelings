@@ -88,6 +88,12 @@ def showMain(request):
         context['diary'] = diary
     except:
         pass
+    now_user = Users.objects.get(id=request.user.id)
+    totaldiary = Diary.objects.filter(user_id=now_user)
+    duringtime = now_user.last_login - now_user.date_joined
+    totaldiarynum = len(totaldiary)
+    point = duringtime.days + totaldiarynum
+    context['point']  = point
     return render(request, 'mainApp/main.html', context)
 
 

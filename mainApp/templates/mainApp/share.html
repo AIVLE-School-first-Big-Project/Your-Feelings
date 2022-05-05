@@ -233,20 +233,12 @@
               <div class="col-md">
                 <div class="card mb-3">
                   <div class="row g-0">
-                    <div class="col-md-4">
-                      {% if diary.image %}
-                        <img class="card-img card-img-left" style="width:100%; height:100%;" src="{{diary.image.url}}" alt="Card image" />
-                        {% else %}
-                        <img class="card-img card-img-left" style="width:100%; height:100%;" src="{% static 'mainApp/assets/img/elements/18.jpg'%}" alt="Card image" />
-                        {% endif %}
-                      
-                    </div>
-                    <div class="col-md-8">
+                    <div class="col-md">
                       <div class="card-body">
-                        <h2 class="card-title" style="font-family: 'Yeon Sung', cursive;">{{ diary.title }}</h2>
-                        <h5 class="card-text" style="font-family: 'Yeon Sung', cursive;">
+                        <h1 class="card-title" style="font-family: 'Dongle', sans-serif; color: #3A3A51; ">{{ diary.title }}</h1>
+                        <h3 class="card-text" style="font-family: 'Dongle', sans-serif;">
                           {{ diary.content|striptags|truncatechars:40 }}
-                        </h5>
+                        </h3>
                         <p class="card-text" style="text-align:right"><small class="text-muted"><i class='bx bx-user'> </i> {{ diary.user_id }}</small></p>
                       </div>
                     </div>

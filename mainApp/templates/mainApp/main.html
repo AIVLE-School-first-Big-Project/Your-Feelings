@@ -230,7 +230,7 @@
                   {%include 'mainApp/calendar_detail/calendar_detail.html'%}
                 
                 </div>
-                <div class="col-6">
+                <div class="col-6 mt-3">
                   <div class="row">
                     <div class="card">
                       <h5 class="card-header">월 별 감정 통계</h5>
@@ -241,18 +241,18 @@
                   </div>
                   <div class="row mt-3">
                     <div class="card">
-                      <h5 class="card-header">이런 노래는 어때요?</h5>
+                      <h5 class="card-header">나의 캐릭터</h5>
                       <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between ">
-                          <div class="w-25">
-                            <img src="{% static 'img/emotion/emotion/question_mark.png'%}" class="img-fluid">
-                          </div>
-                          <div class="w-25">
-                            노래 제목 : ~~~
-                          </div>
-                          <div class="w-25">
-                            가수 : ~~~
-                          </div>
+                        <div class="d-flex justify-content-center">
+                          {% if  point < 1 %}
+                          {%include 'mainApp/tamagotchi_detail/detail_0.html'%}
+                          {% elif point < 6%}
+                          {%include 'mainApp/tamagotchi_detail/detail_1_1.html'%}
+                          {% elif point < 11%}
+                          {%include 'mainApp/tamagotchi_detail/detail_1_2.html'%}
+                          {% else %}
+                          {%include 'mainApp/tamagotchi_detail/detail_1_3.html'%}
+                          {% endif %}
                         </div>
                       </div>
                     </div>
@@ -292,4 +292,8 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+    <!--anime.js와 다마고찌 셋팅-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/3.1.0/anime.min.js'></script>
+    <script  src="{% static 'mainApp/assets/js/tamagotchi.js'%}"></script>
+        
 {% endblock edge %}
