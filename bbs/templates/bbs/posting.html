@@ -1,0 +1,145 @@
+{% extends "bbs/base.html" %}
+{% block content %}
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="container my-3">
+    <div>
+        <p class="fs-4"><small>조회 수 : {{ post.views }}</small></p>
+    </div>
+    
+    <h2 class="border-bottom py-2">{{ post.postname }}</h2>
+    <h5> 작성자: {{ post.writer }}</h5>
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">
+                    {{ post.contents|safe }}
+                </div>
+                <br>
+                {% if post.code_edit != '' %}
+            </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" onclick="ChangePython()" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">Python</label>
+            <input type="radio" class="btn-check" onclick="ChangeJava()" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">JAVA</label>
+            <input type="radio" class="btn-check" onclick="ChangeCpp()" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">C++</label>
+        </div>
+        <pre><code id="output" class="python">{{ post.code_edit }}</code></pre>
+    {% endif %}
+    
+        <script>
+            var outputarea = document.getElementById("output");
+            function ChangePython(){
+                outputarea.className = 'Python';
+                hljs.highlightBlock(outputarea);
+            }
+            function ChangeJava(){
+                outputarea.className = 'JAVA';
+                hljs.highlightBlock(outputarea);
+            }
+            function ChangeCpp(){
+                outputarea.className = 'cpp';
+                hljs.highlightBlock(outputarea);
+            }
+        </script>    
+    
+    {% for uploadfile in post.uploadfile_set.all %}
+    {% csrf_token %}
+        <td>
+            <i data-feather="download"></i>
+            <a class="btn" href="/free/{{uploadfile.id}}/download/" role="button"> 
+                <h5>
+                    {{ uploadfile.file }}
+                </h5> 
+            </a>
+        </td>
+    {% endfor %}
+
+    <h5 class="border-bottom my-3 py-2">
+        {{post.comment_set.count}}개의 답변이 있습니다.
+    </h5>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">내용</th>
+                <th scope="col">시간</th>
+                <th scope="col">   </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in post.comment_set.all %}
+            <tr>
+            {% csrf_token %}
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.create_date }}</td>
+                <td>
+                    {% if user.is_authenticated %}
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#삭제1">
+                            삭제
+                        </button>
+                        <div class="modal fade" id="삭제1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">정말로 이 댓글을 삭제하시겠습니까?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{comment.content}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-danger" href="/free/{{post.id}}/{{comment.id}}/" role="button">삭제</a>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody> 
+    </table>
+    
+ 
+
+    <form action="{% url 'bbs:comment_create' post.id %}"
+        method="post" class="my-3">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+
+        <div class="form-group">
+            <textarea name="content" id="content" class="form-control" rows="5"></textarea>
+        </div>
+        <br>
+        <input type="submit" value="답변등록" class="btn btn-primary">
+    </form>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary" href="/free/" role="button">목록</a>
+        {% if post.writer == user.username %}
+            <a class="btn btn-danger" href="/free/{{post.pk}}/remove/" role="button">삭제</a>
+        {% endif %}
+    </div>
+    
+</div>
+{% endblock %}

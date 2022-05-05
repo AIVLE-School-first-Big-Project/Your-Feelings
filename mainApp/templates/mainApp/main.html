@@ -25,9 +25,15 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <a href="{% url 'main' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle bx-tada-hover"></i>
                 <div data-i18n="Analytics">메인 페이지</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{% url 'bbs:free' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul bx-tada-hover"></i>
+                <div data-i18n="Analytics">자유게시판</div>
               </a>
             </li>
 
@@ -35,25 +41,25 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bx-dock-top bx-tada-hover"></i>
                 <div data-i18n="Account Settings">상세 보기</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{% url 'calendar' %}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <i class="menu-icon tf-icons bx bx-calendar bx-tada-hover"></i>
                     <div data-i18n="Boxicons">달력으로 보기</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="{% url 'chart' %}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2 bx-tada-hover"></i>
                     <div data-i18n="Boxicons">차트로 보기</div>
                   </a>
                 </li>
                 {% comment %} <li class="menu-item">
                   <a href="{% url 'media' %}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-music"></i>
+                    <i class="menu-icon tf-icons bx bx-music bx-tada-hover"></i>
                     <div data-i18n="Boxicons">Media 추천보기</div>
                   </a>
                 </li> {% endcomment %}
@@ -72,19 +78,19 @@
             </li>
             <li class="menu-item">
               <a href="{% url 'remind'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-history"></i>
+                <i class="menu-icon tf-icons bx bx-history bx-tada-hover"></i>
                 <div data-i18n="Boxicons">추억 돌아보기</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="{% url 'tamagotchi' %}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <i class="menu-icon tf-icons bx bx-home-smile bx-tada-hover"></i>
                 <div data-i18n="Boxicons">알 키우기</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="{% url 'share' %}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cool"></i>
+                <i class="menu-icon tf-icons bx bx-cool bx-tada-hover"></i>
                 <div data-i18n="Boxicons">다른 사람은?</div>
               </a>
             </li>

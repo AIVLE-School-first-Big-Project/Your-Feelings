@@ -32,6 +32,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # App 추가 Section
+    'mainApp',
+    'introductionApp',
+    'userApp',
+    'bbs',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,10 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # App 추가 Section
-    'mainApp',
-    'introductionApp',
-    'userApp'
 ]
 
 MIDDLEWARE = [

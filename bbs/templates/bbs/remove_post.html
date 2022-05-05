@@ -1,0 +1,26 @@
+{% extends "bbs/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col">
+      <form method="POST">
+      {% csrf_token %}
+        <div class="card text-center">
+          <div class="card-header">
+            <h2> {{Post.postname}} 삭제</h2>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              <p class="text-black">
+                정말 삭제하시겠습니까?
+              </p>
+            </h5>
+            <button type="submit" class="btn btn-danger">삭제</button>
+            <a class="btn btn-secondary" href="/free/{{Post.pk}}/" role="button">취소</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
