@@ -11,6 +11,9 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 import random
 from tqdm import tqdm
+
+from collections import Counter
+import re
 # Create your views here.
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
@@ -41,10 +44,13 @@ def charts(request):
         monthly_sad[m] = 0
         monthly_angry[m] = 0
 
+
+    temp = ''
     
     for d in diaries:
         month = d.date.strftime("%Y/%m")
         emotion = d.max_emotion
+        temp += d.content
 
         if emotion == "행복":
             monthly_happy[month] += 1
@@ -67,6 +73,10 @@ def charts(request):
     for _, cnt in monthly_angry.items():
         angry_cnt.append(cnt)
 
+
+    temp = re.sub(r'[^ ㄱ-ㅣ가-힣+]','',temp)
+    cnt = dict(Counter(temp.split()))
+    cnt = list(zip(cnt.keys(), cnt.values()))
     # context
     context = {
         'user_emotions': user_emotions,
@@ -74,7 +84,8 @@ def charts(request):
         'months': months,
         'happy_cnt': happy_cnt,
         'sad_cnt': sad_cnt,
-        'angry_cnt': angry_cnt
+        'angry_cnt': angry_cnt,
+        'cnt' : cnt
     }
 
     return context

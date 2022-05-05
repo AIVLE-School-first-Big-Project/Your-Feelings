@@ -1,332 +1,328 @@
-
 {% extends 'mainApp/base.html' %}
 {% load static %}
 
 {% block edge %}
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
+<!-- Layout wrapper -->
+<!-- anychart -->
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
 
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="d-flex justify-content-center">
 
-            <a href="{% url 'main' %}" class="app-brand-link">
-              <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
-            </a>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
 
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
-          </div>
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <div class="d-flex justify-content-center">
 
-          <div class="menu-inner-shadow"></div>
+        <a href="{% url 'main' %}" class="app-brand-link">
+          <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid' />
+        </a>
 
-          <ul class="menu-inner py-1">
-            <!-- Dashboard -->
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+          <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+      </div>
+
+      <div class="menu-inner-shadow"></div>
+
+      <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-item">
+          <a href="{% url 'main' %}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+            <div data-i18n="Analytics">메인 페이지</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'bbs:free' %}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-list-ul bx-tada-hover"></i>
+              <div data-i18n="Analytics">자유게시판</div>
+          </a>
+        </li>
+
+        <!-- Layouts -->
+
+        <li class="menu-item active open">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <div data-i18n="Account Settings">상세 보기</div>
+          </a>
+          <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{% url 'main' %}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">메인 페이지</div>
+              <a href="{% url 'calendar' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div data-i18n="Boxicons">달력으로 보기</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{% url 'bbs:free' %}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-list-ul bx-tada-hover"></i>
-                  <div data-i18n="Analytics">자유게시판</div>
+            <li class="menu-item active">
+              <a href="{% url 'chart' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                <div data-i18n="Boxicons">차트로 보기</div>
               </a>
             </li>
-
-            <!-- Layouts -->
-
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">상세 보기</div>
+            {% comment %} <li class="menu-item">
+              <a href="{% url 'media' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-music"></i>
+                <div data-i18n="Boxicons">Media 추천보기</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{% url 'calendar' %}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-calendar"></i>
-                    <div data-i18n="Boxicons">달력으로 보기</div>
-                  </a>
-                </li>
-                <li class="menu-item active">
-                  <a href="{% url 'chart' %}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-                    <div data-i18n="Boxicons">차트로 보기</div>
-                  </a>
-                </li>
-                {% comment %} <li class="menu-item">
-                  <a href="{% url 'media' %}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-music"></i>
-                    <div data-i18n="Boxicons">Media 추천보기</div>
-                  </a>
-                </li> {% endcomment %}
-              </ul>
-            </li>
-
-
-            <li class="menu-item">
-
-            </li>
-            <li class="menu-item">
-
-            </li>
-            <li class="menu-item">
-              
-            </li>
-            <li class="menu-item">
-              <a href="{% url 'remind'%}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-history"></i>
-                <div data-i18n="Boxicons">추억 돌아보기</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="{% url 'tamagotchi' %}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-smile"></i>
-                <div data-i18n="Boxicons">알 키우기</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="{% url 'share' %}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cool"></i>
-                <div data-i18n="Boxicons">다른 사람은?</div>
-              </a>
-            </li>
+            </li> {% endcomment %}
           </ul>
-        </aside>
-        <!-- / Menu -->
+        </li>
 
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
-            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-              </a>
+
+        <li class="menu-item">
+
+        </li>
+        <li class="menu-item">
+
+        </li>
+        <li class="menu-item">
+
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'remind'%}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-history"></i>
+            <div data-i18n="Boxicons">추억 돌아보기</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'tamagotchi' %}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-home-smile"></i>
+            <div data-i18n="Boxicons">알 키우기</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'share' %}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-cool"></i>
+            <div data-i18n="Boxicons">다른 사람은?</div>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- / Menu -->
+
+    <!-- Layout container -->
+    <div class="layout-page">
+      <!-- Navbar -->
+      <nav
+        class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+        id="layout-navbar">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+            <i class="bx bx-menu bx-sm"></i>
+          </a>
+        </div>
+
+        <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+          <!-- Search -->
+          <div class="navbar-nav align-items-center">
+            <div class="nav-item d-flex align-items-center">
+              <i class="bx bx-search fs-4 lh-0"></i>
+              <input type="date" />
             </div>
 
-            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="date"/>
-                </div>
-                
 
-              </div>
-              <!-- /Search -->
+          </div>
+          <!-- /Search -->
 
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
-                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
-                <script>
-                  function showTime(){
-                    var date = new Date();
-                    var h = date.getHours(); // 0 - 23
-                    var m = date.getMinutes(); // 0 - 59
-                    var s = date.getSeconds(); // 0 - 59
-                    var session = "AM";
-                    
-                    if(h == 0){
-                        h = 12;
-                    }
-                    
-                    if(h > 12){
-                        h = h - 12;
-                        session = "PM";
-                    }
-                    
-                    h = (h < 10) ? "0" + h : h;
-                    m = (m < 10) ? "0" + m : m;
-                    s = (s < 10) ? "0" + s : s;
-                    
-                    var time = '현재 시각 :' + h + ":" + m + " " + session;
-                    document.getElementById("CurrentTime").innerText = time;
-                    document.getElementById("CurrentTime").textContent = time;
-                    
-                    setTimeout(showTime, 1000);
+          <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- User -->
+            <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+            <script>
+              function showTime() {
+                var date = new Date();
+                var h = date.getHours(); // 0 - 23
+                var m = date.getMinutes(); // 0 - 59
+                var s = date.getSeconds(); // 0 - 59
+                var session = "AM";
+
+                if (h == 0) {
+                  h = 12;
                 }
-                
-                showTime();
-                </script>
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="{% static 'mainApp/assets/img/avatars/1.png'%}" alt class="w-px-40 h-auto rounded-circle" />
+
+                if (h > 12) {
+                  h = h - 12;
+                  session = "PM";
+                }
+
+                h = (h < 10) ? "0" + h : h;
+                m = (m < 10) ? "0" + m : m;
+                s = (s < 10) ? "0" + s : s;
+
+                var time = '현재 시각 :' + h + ":" + m + " " + session;
+                document.getElementById("CurrentTime").innerText = time;
+                document.getElementById("CurrentTime").textContent = time;
+
+                setTimeout(showTime, 1000);
+              }
+
+              showTime();
+            </script>
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <div class="avatar avatar-online">
+                  <img src="{% static 'mainApp/assets/img/avatars/1.png'%}" alt class="w-px-40 h-auto rounded-circle" />
+                </div>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0 me-3">
+                        <div class="avatar avatar-online">
+                          <img src="{% static 'mainApp/assets/img/avatars/1.png'%}" alt
+                            class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                      </div>
+                      <div class="flex-grow-1">
+                        {% if user.is_authenticated %}
+                        <span class="fw-semibold d-block">{{ user.username }}</span>
+                        <small class="text-muted">User</small>
+                        {% endif %}
+                      </div>
                     </div>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="{% static 'mainApp/assets/img/avatars/1.png'%}" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                            {% if user.is_authenticated %}
-                            <span class="fw-semibold d-block">{{ user.username }}</span>
-                            <small class="text-muted">User</small>
-                          {% endif %}
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'user:mypage' %}">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'user:logout' %}">
-                        {% if user.is_authenticated %}
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                        {% else %}
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log In</span>
-                        {% endif %}
-                      </a>
-                    </li>
-                  </ul>
                 </li>
-                <!--/ User -->
+                <li>
+                  <div class="dropdown-divider"></div>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'user:mypage' %}">
+                    <i class="bx bx-user me-2"></i>
+                    <span class="align-middle">My Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i class="bx bx-cog me-2"></i>
+                    <span class="align-middle">Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <div class="dropdown-divider"></div>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'user:logout' %}">
+                    {% if user.is_authenticated %}
+                    <i class="bx bx-power-off me-2"></i>
+                    <span class="align-middle">Log Out</span>
+                    {% else %}
+                    <i class="bx bx-power-off me-2"></i>
+                    <span class="align-middle">Log In</span>
+                    {% endif %}
+                  </a>
+                </li>
               </ul>
-            </div>
-          </nav>
+            </li>
+            <!--/ User -->
+          </ul>
+        </div>
+      </nav>
 
-          <!-- / Navbar -->
+      <!-- / Navbar -->
 
 
 
 
 
-          <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <!-- {% block content %} -->
-              <div class="row">
-                <h6 class="text-muted">Basic</h6>
-                <div class="nav-align-top mb-4">
-                  <ul class="nav nav-pills mb-3" role="tablist">
-                    <li class="nav-item">
-                      <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home" aria-selected="true">
-                        월별 보기
-                      </button>
-                    </li>
-                    <li class="nav-item">
-                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile" aria-selected="false">
-                        감정별 보기
-                      </button>
-                    </li>
-                    {% comment %} <li class="nav-item">
-                      <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-messages" aria-controls="navs-pills-top-messages" aria-selected="false">
-                        빈 탭
-                      </button>
-                    </li> {% endcomment %}
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane fade active show" id="navs-pills-top-home" role="tabpanel">
-                      {% include 'mainApp/chart_detail/line_chart.html' %}
-                    </div>
-                    <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
-                      <div class="d-flex justify-content-center">
-                        <div class="col-6">
-                          {% include 'mainApp/chart_detail/doughnut_chart.html' %}
-                        </div>
-                      </div>
-                      </div>
-                    <div class="tab-pane fade" id="navs-pills-top-messages" role="tabpanel">
-                      <p>
-                        Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans macaroon gummies
-                        cupcake gummi bears cake chocolate.
-                      </p>
-                      <p class="mb-0">
-                        Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie brownie cake. Sweet
-                        roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert. Pudding jelly
-                        jelly-o tart brownie jelly.
-                      </p>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <!-- {% block content %} -->
+          <div class="row">
+            <h6 class="text-muted">Basic</h6>
+            <div class="nav-align-top mb-4">
+              <ul class="nav nav-pills mb-3" role="tablist">
+                <li class="nav-item">
+                  <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home" aria-selected="true">
+                    월별 보기
+                  </button>
+                </li>
+                <li class="nav-item">
+                  <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile"
+                    aria-selected="false">
+                    감정별 보기
+                  </button>
+                </li>
+                <li class="nav-item">
+                  <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-pills-top-messages" aria-controls="navs-pills-top-messages"
+                    aria-selected="false">
+                    워드 클라우드
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade active show" id="navs-pills-top-home" role="tabpanel">
+                  {% include 'mainApp/chart_detail/line_chart.html' %}
+                </div>
+                <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
+                  <div class="d-flex justify-content-center">
+                    <div class="col-6">
+                      {% include 'mainApp/chart_detail/doughnut_chart.html' %}
                     </div>
                   </div>
                 </div>
+                <div class="tab-pane fade" id="navs-pills-top-messages" role="tabpanel">
+                  {% include 'mainApp/chart_detail/wordcloud.html' %}
+                </div>
+
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              <!-- {% endblock content %} -->
             </div>
-            <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  Aivle School <strong>AI 수도권 1반 1조</strong>
-                </div>
-                <div>
-                  이대용 | 전현근 | 천명철 | 편승희 | 홍지의
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
           </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
 
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- {% endblock content %} -->
+        </div>
+        <!-- / Content -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+            <div class="mb-2 mb-md-0">
+              ©
+              <script>
+                     document.write(new Date().getFullYear());
+              </script>
+              , made with ❤️ by
+              Aivle School <strong>AI 수도권 1반 1조</strong>
+            </div>
+            <div>
+              이대용 | 전현근 | 천명철 | 편승희 | 홍지의
+            </div>
+          </div>
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+      </div>
+      <!-- Content wrapper -->
     </div>
-    <!-- / Layout wrapper -->
+    <!-- / Layout page -->
+  </div>
+
+  <!-- Overlay -->
+  <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
 {% endblock edge %}
