@@ -2,7 +2,8 @@
 {% block content %}
 <div class="row d-flex justify-content-center">
     <div class="col-10">
-        <h1 class="h1 mb-3"><i data-feather="align-left"></i> 자유게시판</h1>
+        <br><br><br>
+        <h1 class="h1 mb-3" style="font-family: 'Poor Story', cursive; font-size : 70px; font-weight: bold;"><i data-feather="align-left"></i> 자유게시판</h1>
         
         <br>
         <div class="row">
@@ -12,14 +13,17 @@
                     <div class="card-header">
                         <small># {{list.id}}번 째 게시글</small>
                         <a href="{{list.pk}}/">
-                                <h4>
+                                <h1 style="font-family: 'Dongle', sans-serif; color: #3A3A51; ">
                                         {{list.postname|truncatechars:17}}
-                                </h4>
+                                </h1>
                         </a>
-                        <h5><small>조회 수 : {{ list.views }}</small></h5>
+                        
                     </div>
                     <div class="card-body">
                         {{list.contents|safe|striptags|truncatechars:20}}
+                    </div>
+                    <div class="card-footer">
+                    <h5 style="float:right"><small>조회 수 : {{ list.views }}</small></h5>
                     </div>
                 </div>
             </div>
