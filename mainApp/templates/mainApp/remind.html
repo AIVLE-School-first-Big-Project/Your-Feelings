@@ -318,8 +318,8 @@
                       <div class="grid-item">
                         {% if diary.image %}
                         <img src='{{diary.image.url}}'>
-                        {% else %}
-                        <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}">
+                        {% comment %} {% else %}
+                        <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}"> {% endcomment %}
                         {% endif %}
                         <h5 style="color:white;" class="bottom-right">{{ diary.date|date:'Y-m-d' }}</h5>
                       </div>
