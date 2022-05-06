@@ -131,17 +131,7 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="date"/>
-                </div>
-                
-
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
-                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                  <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                 <script>
                   function showTime(){
                     var date = new Date();
@@ -173,6 +163,15 @@
                 
                 showTime();
                 </script>
+                </div>
+                
+
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- User -->
+                
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -318,8 +317,8 @@
                       <div class="grid-item">
                         {% if diary.image %}
                         <img src='{{diary.image.url}}'>
-                        {% else %}
-                        <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}">
+                        {% comment %} {% else %}
+                        <img src="{% static 'mainApp/assets/img/elements/18.jpg'%}"> {% endcomment %}
                         {% endif %}
                         <h5 style="color:white;" class="bottom-right">{{ diary.date|date:'Y-m-d' }}</h5>
                       </div>
