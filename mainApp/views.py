@@ -235,8 +235,9 @@ def postDiary(request):
         title=request.POST['title']
         content=request.POST['content']
         public=request.POST['public']
+        date = request.POST['date']
+        #date=datetime.datetime.now().strftime('%Y-%m-%d')
         
-        date=datetime.datetime.now().strftime('%Y-%m-%d')
         api_result=requests.get(KOBERT_API_URL+content).text
 
         description = json.loads(api_result)
