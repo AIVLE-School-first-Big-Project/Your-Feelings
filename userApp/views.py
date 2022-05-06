@@ -26,34 +26,6 @@ def signup(request):
     return render(request, 'userApp/signup.html', {'form': form})
             
 
-# def login(request):
-#     if request.method == "POST":
-#         username = request.POST.get("username")
-#         password = request.POST.get("password")
-#         context = {}
-
-#         try:
-#             user = Users.objects.get(username=username)
-#             context['username'] = username
-
-#             if password != user.password:
-#                 context['error'] = "비밀번호가 틀렸습니다"
-#                 return render(request, "userApp/login.html", context)
-#         except Users.DoesNotExist:
-#             context['error'] = "존재하지 않는 아이디입니다"
-#             return render(request, "userApp/login.html")
-#         else:
-#             request.session['username'] = user.username
-#             request.session['password'] = user.password
-#         return redirect("main")
-#     else:
-#         return render(request, 'userApp/login.html')
-
-# def logout(request):
-#     auth.logout(request)
-#     return redirect("main")
-
-
 def mypage(request):
     user = request.user
     context = {}

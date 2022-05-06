@@ -1,24 +1,76 @@
-<h1>회원정보 수정</h1>
+{% extends 'mainApp/base.html' %}
+{% load static %}
 
-<form method="POST" action={% url 'user:signup' %}>
-    {% csrf_token %}
+{% block edge %}
+        <!-- Content -->
 
-    {% for field in form %}
-        <p>
-            {{ field.label }}<br>
-            {{ field }}
-            {% if field.help_text %}
-                <small style="color:grey">{{field.help_text}}</small>
-            {% endif %}
+    <!-- Content -->
 
-            {% for error in field.errors%}
-                <p style="color:red">{{error}}</p>
-            {% endfor %}
-        </p>
-    {% endfor %}
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+          <div class="authentication-inner">
+            <!-- Register Card -->
+            <div class="card">
+              <div class="card-body">
+                <!-- Logo -->
+                <div class="app-brand justify-content-center">
+                  <div class="col-3">
+                    <img src="{%static 'img/logo/main_logo.png'%}" class='img-fluid'/>
+                  </div>
+                </div>
+                <!-- /Logo -->
+                <div class="row justify-content-center">
+                  <div class="col-4">
 
-    <button type='submit'>수정하기</button>
-</form>
+                    <h4 class="mb-2">Edit Profile</h4>
+      
+                    <form id="formAuthentication" class="mb-3" action="{% url 'user:edit_profile' %}" method="POST">
+                      {% csrf_token %}
+                      {% if error %}
+                        <strong>{{ error }} </strong>
+                      {% endif%}
+    
+                      {% if form.errors %}
+                      <div class="alert alert-primary alert-dismissible" role="alert">
+    
+                        {% for field in form %}
+                          {% for error in field.errors %}
+                            {{ field.label}} : {{ error }}<br>
+                          {% endfor %}
+                        {% endfor %}
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {% endif %}
+                    
+                      <div class="mb-3">
+                        <label for="full_name" class="form-label">name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="full_name"
+                          name="full_name"
+                          placeholder="Enter your full name"
+                          autofocus
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                      </div>
+                      <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit" value="signup">Edit</button>
+                      </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Register Card -->
+          </div>
+        </div>
+      </div>
+  
+      <!-- / Content -->
 
-</form>
-
+{% endblock edge %}

@@ -21,7 +21,8 @@ class SignupForm(UserCreationForm):
 
 class EditProfileForm(UserChangeForm):
     full_name = forms.CharField(max_length=50, required=True, help_text="이름을 입력해주세요")
+    email = forms.EmailField()
     
     class Meta:
         model = Users
-        fields = ['full_name', 'password']
+        fields = ['full_name', 'email']
