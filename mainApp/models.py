@@ -19,8 +19,9 @@ class Diary(models.Model):
     max_emotion = models.CharField(max_length=50, null=True)
     image = models.ImageField(blank=True, upload_to='media/')   # 사용지가 글 쓸 때 첨부하는 사진
     def delete(self, *args, **kwargs):
-         super(Diary, self).delete(*args, **kwargs)
-         os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
+        if self.image:
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
+        super(Diary, self).delete(*args, **kwargs)
 
     
 
