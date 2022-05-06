@@ -21,7 +21,7 @@
                 {% if post.code_edit != '' %}
             </div>
         </div>
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        {% comment %} <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" onclick="ChangePython()" name="btnradio" id="btnradio1" autocomplete="off" checked>
             <label class="btn btn-outline-primary" for="btnradio1">Python</label>
             <input type="radio" class="btn-check" onclick="ChangeJava()" name="btnradio" id="btnradio2" autocomplete="off">
@@ -29,7 +29,7 @@
             <input type="radio" class="btn-check" onclick="ChangeCpp()" name="btnradio" id="btnradio3" autocomplete="off">
             <label class="btn btn-outline-primary" for="btnradio3">C++</label>
         </div>
-        <pre><code id="output" class="python">{{ post.code_edit }}</code></pre>
+        <pre><code id="output" class="python">{{ post.code_edit }}</code></pre> {% endcomment %}
     {% endif %}
     
         <script>

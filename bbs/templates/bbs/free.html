@@ -1,68 +1,72 @@
 {% extends "bbs/base.html" %}
 {% block content %}
-
-<h1 class="h1 mb-3"><i data-feather="align-left"></i> 자유게시판</h1>
-
-<br>
-<div class="row">
-    {%for list in postlist%}
-    <div class="col-md-4 col-sm-4 b">
-        <div class="card">
-            <div class="card-header">
-                <small># {{list.id}}번 째 게시글</small>
-                <a href="{{list.pk}}/">
-                        <h4>
-                                {{list.postname|truncatechars:17}}
-                        </h4>
-                </a>
-                <h5><small>조회 수 : {{ list.views }}</small></h5>
-            </div>
-            <div class="card-body">
-                {{list.contents|safe|striptags|truncatechars:20}}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    
-</div>
-    {% if user.is_authenticated %}
-        <!--{{ user.username }}--> 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a class="btn btn-primary" href="new_post/{{user.username}}/" role="button">글쓰기</a>
-        </div>
-    {% endif %}
-<!-- 페이징 관련 -->
-<div class="d-flex justify-content-between mt-3">
-    <!-- 이전페이지 -->
-    {% if postlist.has_previous %}
-        <a href="?page={{ postlist.previous_page_number }}">이전</a>
-    {% else %}
-        <a tabindex="-1" aria-disabled="true" href="#">이전</a>
-    {% endif %}
-    <!-- 페이지리스트 -->
-    <div class="d-flex justify-content-center">
+<div class="row d-flex justify-content-center">
+    <div class="col-10">
+        <h1 class="h1 mb-3"><i data-feather="align-left"></i> 자유게시판</h1>
         
-        {% for page_number in postlist.paginator.page_range %}
-            {% if page_number >= postlist.number|add:-2 and page_number <= postlist.number|add:2 %}
-                {% if page_number == postlist.number %}
-                    <!-- 현재 페이지 -->
-                    <button class="btn btn-primary" onclick="location.href = '?page={{ page_number }}'">
-                        {{ page_number }}
-                    </button>
-                {% else %}
-                <button class="btn btn-outline-primary" onclick="location.href = '?page={{ page_number }}'">
-                    {{ page_number }}
-                </button>
-                {% endif %}
+        <br>
+        <div class="row">
+            {%for list in postlist%}
+            <div class="col-md-4 col-sm-4 b">
+                <div class="card">
+                    <div class="card-header">
+                        <small># {{list.id}}번 째 게시글</small>
+                        <a href="{{list.pk}}/">
+                                <h4>
+                                        {{list.postname|truncatechars:17}}
+                                </h4>
+                        </a>
+                        <h5><small>조회 수 : {{ list.views }}</small></h5>
+                    </div>
+                    <div class="card-body">
+                        {{list.contents|safe|striptags|truncatechars:20}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+            {% if user.is_authenticated %}
+                <!--{{ user.username }}--> 
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+                <a class="btn btn-primary" href="new_post/{{user.username}}/" role="button">글쓰기</a>
+                </div>
             {% endif %}
-        {% endfor %}
+        <!-- 페이징 관련 -->
+        <div class="d-flex justify-content-between mt-3">
+            <!-- 이전페이지 -->
+            {% if postlist.has_previous %}
+                <a href="?page={{ postlist.previous_page_number }}">이전</a>
+            {% else %}
+                <a tabindex="-1" aria-disabled="true" href="#">이전</a>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            <div class="d-flex justify-content-center">
+                
+                {% for page_number in postlist.paginator.page_range %}
+                    {% if page_number >= postlist.number|add:-2 and page_number <= postlist.number|add:2 %}
+                        {% if page_number == postlist.number %}
+                            <!-- 현재 페이지 -->
+                            <button class="btn btn-primary" onclick="location.href = '?page={{ page_number }}'">
+                                {{ page_number }}
+                            </button>
+                        {% else %}
+                        <button class="btn btn-outline-primary" onclick="location.href = '?page={{ page_number }}'">
+                            {{ page_number }}
+                        </button>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+                <!-- 다음페이지 -->
+                {% if postlist.has_next %}
+                    <a href="?page={{ postlist.next_page_number }}">다음</a>
+                {% else %}
+                    <a tabindex="-1" aria-disabled="true" href="#">다음</a>
+                
+                {% endif %}
+        </div>
+
     </div>
-        <!-- 다음페이지 -->
-        {% if postlist.has_next %}
-            <a href="?page={{ postlist.next_page_number }}">다음</a>
-        {% else %}
-            <a tabindex="-1" aria-disabled="true" href="#">다음</a>
-        
-        {% endif %}
 </div>
 {% endblock %}

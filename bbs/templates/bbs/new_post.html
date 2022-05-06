@@ -10,94 +10,101 @@
     href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
 
-<h1 class="h3 mb-3"><i data-feather="edit-3"></i> 글 작성하기</h1>
-
-<form enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label"><strong>게시판 제목</strong></label>
-        <input type="text" name="postname" class="form-control" placeholder="제목은 반드시 입력">
+<div class="row d-flex justify-content-center">
+    <div class="col-10">
+        <h1 class="h3 mb-3"><i data-feather="edit-3"></i> 글 작성하기</h1>
+        
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"><strong>게시판 제목</strong></label>
+                <input type="text" name="postname" class="form-control" placeholder="제목은 반드시 입력">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"><strong>게시판 내용</strong></label>
+                <textarea class="form-control" id="content" rows="10" cols="30" name="contents">{{written|striptags}}</textarea>
+            </div>
+            <script type="text/javascript"> 
+                $(document).ready(function() { $("#content").summernote(); })
+                $('#content').summernote({
+                    height:400,
+                    toolbar: [
+                        ['fontname'],
+                        ['fontsizeunit' ,['fontsize']],
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ]
+                });
+            </script>
+            {% comment %} <div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" onclick="ChangePython()" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="btnradio1">Python</label>
+                    <input type="radio" class="btn-check" onclick="ChangeJava()" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2">JAVA</label>
+                    <input type="radio" class="btn-check" onclick="ChangeCpp()" name="btnradio" id="btnradio3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3">C++</label>
+                </div>
+                <label for="codelabel" class="form-label"><strong>코드 작성</strong></label>
+                <textarea class="form-control" id="input" rows="8" name="code_edit"></textarea>
+            </div>
+            <br>
+            <div class="row">
+                <pre>
+                    <code id="output" class="Python">
+                    </code>
+                </pre>
+            </div>
+        
+            <script>
+                var inputarea = document.getElementById("input");
+                var outputarea = document.getElementById("output");
+        
+                hljs.highlightBlock(outputarea);
+                function ChangePython(){
+                    outputarea.className = 'Python';
+                    hljs.highlightBlock(outputarea);
+                }
+                function ChangeJava(){
+                    outputarea.className = 'JAVA';
+                    hljs.highlightBlock(outputarea);
+                }
+                function ChangeCpp(){
+                    outputarea.className = 'cpp';
+                    hljs.highlightBlock(outputarea);
+                }
+        
+                inputarea.addEventListener("input", function (event) {
+                    outputarea.innerHTML = inputarea.value;
+                    refreshHighlighting();
+                }, false);
+                function refreshHighlighting() {
+                    hljs.highlightBlock(outputarea);
+                }
+        
+            </script>
+         {% endcomment %}
+        
+            <div class="row">
+                <div class="col-6">
+        
+                    <input class="form-control" type="file" id="formFile" name="file">
+                </div>
+                <div class="col-3"></div>
+                <div class="col-3 text-end">
+                    <input class="btn btn-primary" href="free/" type="submit" value="작성">
+                    <a class="btn btn-secondary" href="/free/" role="button">취소</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"><strong>게시판 내용</strong></label>
-        <textarea class="form-control" id="content" rows="10" cols="30" name="contents">{{written|striptags}}</textarea>
-    </div>
-    <script type="text/javascript"> 
-        $(document).ready(function() { $("#content").summernote(); })
-        $('#content').summernote({
-            height:400,
-            toolbar: [
-                ['fontname'],
-                ['fontsizeunit' ,['fontsize']],
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ]
-        });
-    </script>
-    <div>
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" onclick="ChangePython()" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-primary" for="btnradio1">Python</label>
-            <input type="radio" class="btn-check" onclick="ChangeJava()" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio2">JAVA</label>
-            <input type="radio" class="btn-check" onclick="ChangeCpp()" name="btnradio" id="btnradio3" autocomplete="off">
-            <label class="btn btn-outline-primary" for="btnradio3">C++</label>
-        </div>
-        <label for="codelabel" class="form-label"><strong>코드 작성</strong></label>
-        <textarea class="form-control" id="input" rows="8" name="code_edit"></textarea>
-    </div>
-    <br>
-    <div class="row">
-        <pre>
-            <code id="output" class="Python">
-            </code>
-        </pre>
-    </div>
-
-    <script>
-        var inputarea = document.getElementById("input");
-        var outputarea = document.getElementById("output");
-
-        hljs.highlightBlock(outputarea);
-        function ChangePython(){
-            outputarea.className = 'Python';
-            hljs.highlightBlock(outputarea);
-        }
-        function ChangeJava(){
-            outputarea.className = 'JAVA';
-            hljs.highlightBlock(outputarea);
-        }
-        function ChangeCpp(){
-            outputarea.className = 'cpp';
-            hljs.highlightBlock(outputarea);
-        }
-
-        inputarea.addEventListener("input", function (event) {
-            outputarea.innerHTML = inputarea.value;
-            refreshHighlighting();
-        }, false);
-        function refreshHighlighting() {
-            hljs.highlightBlock(outputarea);
-        }
-
-    </script>
-    <div class="row">
-        <div class="col-6">
-
-            <input class="form-control" type="file" id="formFile" name="file">
-        </div>
-        <div class="col-3"></div>
-        <div class="col-3 text-end">
-            <input class="btn btn-primary" href="free/" type="submit" value="작성">
-            <a class="btn btn-secondary" href="/free/" role="button">취소</a>
-        </div>
-    </div>
-</form>
+</div>
 
 
+{% comment %} 
 <script>
     document.getElementById('textbox').addEventListener('keydown', function(e) {
         if (e.key == 'Tab') {
@@ -114,6 +121,6 @@
             this.selectionEnd = start + 1;
         }
       });
-</script>
+</script> {% endcomment %}
 
 {% endblock %}
