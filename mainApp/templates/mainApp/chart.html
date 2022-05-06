@@ -118,17 +118,7 @@
           <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="date" />
-            </div>
-
-
-          </div>
-          <!-- /Search -->
-
-          <ul class="navbar-nav flex-row align-items-center ms-auto">
-            <!-- User -->
-            <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+              <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
             <script>
               function showTime() {
                 var date = new Date();
@@ -159,6 +149,15 @@
 
               showTime();
             </script>
+            </div>
+
+
+          </div>
+          <!-- /Search -->
+
+          <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- User -->
+            
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
@@ -233,7 +232,7 @@
         <div class="container-xxl flex-grow-1 container-p-y">
           <!-- {% block content %} -->
           <div class="row">
-            <h6 class="text-muted">Basic</h6>
+            
             <div class="nav-align-top mb-4">
               <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item">
