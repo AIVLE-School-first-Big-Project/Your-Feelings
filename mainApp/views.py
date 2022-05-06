@@ -50,7 +50,7 @@ def charts(request):
     for d in diaries:
         month = d.date.strftime("%Y/%m")
         emotion = d.max_emotion
-        temp += d.content
+        temp += d.content + ' '
 
         if emotion == "행복":
             monthly_happy[month] += 1
