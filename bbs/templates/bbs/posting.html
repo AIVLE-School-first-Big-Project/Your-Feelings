@@ -6,12 +6,13 @@
 <script>hljs.highlightAll();</script>
 
 <div class="container my-3">
-    <div>
-        <p class="fs-4"><small>조회 수 : {{ post.views }}</small></p>
-    </div>
+    <br><br>
     
-    <h2 class="border-bottom py-2">{{ post.postname }}</h2>
-    <h5> 작성자: {{ post.writer }}</h5>
+        <p class="fs-4" style="float:right"><small>조회 수 : {{ post.views }}</small></p>
+    
+    
+    <h2 class="border-bottom py-2"style="font-family: 'Poor Story', cursive; font-size : 70px; font-weight: bold;">{{ post.postname }}</h2>
+    <h5> 작성자 : {{ post.writer }}</h5>
         <div class="card my-3">
             <div class="card-body">
                 <div class="card-text" style="white-space: pre-line;">
@@ -141,5 +142,6 @@
         {% endif %}
     </div>
     
+</div>
 </div>
 {% endblock %}
