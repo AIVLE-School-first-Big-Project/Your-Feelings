@@ -14,11 +14,13 @@ from tqdm import tqdm
 
 from collections import Counter
 import re
+
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 KOBERT_API_URL = 'http://3.35.8.82:5000/kobert?text='
 
-
+@login_required
 def charts(request):
     user_id = request.user.id
     context = {}
@@ -90,7 +92,7 @@ def charts(request):
 
     return context
 
-
+@login_required
 def showMain(request):
     context = charts(request)
     try:
@@ -107,7 +109,7 @@ def showMain(request):
     context['point']  = point
     return render(request, 'mainApp/main.html', context)
 
-
+@login_required
 def showCalendar(request):
     current_user = Users.objects.get(id=request.user.id)
     diary = Diary.objects.filter(user_id=current_user)
@@ -116,7 +118,7 @@ def showCalendar(request):
     }
     return render(request, 'mainApp/calendar.html', context)
 
-
+@login_required
 def showChart(request):
     context = charts(request)
     return render(request, 'mainApp/chart.html', context)
@@ -126,7 +128,7 @@ def showChart(request):
 def showMedia(request):
     return render(request, 'mainApp/media.html', {})
 
-
+@login_required
 def showRemind(request):
     current_user = Users.objects.get(id=request.user.id)
     diary = Diary.objects.filter(user_id=current_user).order_by('-date')
@@ -135,7 +137,7 @@ def showRemind(request):
     }
     return render(request, 'mainApp/remind.html', context)
 
-
+@login_required
 def showSharediary(request):
     current_user = Users.objects.get(id=request.user.id)
     diary = Diary.objects.filter(public=1).order_by('-date')
@@ -144,7 +146,7 @@ def showSharediary(request):
     }
     return render(request, 'mainApp/share.html', context)
 
-
+@login_required
 def showDiary_view(request, id):
     showdiary = Diary.objects.get(
         id=  id
@@ -191,7 +193,7 @@ def showDiary_view(request, id):
     
     return render(request, 'mainApp/diary_view.html', context)
 
-
+@login_required
 def calculateMin(objects, emotion):
     keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
     val = float('inf')
@@ -228,7 +230,7 @@ def remove_diary(request, diary_id):
 
     return redirect('calendar')
 
-
+@login_required
 def postDiary(request):
     if request.method == 'POST' and request.POST['title'] != '':
         image=request.FILES['image'] if request.FILES else None
@@ -304,7 +306,7 @@ def postDiary(request):
         form = DiaryForm()
     return render(request, 'mainApp/diary_post.html')
 
-
+@login_required
 def showTamagotchi(request):
     now_user = Users.objects.get(id=request.user.id)
     totaldiary = Diary.objects.filter(user_id=now_user)
