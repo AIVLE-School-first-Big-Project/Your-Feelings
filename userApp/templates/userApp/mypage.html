@@ -112,16 +112,7 @@
               <div class="navbar-nav align-items-center">
                 <div class="navbar-nav align-items-center">
                   <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="date"/>
-                  </div>
-                </div>
-              </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
-                <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
+                    <span class="badge bg-primary" id='CurrentTime' onload='showTime()'></span>
                   <script>
                     function showTime(){
                       var date = new Date();
@@ -153,6 +144,14 @@
                   
                   showTime();
                   </script>
+                  </div>
+                </div>
+              </div>
+              <!-- /Search -->
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- User -->
+                
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -187,12 +186,7 @@
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
+                    
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
@@ -224,15 +218,16 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- {% block content %} -->
-                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
   
                 <div class="row">
                   <div class="col-md-12">
+                    <br><br>
                     <ul class="nav nav-pills flex-column flex-md-row mb-3">
                       <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                        <h1 style="font-family: 'Dongle', sans-serif; font-size : 70px; font-weight: bold;"> Account </h1>
                       </li>
                     </ul>
+                    <br>
                     <div class="card mb-4">
                       <h5 class="card-header">Profile Details</h5>
                       <!-- Account -->
@@ -292,9 +287,23 @@
                         </div>
                       </div>
                     </div>
-
-                    <a href={% url "user:delete" %}>회원 탈퇴</a>
-                    <a href={% url "user:edit_profile" %}> 회원 정보 수정</a>
+                    <div class="row">
+                      <div class="col">
+                      </div>
+                      <div class="col">
+                      </div>
+                      <div class="col">
+                      </div>
+                      <div class="col">
+                      </div>
+                      
+                      <div class="col">
+                      
+                    
+                    <a href={% url "user:edit_profile" %}><button type="button" class="btn btn-dark">회원정보 수정</button></a>
+                    <a href={% url "user:delete" %}><button type="button" class="btn btn-danger">회원탈퇴</button></a>
+                    </div>
+                  </div>
                   </div>
 
 
