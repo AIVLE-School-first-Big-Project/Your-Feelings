@@ -196,7 +196,6 @@ def showDiary_view(request, id):
         # 'thirdemotion' : thirdemotion,
         # 'thirdvalue' : thirdvalue,
     }
-
     return render(request, 'mainApp/diary_view.html', context)
 
 
@@ -304,6 +303,59 @@ def postDiary(request):
     else:
         print()
     return render(request, 'mainApp/diary_post.html')
+
+
+@login_required
+def updateDiary(request, diary_id):
+    updiary = Diary.objects.get(id=diary_id)
+    upemotion = Emotion.objects.get(id=updiary.emotion_id)
+    uprecommendlist = RecommendList.objects.get(post_id=updiary)
+    if request.method == 'POST' and request.POST['title'] != '':
+        updiary.image = request.FILES['image'] if request.FILES else None
+        updiary.title = request.POST['title']
+        updiary.content = request.POST['content']
+        updiary.public = request.POST['public']
+        updiary.date = datetime.datetime.now().strftime('%Y-%m-%d')
+        api_result = requests.get(KOBERT_API_URL+updiary.content).text
+        description = json.loads(api_result)
+        updiary.emotion = Emotion.objects.create(
+            description=description,
+        )
+        updiary.max_emotion = max(description, key=description.get)
+        user_emotions = UserEmotions.objects.get(user_id=request.user.id)
+        if updiary.max_emotion == '공포':
+            user_emotions.terrified += 1
+            user_emotions.save()
+        elif updiary.max_emotion == "놀람":
+            user_emotions.surprised += 1
+            user_emotions.save()
+        elif updiary.max_emotion == "슬픔":
+            user_emotions.sad += 1
+            user_emotions.save()
+        elif updiary.max_emotion == "분노":
+            user_emotions.angry += 1
+            user_emotions.save()
+        elif updiary.max_emotion == "행복":
+            user_emotions.happy += 1
+            user_emotions.save()
+        
+        movie, music, book = getRecommendation(updiary.emotion)
+        RecommendList.objects.create(
+            post_id=updiary,
+            rec_movie=movie,
+            rec_music=music,
+            rec_book=book,
+            ).save()
+        updiary.save()
+        upemotion.delete()
+        uprecommendlist.delete()
+        return redirect('calendar')
+    elif request.method == 'POST' and request.POST['title'] == '':
+        context = {'written': request.POST['content']}
+        return render(request, 'mainApp/diary_update.html', context)
+    else:
+        print()
+    return render(request, 'mainApp/diary_update.html')
 
 
 @login_required
