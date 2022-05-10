@@ -2,20 +2,20 @@
 
   {% comment %} 라벨링에 따라 변동 {% endcomment %}
 
-  const labels2 = ['공포', '놀람', '분노', '슬픔', '중립', '행복', '혐오'];
+  const labels2 = ['공포', '놀람', '분노', '슬픔', '행복',];
   const data2 = {
     labels: labels2,
     datasets: [{
       label: '감정 모아보기',
       
       data: [
-        "{{ user_emotions.terrified }}", 
-        "{{ user_emotions.surprised }}", 
-        "{{ user_emotions.angry }}", 
-        "{{ user_emotions.sad }}", 
-        "{{ user_emotions.neutral }}", 
-        "{{ user_emotions.happy }}", 
-        "{{ user_emotions.hate }}", 
+        "{{ user_emotions.공포 }}", 
+        "{{ user_emotions.놀람 }}", 
+        "{{ user_emotions.분노 }}", 
+        "{{ user_emotions.슬픔 }}", 
+        //"{{ user_emotions.neutral }}", 
+        "{{ user_emotions.행복 }}", 
+        //"{{ user_emotions.hate }}", 
       ],
       
       backgroundColor: [
@@ -23,9 +23,9 @@
       'rgb(155, 97, 163)',
       'rgb(221, 108, 65)',
       'rgb(54, 162, 235)',
-      'rgb(0, 205, 86)',
+      //'rgb(0, 205, 86)',
       'rgb(255, 99, 132)',
-      'rgb(255, 205, 86)',
+      //'rgb(255, 205, 86)',
       ],
     }]
   };

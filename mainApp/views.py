@@ -26,7 +26,11 @@ def charts(request):
     context = {}
     
     # donut chart
-    user_emotions = UserEmotions.objects.get(user_id=user_id)
+    from collections import defaultdict
+    user_emotions=defaultdict(int)
+    for i in Diary.objects.all():
+        user_emotions[i.max_emotion] += 1
+    # user_emotions = UserEmotions.objects.get(user_id=user_id)
 
     # line chart
     end_date = timezone.now() + relativedelta(days=1)
@@ -167,10 +171,10 @@ def showDiary_view(request, id):
 
     emoticon_dict ={
         '분노': ['anger_1', 'anger_2'],
-        '혐오': ['disgust_1','disgust_2','disgust_3','disgust_4'],
+        # '혐오': ['disgust_1','disgust_2','disgust_3','disgust_4'],
         '공포': ['fear_1'],
         '행복': ['joy_1', 'joy_2', 'joy_3', 'joy_4', 'joy_5'],
-        '중립': ['neutral_1', 'neutral_2', 'neutral_3'],
+        # '중립': ['neutral_1', 'neutral_2', 'neutral_3'],
         '슬픔': ['sadness_1', 'sadness_2', 'sadness_3'],
         '놀람': ['surprise_1']
     }
@@ -193,21 +197,20 @@ def showDiary_view(request, id):
     
     return render(request, 'mainApp/diary_view.html', context)
 
-@login_required
 def calculateMin(objects, emotion):
-    keys = ['공포','놀람','분노','슬픔','중립','행복','혐오']
+    keys = ['공포','놀람','분노','슬픔','행복']
     val = float('inf')
     target = None
     for i in tqdm(objects):
         target_emo = eval(Emotion.objects.get(id=i.emotion_id).description)
         diary_emo = emotion.description
+        # print(target_emo, diary_emo)
         hap = sum((target_emo[key]-diary_emo[key])**2 for key in keys)
         if val > hap:
             val = hap
             target = i
             # print(val, i.title)
     return target
-
 
 def getRecommendation(emotion):
     books = Books.objects.all()
@@ -241,9 +244,7 @@ def postDiary(request):
         date=datetime.datetime.now().strftime('%Y-%m-%d')
         
         api_result=requests.get(KOBERT_API_URL+content).text
-
         description = json.loads(api_result)
-
         emotion = Emotion.objects.create(
             description = description,
         )
@@ -261,14 +262,11 @@ def postDiary(request):
         elif max_emotion == "슬픔":
             user_emotions.sad += 1
             user_emotions.save()
-        elif max_emotion == "중립":
-            user_emotions.neutral += 1
+        elif max_emotion == "분노":
+            user_emotions.angry += 1
             user_emotions.save()
         elif max_emotion == "행복":
             user_emotions.happy += 1
-            user_emotions.save()
-        else:
-            user_emotions.hate += 1
             user_emotions.save()
 
 
@@ -287,6 +285,7 @@ def postDiary(request):
                     emotion=emotion,
                     max_emotion = max_emotion
                 )
+            new_article.save()
             movie, music, book = getRecommendation(emotion)
             RecommendList.objects.create(
                 post_id = new_article,
@@ -294,7 +293,6 @@ def postDiary(request):
                 rec_music = music,
                 rec_book = book,
                 ).save()
-            new_article.save()
             return redirect('calendar')
         else :
             messages.warning(request, "이미 작성한 다이어리가 있어요.")
