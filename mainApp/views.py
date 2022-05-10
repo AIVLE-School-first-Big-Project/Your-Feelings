@@ -338,7 +338,6 @@ def updateDiary(request, diary_id):
         elif updiary.max_emotion == "행복":
             user_emotions.happy += 1
             user_emotions.save()
-        
         movie, music, book = getRecommendation(updiary.emotion)
         RecommendList.objects.create(
             post_id=updiary,
