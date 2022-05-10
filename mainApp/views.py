@@ -27,7 +27,7 @@ def charts(request):
     # donut chart
     from collections import defaultdict
     user_emotions = defaultdict(int)
-    for i in Diary.objects.all():
+    for i in Diary.objects.filter(user_id_id=user_id):
         user_emotions[i.max_emotion] += 1
     # user_emotions = UserEmotions.objects.get(user_id=user_id)
 
