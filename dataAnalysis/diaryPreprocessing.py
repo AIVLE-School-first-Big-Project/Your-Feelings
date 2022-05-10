@@ -1,5 +1,5 @@
 import re
-from hanspell import spell_checker # 오타, 띄어쓰기 보정
+from hanspell import spell_checker
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
@@ -13,7 +13,7 @@ class SpellModify(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         X = X.strip()
-        X = re.sub(r"[\n]+", " ", X) # 줄바꿈 -> 띄어쓰기로 수정
+        X = re.sub(r"[\n]+", " ", X)  # 줄바꿈 -> 띄어쓰기로 수정
 
         # 오타, 띄어쓰기 수정
         X_check = spell_checker.check(X)
@@ -35,8 +35,8 @@ class NeologismChange(BaseEstimator, TransformerMixin):
 
 
 diary_pipeline = Pipeline([
-        ('newly', NeologismChange()), # 신조어 처리
-        ('spelling', SpellModify()), # 일기 오타, 띄어쓰기 전처리
+        ('newly', NeologismChange()),  # 신조어 처리
+        ('spelling', SpellModify()),  # 일기 오타, 띄어쓰기 전처리
 ])
 
 

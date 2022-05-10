@@ -20,12 +20,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
     # 추가 앱 최상단 경로
     path('main/', include('mainApp.urls')),
     path('index/', include('introductionApp.urls')),
     path('user/', include('userApp.urls')),
-    
     path('free/', include('bbs.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

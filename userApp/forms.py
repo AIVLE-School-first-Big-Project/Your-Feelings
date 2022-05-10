@@ -2,9 +2,12 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Users
 
+
 class SignupForm(UserCreationForm):
-    full_name = forms.CharField(max_length=50, required=True, help_text="이름을 입력해주세요")
-    email = forms.EmailField(max_length=100, required=True, help_text="유효한 이메일을 입력해주세요")
+    full_name = forms.CharField(
+        max_length=50, required=True, help_text="이름을 입력해주세요")
+    email = forms.EmailField(
+        max_length=100, required=True, help_text="유효한 이메일을 입력해주세요")
 
     class Meta:
         model = Users
@@ -18,11 +21,11 @@ class SignupForm(UserCreationForm):
         }
 
 
-
 class EditProfileForm(UserChangeForm):
-    full_name = forms.CharField(max_length=50, required=True, help_text="이름을 입력해주세요")
+    full_name = forms.CharField(
+        max_length=50, required=True, help_text="이름을 입력해주세요")
     email = forms.EmailField()
-    
+
     class Meta:
         model = Users
         fields = ['full_name', 'email']

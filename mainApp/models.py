@@ -2,30 +2,30 @@ from django.db import models
 import os
 from config import settings
 
-# 감정
+
 class Emotion(models.Model):
     id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=50)
 
-# 사용자가 작성한 일기들
+
 class Diary(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey("userApp.Users", on_delete=models.SET("탈퇴한 사용자"))
+    user_id = models.ForeignKey(
+        "userApp.Users", on_delete=models.SET("탈퇴한 사용자"))
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=400)
     public = models.IntegerField(default=True)
     date = models.DateTimeField()
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
     max_emotion = models.CharField(max_length=50, null=True)
-    image = models.ImageField(blank=True, upload_to='media/')   # 사용지가 글 쓸 때 첨부하는 사진
+    image = models.ImageField(blank=True, upload_to='media/')
+
     def delete(self, *args, **kwargs):
         if self.image:
             os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
         super(Diary, self).delete(*args, **kwargs)
 
-    
 
-# 감정별 랜덤으로 지정해주는 사진 데베
 class EmotionPictures(models.Model):
     id = models.AutoField(primary_key=True)
     emotion_id = models.ForeignKey(Emotion, on_delete=models.CASCADE)
@@ -39,6 +39,7 @@ class Music(models.Model):
     genre = models.CharField(max_length=50)
     lyrics = models.CharField(max_length=2000)
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
+
 
 class Books(models.Model):
     id = models.AutoField(primary_key=True)
@@ -59,7 +60,7 @@ class Movies(models.Model):
     release_year = models.CharField(max_length=50)
     emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
 
-# 감정 기반 추천 (일기 별로 하나)
+
 class RecommendList(models.Model):
     id = models.AutoField(primary_key=True)
     post_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=True)
@@ -71,7 +72,3 @@ class RecommendList(models.Model):
 class StoreEmotions(models.Model):
     id = models.AutoField(primary_key=True),
     emotions = models.CharField(max_length=500)
-
-
-    
-    

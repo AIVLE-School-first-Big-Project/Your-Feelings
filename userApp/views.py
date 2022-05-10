@@ -13,18 +13,18 @@ def signup(request):
 
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = auth.authenticate(username=username, password=raw_password)
+            auth.authenticate(username=username, password=raw_password)
             # auth.login(request, user)
 
             UserEmotions.objects.create(
-                user = Users.objects.get(username=username)
+                user=Users.objects.get(username=username)
             )
 
             return redirect("user:login")
     else:
         form = SignupForm()
     return render(request, 'userApp/signup.html', {'form': form})
-            
+
 
 def mypage(request):
     user = request.user
@@ -46,7 +46,7 @@ def edit_profile(request):
             return redirect("user:mypage")
     else:
         form = EditProfileForm(instance=user)
-    
+
     return render(request, "userApp/edit_profile.html", {'form': form})
 
 
@@ -61,5 +61,3 @@ def delete(request):
     user.delete()
     auth.logout(request)
     return redirect("main")
-
-    

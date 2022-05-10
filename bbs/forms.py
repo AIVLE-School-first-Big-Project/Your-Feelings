@@ -1,17 +1,19 @@
 from django import forms
-
+from .models import Comment
 from .models import Post
+from .models import UploadFile
+
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['postname', 'contents','code_edit']
-        
+        fields = ['postname', 'contents', 'code_edit']
         labels = {
             'postname': '제목',
             'contents': '내용',
         }
 
-from .models import Comment
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -20,8 +22,7 @@ class CommentForm(forms.ModelForm):
             'content': '답변내용',
         }
 
-from django import forms
-from .models import UploadFile
+
 class UploadFileForm(forms.ModelForm):
     class Meta:
         model = UploadFile

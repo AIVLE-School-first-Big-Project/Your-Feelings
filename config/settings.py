@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'introductionApp',
     'userApp',
     'bbs',
-    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
